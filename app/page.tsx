@@ -1,16 +1,27 @@
+import { Hero } from "@/components/home/hero"
+import { ServiceCategories } from "@/components/home/service-categories"
+import { PopularServices } from "@/components/home/popular-services"
+import { ServiceAreas } from "@/components/home/service-areas"
+import { WhyChooseUs } from "@/components/home/why-choose-us"
+import { GalleryPreview } from "@/components/home/gallery-preview"
+import { Testimonials } from "@/components/home/testimonials"
+import { FaqPreview } from "@/components/home/faq-preview"
+import { ContactCta } from "@/components/contact-cta"
+import { LocalBusinessSchema } from "@/components/schema"
+
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center font-sans">
-      <main className="flex w-full max-w-3xl flex-col items-center gap-8 px-6 py-16 text-center sm:items-start sm:text-left">
-        <div className="flex flex-col gap-4">
-          <h1 className="text-4xl font-bold tracking-tight">
-            Home Care Repair Services
-          </h1>
-          <p className="max-w-md text-lg text-muted-foreground">
-            To get started, send a prompt or modify this page directly.
-          </p>
-        </div>
-      </main>
-    </div>
-  );
+    <>
+      <LocalBusinessSchema />
+      <Hero />
+      <ServiceCategories />
+      <PopularServices />
+      <ServiceAreas />
+      <WhyChooseUs />
+      <GalleryPreview />
+      <Testimonials />
+      <FaqPreview />
+      <ContactCta />
+    </>
+  )
 }
