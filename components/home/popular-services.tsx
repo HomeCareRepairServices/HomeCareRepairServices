@@ -1,67 +1,79 @@
-import Link from "next/link"
-import { ArrowRight, Wrench, Download, CalendarCheck } from "lucide-react"
-import { SectionHeading } from "@/components/section-heading"
-import { Reveal } from "@/components/reveal"
-import { services, type Service, type ServiceType } from "@/lib/data/services"
+"use client"
 
-const groups: { type: ServiceType; title: string; blurb: string; icon: typeof Wrench }[] = [
-  { type: "installation", title: "Popular Installation Services", blurb: "Professional setup, done right the first time.", icon: Download },
-  { type: "repair", title: "Popular Repair Services", blurb: "Quick diagnosis and lasting fixes for any fault.", icon: Wrench },
-  { type: "maintenance", title: "Popular Maintenance Services", blurb: "Keep appliances running at their best, longer.", icon: CalendarCheck },
+import { motion } from "framer-motion"
+import { 
+  Droplets, Wind, Flame, WashingMachine, Zap, Paintbrush, 
+  ShieldCheck, Settings, Snowflake, Plug, DoorOpen, Layers, 
+  Sparkles, Lightbulb 
+} from "lucide-react"
+import { SilverGlowCard } from "@/components/silver-glow-card"
+
+const allServices = [
+  { Icon: Droplets, title: "RO Sales & Repair", href: "/services/ro-sales-repair" },
+  { Icon: Settings, title: "RO Service", href: "/services/ro-service" },
+  { Icon: Snowflake, title: "RO Installation", href: "/services/ro-installation" },
+  { Icon: ShieldCheck, title: "RO AMC", href: "/services/ro-amc" },
+  { Icon: Wind, title: "AC Service", href: "/services/ac-service" },
+  { Icon: Flame, title: "AC Installation", href: "/services/ac-installation" },
+  { Icon: Layers, title: "Chimney Cleaning", href: "/services/chimney-cleaning" },
+  { Icon: Sparkles, title: "Chimney Installation", href: "/services/chimney-installation" },
+  { Icon: WashingMachine, title: "Washing Machine Repair", href: "/services/washing-machine-repair" },
+  { Icon: Snowflake, title: "Refrigerator Repair", href: "/services/refrigerator-repair" },
+  { Icon: Zap, title: "Geyser Repair", href: "/services/geyser-repair" },
+  { Icon: Plug, title: "Geyser Installation", href: "/services/geyser-installation" },
+  { Icon: Lightbulb, title: "Inverter Repair", href: "/services/inverter-repair" },
+  { Icon: Zap, title: "Electrical Services", href: "/services/electrical-services" },
+  { Icon: DoorOpen, title: "PVC Door Services", href: "/services/pvc-door-services" },
+  { Icon: Layers, title: "PVC Wall Panel", href: "/services/pvc-wall-panel-services" },
+  { Icon: Droplets, title: "Water Tank Cleaning", href: "/services/water-tank-cleaning" },
+  { Icon: Lightbulb, title: "Lighting Decoration", href: "/services/lighting-decoration" },
 ]
-
-function ServiceCard({ service }: { service: Service }) {
-  return (
-    <Link
-      href={`/services/${service.slug}`}
-      className="group flex items-center gap-4 rounded-xl border border-border bg-card p-4 transition-all hover:-translate-y-0.5 hover:border-secondary/40 hover:shadow-md"
-    >
-      <span className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-secondary/10 text-secondary transition-colors group-hover:bg-secondary group-hover:text-secondary-foreground">
-        <service.icon className="size-5" />
-      </span>
-      <span className="min-w-0 flex-1">
-        <span className="block truncate font-semibold text-foreground">{service.name}</span>
-        <span className="block truncate text-sm text-muted-foreground">{service.short}</span>
-      </span>
-      <ArrowRight className="size-4 shrink-0 text-muted-foreground transition-all group-hover:translate-x-0.5 group-hover:text-secondary" />
-    </Link>
-  )
-}
 
 export function PopularServices() {
   return (
-    <section className="border-y border-border bg-muted/40">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-        <SectionHeading
-          eyebrow="Most Requested"
-          title="Our Most Popular Services"
-          description="Hundreds of households book these services every month. Trusted, transparent and same-day where possible."
-        />
+    <section className="py-20 px-4">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            All Our Services
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+            From quick repairs to complete installations, we handle every home appliance with expert care.
+          </p>
+        </motion.div>
 
-        <div className="mt-12 flex flex-col gap-12">
-          {groups.map((group, gi) => {
-            const items = services.filter((s) => s.type === group.type && s.popular)
-            return (
-              <Reveal key={group.type} delay={gi * 0.05}>
-                <div>
-                  <div className="mb-5 flex items-center gap-3">
-                    <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                      <group.icon className="size-5" />
-                    </span>
-                    <div>
-                      <h3 className="text-lg font-semibold text-foreground">{group.title}</h3>
-                      <p className="text-sm text-muted-foreground">{group.blurb}</p>
-                    </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+          {allServices.map((service, i) => (
+            <motion.a
+              key={service.title}
+              href={service.href}
+              // Slides in smoothly on mobile scroll
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ duration: 0.3, delay: i * 0.03 }}
+              className="block h-full"
+            >
+              {/* YOUR 3D SILVER GLOW CARD APPLIED TO EVERY SERVICE! */}
+              <SilverGlowCard className="h-full bg-card p-5 flex flex-col items-center text-center group cursor-pointer">
+                <div className="silver-sheen" /> {/* Silver light beam effect */}
+                <div className="relative z-10 flex flex-col items-center text-center space-y-3">
+                  <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center border border-border group-hover:border-secondary/50 transition-colors">
+                    <service.Icon className="w-6 h-6 text-secondary" />
                   </div>
-                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    {items.map((service) => (
-                      <ServiceCard key={service.slug} service={service} />
-                    ))}
-                  </div>
+                  <span className="text-sm font-medium text-foreground leading-tight">
+                    {service.title}
+                  </span>
                 </div>
-              </Reveal>
-            )
-          })}
+              </SilverGlowCard>
+            </motion.a>
+          ))}
         </div>
       </div>
     </section>
