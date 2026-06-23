@@ -125,14 +125,21 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    /* MAGIC TRICK 1: This makes EVERY element on the site smoothly transition */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
   }
 
-  /* MAGIC TRICK 2: Hovering over ANYTHING makes the border glow silver */
-  *:hover {
+  /* TARGETED SILVER GLOW: Only applies to cards, buttons, icons, and badges */
+  a:hover, 
+  button:hover, 
+  [class*="card"]:hover, 
+  [class*="Card"]:hover,
+  [class*="badge"]:hover,
+  [class*="Badge"]:hover,
+  [class*="rounded-lg"]:hover, 
+  [class*="rounded-xl"]:hover,
+  [class*="rounded-2xl"]:hover {
     border-color: rgba(180, 200, 230, 0.6);
     box-shadow: 0 0 15px rgba(180, 200, 230, 0.15);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
   body {
