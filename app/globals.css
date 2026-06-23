@@ -49,47 +49,46 @@
 
 :root {
   color-scheme: light;
-  /* Premium Silver & Soft Blue Theme */
-  --background: oklch(0.985 0.003 250);        /* Crisp, clean white with a tiny cool tint */
-  --foreground: oklch(0.15 0.06 250);          /* Deep, trustworthy navy blue text */
+  /* Premium Silver & Deep Blue Theme */
+  --background: oklch(0.985 0.003 250);        /* Crisp, clean white */
+  --foreground: oklch(0.15 0.06 250);          /* Deep, rich navy text */
   --card: oklch(1 0 0);                        /* Pure white for cards */
-  --card-foreground: oklch(0.20 0.04 250);
+  --card-foreground: oklch(0.15 0.06 250);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.20 0.04 250);
-  --primary: oklch(0.30 0.10 250);             /* Soft, rich blue (Not too bright, not too dark) */
-  --primary-foreground: oklch(0.99 0 0);       /* White text on blue buttons */
-  --secondary: oklch(0.80 0.04 240);          /* BRUSHED SILVER (Icons, subtle highlights) */
-  --secondary-foreground: oklch(0.20 0.04 250);
-  --muted: oklch(0.95 0.015 240);              /* Very faint silver/cool gray backgrounds */
-  --muted-foreground: oklch(0.40 0.04 250);    /* Metallic silver-gray for subtitles */
-  --accent: oklch(0.65 0.10 240);              /* Soft Pastel Blue (For glowing hovers/accents) */
-  --accent-foreground: oklch(0.20 0.04 250);
+  --popover-foreground: oklch(0.15 0.06 250);
+  --primary: oklch(0.30 0.10 250);             /* Deep rich blue */
+  --primary-foreground: oklch(0.99 0 0);       /* White text on blue */
+  --secondary: oklch(0.80 0.04 240);          /* Soft blue-silver */
+  --secondary-foreground: oklch(0.15 0.06 250);
+  --muted: oklch(0.95 0.015 240);              /* Faint soft blue backgrounds */
+  --muted-foreground: oklch(0.40 0.04 250);    /* Darker silver-gray text */
+  --accent: oklch(0.65 0.10 240);              /* Deeper soft blue */
+  --accent-foreground: oklch(0.15 0.06 250);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.90 0.008 250);             /* Soft silver borders (makes the silver pop!) */
+  --border: oklch(0.90 0.008 250);             /* Soft silver borders */
   --input: oklch(0.90 0.008 250);
-  --ring: oklch(0.75 0.06 240);               /* Soft blue glow when clicking inputs */
+  --ring: oklch(0.65 0.10 240);               /* Deep blue glow on clicks */
   
-  --chart-1: oklch(0.45 0.08 250);
-  --chart-2: oklch(0.85 0.008 250);
-  --chart-3: oklch(0.75 0.06 240);
-  --chart-4: oklch(0.35 0.06 250);
-  --chart-5: oklch(0.65 0.04 240);
+  --chart-1: oklch(0.30 0.10 250);
+  --chart-2: oklch(0.80 0.04 240);
+  --chart-3: oklch(0.65 0.10 240);
+  --chart-4: oklch(0.45 0.08 250);
+  --chart-5: oklch(0.50 0.06 240);
   
   --radius: 0.75rem;
   
   --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.20 0.04 250);
-  --sidebar-primary: oklch(0.45 0.08 250);
+  --sidebar-foreground: oklch(0.15 0.06 250);
+  --sidebar-primary: oklch(0.30 0.10 250);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.96 0.006 250);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-accent: oklch(0.95 0.015 240);
+  --sidebar-accent-foreground: oklch(0.15 0.06 250);
   --sidebar-border: oklch(0.90 0.008 250);
-  --sidebar-ring: oklch(0.75 0.06 240);
+  --sidebar-ring: oklch(0.65 0.10 240);
 }
 
 .dark {
   color-scheme: dark;
-  /* Dark mode version just in case someone's phone is set to dark */
   --background: oklch(0.16 0.02 250);
   --foreground: oklch(0.93 0.005 250);
   --card: oklch(0.20 0.025 250);
@@ -126,10 +125,35 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    /* MAGIC TRICK 1: This makes EVERY element on the site smoothly transition */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
   }
+
+  /* MAGIC TRICK 2: Hovering over ANYTHING makes the border glow silver */
+  *:hover {
+    border-color: rgba(180, 200, 230, 0.6);
+    box-shadow: 0 0 15px rgba(180, 200, 230, 0.15);
+  }
+
   body {
     @apply bg-background text-foreground;
+    position: relative;
   }
+
+  /* MAGIC TRICK 3: Adds a premium, luxury matte texture over the whole screen */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
   html {
     @apply font-sans;
     scroll-behavior: smooth;
@@ -137,34 +161,34 @@
 }
 
 @layer components {
-  /* Lively Silver Sweep Effect for Light Mode */
-  .silver-sheen {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      115deg,
-      transparent 20%,
-      rgba(180, 195, 220, 0.0) 30%,
-      rgba(200, 215, 235, 0.4) 45%,   /* The brushed silver color */
-      rgba(255, 255, 255, 0.8) 50%,   /* Bright white/silver core */
-      rgba(200, 215, 235, 0.4) 55%,
-      rgba(180, 195, 220, 0.0) 70%,
-      transparent 80%
-    );
-    opacity: 0;
-    transform: translateX(-100%);
-    transition:
-      opacity 0.3s ease,
-      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-    pointer-events: none;
-    z-index: 2;
+  /* MAGIC TRICK 4: The shooting silver light beam for cards */
+  @keyframes silver-shimmer {
+    0% { transform: translateX(-100%) rotate(15deg); }
+    100% { transform: translateX(200%) rotate(15deg); }
   }
 
-  /* Triggers on Desktop Hover AND Mobile Tap */
+  .silver-sheen {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 50%;
+    height: 200%;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(255, 255, 255, 0) 40%,
+      rgba(200, 215, 235, 0.6) 50%, /* The bright silver flash */
+      rgba(255, 255, 255, 0) 60%,
+      transparent 100%
+    );
+    transform: translateX(-100%) rotate(15deg);
+    pointer-events: none;
+    z-index: 50;
+  }
+
   .group:hover .silver-sheen,
   .group:focus-within .silver-sheen {
-    opacity: 1;
-    transform: translateX(100%);
+    animation: silver-shimmer 0.8s ease-in-out forwards;
   }
 }
 
@@ -183,5 +207,14 @@
         transparent 1px
       );
     background-size: 44px 44px;
+  }
+  
+  /* Floating animation for badges */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
   }
 }
