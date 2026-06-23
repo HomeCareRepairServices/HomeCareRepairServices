@@ -49,74 +49,78 @@
 
 :root {
   color-scheme: light;
-  /* Deep Blue / Aqua / White / Light Gray - Water Purity Theme */
-  --background: oklch(0.98 0.005 240);
-  --foreground: oklch(0.18 0.02 240);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.02 240);
+  /* Premium Silver & Soft Blue Theme */
+  --background: oklch(0.985 0.003 250);        /* Crisp, clean white with a tiny cool tint */
+  --foreground: oklch(0.20 0.04 250);          /* Deep, trustworthy navy blue text */
+  --card: oklch(1 0 0);                        /* Pure white for cards */
+  --card-foreground: oklch(0.20 0.04 250);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.02 240);
-  --primary: oklch(0.35 0.12 240);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.55 0.15 195);
-  --secondary-foreground: oklch(0.99 0 0);
-  --muted: oklch(0.95 0.01 240);
-  --muted-foreground: oklch(0.48 0.02 240);
-  --accent: oklch(0.65 0.18 195);
-  --accent-foreground: oklch(0.18 0.02 240);
+  --popover-foreground: oklch(0.20 0.04 250);
+  --primary: oklch(0.45 0.08 250);             /* Soft, rich blue (Not too bright, not too dark) */
+  --primary-foreground: oklch(0.99 0 0);       /* White text on blue buttons */
+  --secondary: oklch(0.85 0.008 250);          /* BRUSHED SILVER (Icons, subtle highlights) */
+  --secondary-foreground: oklch(0.20 0.04 250);
+  --muted: oklch(0.96 0.006 250);              /* Very faint silver/cool gray backgrounds */
+  --muted-foreground: oklch(0.50 0.02 250);    /* Metallic silver-gray for subtitles */
+  --accent: oklch(0.75 0.06 240);              /* Soft Pastel Blue (For glowing hovers/accents) */
+  --accent-foreground: oklch(0.20 0.04 250);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.9 0.01 240);
-  --input: oklch(0.9 0.01 240);
-  --ring: oklch(0.55 0.15 195);
-  --chart-1: oklch(0.35 0.12 240);
-  --chart-2: oklch(0.55 0.15 195);
-  --chart-3: oklch(0.65 0.18 195);
-  --chart-4: oklch(0.45 0.1 240);
-  --chart-5: oklch(0.75 0.12 195);
+  --border: oklch(0.90 0.008 250);             /* Soft silver borders (makes the silver pop!) */
+  --input: oklch(0.90 0.008 250);
+  --ring: oklch(0.75 0.06 240);               /* Soft blue glow when clicking inputs */
+  
+  --chart-1: oklch(0.45 0.08 250);
+  --chart-2: oklch(0.85 0.008 250);
+  --chart-3: oklch(0.75 0.06 240);
+  --chart-4: oklch(0.35 0.06 250);
+  --chart-5: oklch(0.65 0.04 240);
+  
   --radius: 0.75rem;
+  
   --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.18 0.02 240);
-  --sidebar-primary: oklch(0.35 0.12 240);
+  --sidebar-foreground: oklch(0.20 0.04 250);
+  --sidebar-primary: oklch(0.45 0.08 250);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent: oklch(0.96 0.006 250);
   --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.55 0.15 195);
+  --sidebar-border: oklch(0.90 0.008 250);
+  --sidebar-ring: oklch(0.75 0.06 240);
 }
 
 .dark {
   color-scheme: dark;
-  --background: oklch(0.145 0.02 240);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.18 0.02 240);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.18 0.02 240);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.55 0.15 195);
-  --primary-foreground: oklch(0.15 0.02 240);
-  --secondary: oklch(0.35 0.08 240);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.25 0.02 240);
+  /* Dark mode version just in case someone's phone is set to dark */
+  --background: oklch(0.16 0.02 250);
+  --foreground: oklch(0.93 0.005 250);
+  --card: oklch(0.20 0.025 250);
+  --card-foreground: oklch(0.93 0.005 250);
+  --popover: oklch(0.20 0.025 250);
+  --popover-foreground: oklch(0.93 0.005 250);
+  --primary: oklch(0.75 0.06 240);
+  --primary-foreground: oklch(0.16 0.02 250);
+  --secondary: oklch(0.30 0.015 250);
+  --secondary-foreground: oklch(0.93 0.005 250);
+  --muted: oklch(0.25 0.02 250);
   --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.65 0.18 195);
-  --accent-foreground: oklch(0.15 0.02 240);
+  --accent: oklch(0.65 0.08 240);
+  --accent-foreground: oklch(0.93 0.005 250);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(0.3 0.02 240);
-  --input: oklch(0.3 0.02 240);
-  --ring: oklch(0.55 0.15 195);
-  --chart-1: oklch(0.55 0.15 195);
-  --chart-2: oklch(0.65 0.18 195);
-  --chart-3: oklch(0.75 0.12 195);
-  --chart-4: oklch(0.45 0.1 240);
-  --chart-5: oklch(0.35 0.12 240);
-  --sidebar: oklch(0.205 0.02 240);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.55 0.15 195);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0.02 240);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.3 0.02 240);
-  --sidebar-ring: oklch(0.55 0.15 195);
+  --border: oklch(0.30 0.015 250);
+  --input: oklch(0.30 0.015 250);
+  --ring: oklch(0.75 0.06 240);
+  --chart-1: oklch(0.75 0.06 240);
+  --chart-2: oklch(0.65 0.08 240);
+  --chart-3: oklch(0.85 0.008 250);
+  --chart-4: oklch(0.55 0.06 240);
+  --chart-5: oklch(0.45 0.08 250);
+  --sidebar: oklch(0.18 0.02 250);
+  --sidebar-foreground: oklch(0.93 0.005 250);
+  --sidebar-primary: oklch(0.75 0.06 240);
+  --sidebar-primary-foreground: oklch(0.93 0.005 250);
+  --sidebar-accent: oklch(0.25 0.02 250);
+  --sidebar-accent-foreground: oklch(0.93 0.005 250);
+  --sidebar-border: oklch(0.30 0.015 250);
+  --sidebar-ring: oklch(0.75 0.06 240);
 }
 
 @layer base {
@@ -133,31 +137,34 @@
 }
 
 @layer components {
-  /* Animated shimmer that sweeps across cards on hover */
+  /* Lively Silver Sweep Effect for Light Mode */
   .silver-sheen {
     position: absolute;
     inset: 0;
     background: linear-gradient(
-      120deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.04) 30%,
-      rgba(255, 255, 255, 0.16) 50%,
-      rgba(255, 255, 255, 0.04) 70%,
-      transparent 100%
+      115deg,
+      transparent 20%,
+      rgba(180, 195, 220, 0.0) 30%,
+      rgba(200, 215, 235, 0.4) 45%,   /* The brushed silver color */
+      rgba(255, 255, 255, 0.8) 50%,   /* Bright white/silver core */
+      rgba(200, 215, 235, 0.4) 55%,
+      rgba(180, 195, 220, 0.0) 70%,
+      transparent 80%
     );
     opacity: 0;
-    transform: translateX(-60%);
+    transform: translateX(-100%);
     transition:
-      opacity 0.35s ease,
+      opacity 0.3s ease,
       transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
     pointer-events: none;
-    mix-blend-mode: screen;
+    z-index: 2;
   }
 
+  /* Triggers on Desktop Hover AND Mobile Tap */
   .group:hover .silver-sheen,
   .group:focus-within .silver-sheen {
     opacity: 1;
-    transform: translateX(60%);
+    transform: translateX(100%);
   }
 }
 
