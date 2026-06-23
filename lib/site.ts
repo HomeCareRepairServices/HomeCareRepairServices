@@ -92,4 +92,3 @@ export function whatsappLink(message?: string) {
     ],
   },
 ] as const
-}
