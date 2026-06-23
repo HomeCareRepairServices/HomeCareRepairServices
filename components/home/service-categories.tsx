@@ -1,40 +1,64 @@
-import Link from "next/link"
-import { ArrowRight } from "lucide-react"
-import { SectionHeading } from "@/components/section-heading"
-import { Reveal } from "@/components/reveal"
-import { serviceCategories } from "@/lib/data/services"
+"use client"
+
+import { motion } from "framer-motion"
+import { Droplets, Wind, Flame, WashingMachine, Zap, Paintbrush } from "lucide-react"
+import { SilverGlowCard } from "@/components/silver-glow-card"
+import { siteConfig } from "@/lib/site"
+
+const services = [
+  { Icon: Droplets, title: "Water Purifier", desc: "RO Service, Repair & Installation" },
+  { Icon: Wind, title: "Air Conditioning", desc: "AC Service, Gas Filling & Install" },
+  { Icon: Flame, title: "Kitchen Appliances", desc: "Chimney & Stove Cleaning/Repair" },
+  { Icon: WashingMachine, title: "Home Appliances", desc: "Washing Machine & Fridge Repair" },
+  { Icon: Zap, title: "Electrical & More", desc: "Wiring, Geyser & Inverter Repair" },
+  { Icon: Paintbrush, title: "Interior & Cleaning", desc: "PVC Doors, Wall Panels & Tanks" },
+]
 
 export function ServiceCategories() {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-      <SectionHeading
-        eyebrow="What We Do"
-        title="Complete Home Service Solutions"
-        description="From water purifiers to air conditioners and kitchen appliances, our verified technicians handle it all under one roof."
-      />
+    <section className="py-20 px-4 bg-muted/30">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            What Do You Need Fixed?
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+            {siteConfig.shortName} covers all major home appliances and maintenance across {siteConfig.address.split(',')[0]}.
+          </p>
+        </motion.div>
 
-      <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {serviceCategories.map((cat, i) => (
-          <Reveal key={cat.slug} delay={i * 0.05}>
-            <Link
-              href="/services"
-              className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-secondary/40 hover:shadow-lg hover:shadow-secondary/5"
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {services.map((service, i) => (
+            <motion.div
+              key={service.title}
+              // This makes the cards slide up one by one as you scroll down on mobile
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.4, delay: i * 0.1 }}
             >
-              <span className="silver-sheen" />
-              <span className="mb-5 flex size-12 items-center justify-center rounded-xl bg-secondary/10 text-secondary transition-colors group-hover:bg-secondary group-hover:text-secondary-foreground">
-                <cat.icon className="size-6" />
-              </span>
-              <h3 className="text-lg font-semibold text-foreground">{cat.name}</h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-                {cat.description}
-              </p>
-              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-secondary">
-                View services
-                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-              </span>
-            </Link>
-          </Reveal>
-        ))}
+              {/* HERE IS YOUR NEW 3D SILVER GLOW CARD! */}
+              <SilverGlowCard className="h-full bg-card p-6 cursor-pointer">
+                <div className="flex flex-col items-center text-center space-y-4">
+                  {/* Silver/Muted Icon background */}
+                  <div className="w-16 h-16 rounded-2xl bg-secondary/10 flex items-center justify-center border border-border">
+                    <service.Icon className="w-8 h-8 text-secondary" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-foreground">{service.title}</h3>
+                    <p className="mt-2 text-sm text-muted-foreground">{service.desc}</p>
+                  </div>
+                </div>
+              </SilverGlowCard>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   )
