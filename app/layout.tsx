@@ -26,7 +26,6 @@ export const metadata: Metadata = {
     'home appliance service',
     'doorstep service Uttarakhand',
   ],
-  generator: 'v0.app',
   metadataBase: new URL(siteConfig.url),
   openGraph: {
     title: `${siteConfig.name} | Home Appliance & Repair Experts`,
@@ -37,7 +36,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0f4c75',
+  themeColor: '#1a365d',
   width: 'device-width',
   initialScale: 1,
 }
