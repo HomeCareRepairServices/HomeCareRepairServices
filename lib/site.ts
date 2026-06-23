@@ -35,7 +35,7 @@ export function whatsappLink(message?: string) {
   const base = siteConfig.whatsappHref
   if (!message) return base
   return `${base}?text=${encodeURIComponent(message)}`
-
+}
   export const serviceCategories = [
   {
     title: "Water Purifier",
