@@ -32,7 +32,7 @@ export function WhyChooseUs() {
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {reasons.map((r, i) => (
             <Reveal key={r.title} delay={i * 0.05}>
-              <div className="flex h-full gap-4 rounded-2xl border border-border bg-card p-6">
+              <div className="flex h-full gap-4 rounded-2xl border border-border bg-card p-6 shadow-sm shadow-[#03305f]/5">
                 <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-secondary/10 text-secondary">
                   <r.icon className="size-5" />
                 </span>

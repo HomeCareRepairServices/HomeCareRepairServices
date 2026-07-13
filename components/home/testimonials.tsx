@@ -1,6 +1,8 @@
-import { Star, Quote } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { SectionHeading } from "@/components/section-heading"
 import { Reveal } from "@/components/reveal"
+import { ReviewCard } from "@/components/review-card"
+import { CtaLink } from "@/components/cta"
 import { testimonials } from "@/lib/data/testimonials"
 import { siteConfig } from "@/lib/site"
 
@@ -17,25 +19,15 @@ export function Testimonials() {
         <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((t, i) => (
             <Reveal key={t.name} delay={(i % 3) * 0.05}>
-              <figure className="flex h-full flex-col rounded-2xl border border-border bg-card p-6">
-                <Quote className="size-7 text-secondary/30" />
-                <div className="mt-2 flex items-center gap-0.5 text-accent">
-                  {Array.from({ length: t.rating }).map((_, s) => (
-                    <Star key={s} className="size-4 fill-current" />
-                  ))}
-                </div>
-                <blockquote className="mt-3 flex-1 text-sm leading-relaxed text-foreground">
-                  &ldquo;{t.quote}&rdquo;
-                </blockquote>
-                <figcaption className="mt-5 border-t border-border pt-4">
-                  <span className="block font-semibold text-foreground">{t.name}</span>
-                  <span className="block text-xs text-muted-foreground">
-                    {t.service} &middot; {t.area}
-                  </span>
-                </figcaption>
-              </figure>
+              <ReviewCard t={t} />
             </Reveal>
           ))}
+        </div>
+
+        <div className="mt-10 text-center">
+          <CtaLink href="/our-work-and-reviews" variant="outline" size="md">
+            Browse Customer Reviews <ArrowRight className="size-4" />
+          </CtaLink>
         </div>
       </div>
     </section>

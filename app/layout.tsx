@@ -6,6 +6,8 @@ import { siteConfig } from '@/lib/site'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { FloatingButtons } from '@/components/floating-buttons'
+// 1. ADD THIS IMPORT
+import { ThemeProvider } from 'next-themes'
 
 const inter = Inter({ variable: '--font-inter', subsets: ['latin'] })
 
@@ -47,13 +49,17 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} bg-background`}>
+    // 2. ADD suppressHydrationWarning HERE
+    <html lang="en" className={`${inter.variable} bg-background`} suppressHydrationWarning>
       <body className="font-sans antialiased">
-        <SiteHeader />
-        <main>{children}</main>
-        <SiteFooter />
-        <FloatingButtons />
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        {/* 3. WRAP YOUR CONTENT IN THEMPROVIDER */}
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+          <SiteHeader />
+          <main>{children}</main>
+          <SiteFooter />
+          <FloatingButtons />
+          {process.env.NODE_ENV === 'production' && <Analytics />}
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { Star, ShieldCheck, Clock, MapPin, Droplets, Wind, Flame, WashingMachine } from "lucide-react"
 import { CallButton, WhatsAppButton } from "@/components/cta"
@@ -21,13 +22,42 @@ const trust = [
 export function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-border bg-water-grid">
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-secondary/5 via-background/40 to-background" />
+      
+      {/* --- 1. PREMIUM DESKTOP BACKGROUND IMAGE (Hidden on Mobile) --- */}
+      <motion.div 
+        className="absolute inset-0 hidden lg:block z-0"
+        initial={{ scale: 1.0 }}
+        animate={{ scale: 1.1 }}
+        transition={{ 
+          duration: 20, 
+          ease: "linear", 
+          repeat: Infinity, 
+          repeatType: "reverse" 
+        }}
+        style={{ willChange: "transform" }} // Forces GPU acceleration for 60fps
+      >
+        <Image
+          src="/images/hero-bg.webp" // Ensure this image exists in your public folder
+          alt="Home Care Repair Services in Rishikesh, Haridwar & Dehradun"
+          fill
+          className="object-cover"
+          priority // Critical for LCP (Largest Contentful Paint)
+          quality={85}
+        />
+      </motion.div>
 
-      {/* Floating appliance icons */}
+      {/* --- 2. GRADIENT OVERLAYS --- */}
+      {/* Base overlay for Mobile (Light Theme) */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-secondary/5 via-background/40 to-background z-[1]" />
+      
+      {/* Dark overlay for Desktop (Ensures text readability over the image) */}
+      <div className="pointer-events-none absolute inset-0 hidden lg:block bg-gradient-to-b from-black/50 via-black/60 to-background/95 z-[1]" />
+
+      {/* --- 3. FLOATING ICONS (Faded out on Desktop so they don't clash with the image) --- */}
       {floatingIcons.map(({ Icon, className, delay }, i) => (
         <motion.div
           key={i}
-          className={`pointer-events-none absolute hidden text-secondary/25 md:block ${className}`}
+          className={`pointer-events-none absolute hidden text-secondary/25 lg:text-white/10 md:block z-[2] ${className}`}
           animate={{ y: [0, -16, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay }}
         >
@@ -35,45 +65,51 @@ export function Hero() {
         </motion.div>
       ))}
 
-      <div className="relative mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 sm:py-28 lg:py-32">
+      {/* --- 4. HERO CONTENT --- */}
+      <div className="relative z-10 mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 sm:py-28 lg:py-32">
+        
+        {/* Rating Badge - Turns into Glassmorphism on Desktop */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-sm shadow-sm"
+          className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-sm shadow-sm lg:bg-white/10 lg:border-white/20 lg:backdrop-blur-md"
         >
-          <span className="flex items-center gap-0.5 text-accent">
+          <span className="flex items-center gap-0.5 text-accent lg:text-sky-400">
             {Array.from({ length: 5 }).map((_, i) => (
               <Star key={i} className="size-3.5 fill-current" />
             ))}
           </span>
-          <span className="font-medium text-foreground">{siteConfig.rating}</span>
-          <span className="text-muted-foreground">
+          <span className="font-medium text-foreground lg:text-white">{siteConfig.rating}</span>
+          <span className="text-muted-foreground lg:text-white/70">
             ({siteConfig.reviewCount.toLocaleString()}+ happy customers)
           </span>
         </motion.div>
 
+        {/* Main Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.05 }}
-          className="text-balance text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+          className="text-balance text-4xl font-bold tracking-tight text-foreground lg:text-white sm:text-5xl lg:text-6xl"
         >
           Home Appliance Repair &amp;{" "}
-          <span className="text-secondary">Installation Experts</span>
+          <span className="text-secondary lg:text-sky-400">Installation Experts</span>
         </motion.h1>
 
+        {/* Subheadline */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mx-auto mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground"
+          className="mx-auto mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground lg:text-white/70"
         >
           Fast, reliable doorstep service for RO water purifiers, ACs, chimneys,
           washing machines, refrigerators and more across Rishikesh, Haridwar &amp;
           Dehradun.
         </motion.p>
 
+        {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -84,6 +120,7 @@ export function Hero() {
           <WhatsAppButton size="lg" />
         </motion.div>
 
+        {/* Trust Indicators */}
         <motion.ul
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -91,8 +128,8 @@ export function Hero() {
           className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3"
         >
           {trust.map(({ Icon, label }) => (
-            <li key={label} className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-              <Icon className="size-5 text-secondary" />
+            <li key={label} className="flex items-center gap-2 text-sm font-medium text-muted-foreground lg:text-white/80">
+              <Icon className="size-5 text-secondary lg:text-sky-400" />
               {label}
             </li>
           ))}

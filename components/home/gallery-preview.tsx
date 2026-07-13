@@ -1,8 +1,11 @@
+"use client"
+
 import Link from "next/link"
-import { ArrowRight, ImageIcon, type LucideIcon, Droplets, Flame, Wind, Container, WashingMachine } from "lucide-react"
+import { motion } from "framer-motion"
+import { ArrowRight, type LucideIcon, Droplets, Flame, Wind, Container, WashingMachine } from "lucide-react"
 import { SectionHeading } from "@/components/section-heading"
-import { Reveal } from "@/components/reveal"
 import { CtaLink } from "@/components/cta"
+import { SilverGlowCard } from "@/components/silver-glow-card"
 
 const works: { title: string; icon: LucideIcon }[] = [
   { title: "RO Installation", icon: Droplets },
@@ -24,26 +27,70 @@ export function GalleryPreview() {
           description="A glimpse of recent installations, repairs and cleaning jobs completed for our customers."
           className="max-w-xl"
         />
-        <CtaLink href="/our-work" variant="outline" size="md" className="shrink-0">
-          View full gallery <ArrowRight className="size-4" />
+        <CtaLink href="/our-work-and-reviews" variant="outline" size="md" className="shrink-0">
+          View Our Completed Projects <ArrowRight className="size-4" />
         </CtaLink>
       </div>
 
-      <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3">
-        {works.map((work, i) => (
-          <Reveal key={work.title} delay={(i % 3) * 0.05}>
-            <Link
-              href="/our-work"
-              className="group relative flex aspect-[4/3] flex-col items-center justify-center overflow-hidden rounded-2xl border border-border bg-muted text-muted-foreground"
-            >
-              <span className="silver-sheen" />
-              <work.icon className="size-10 text-secondary/50 transition-transform duration-500 group-hover:scale-110" />
-              <span className="absolute inset-x-0 bottom-0 flex items-center gap-1.5 bg-gradient-to-t from-card to-transparent p-4 text-sm font-semibold text-foreground">
-                <ImageIcon className="size-4 text-secondary" />
-                {work.title}
-              </span>
-            </Link>
-          </Reveal>
+      <div className="mt-12 grid grid-cols-2 gap-5 sm:grid-cols-3">
+        {works.map((work) => (
+          <Link key={work.title} href="/our-work-and-reviews" className="block h-full">
+            <SilverGlowCard className="h-full bg-card flex flex-col group cursor-pointer transition-shadow duration-300 hover:shadow-xl hover:shadow-[#03305f]/15">
+              <div className="relative w-full h-36 overflow-hidden bg-gradient-to-br from-primary/20 via-primary/10 to-primary/5 rounded-t-2xl transition-transform duration-500 flex-shrink-0">
+                <div className="absolute inset-0 overflow-hidden rounded-t-2xl pointer-events-none z-10">
+                  <div className="absolute inset-0 w-[50px] h-[100%] bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-[800%] transition-transform duration-1000 ease-out" />
+                </div>
+
+                <svg className="absolute inset-0 w-full h-full pointer-events-none z-20" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <radialGradient id="work-star-core" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
+                      <stop offset="60%" stopColor="#e2e8f0" stopOpacity="0.8" />
+                      <stop offset="100%" stopColor="transparent" stopOpacity="0" />
+                    </radialGradient>
+                    <filter id="work-star-glow" x="-200%" y="-200%" width="500%" height="500%">
+                      <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+                      <feMerge>
+                        <feMergeNode in="blur"/>
+                        <feMergeNode in="blur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <rect x="1" y="1" rx="16" ry="16" width="calc(100% - 2px)" height="calc(100% - 2px)" fill="none" stroke="none" />
+                  <motion.circle
+                    r="4"
+                    fill="url(#work-star-core)"
+                    filter="url(#work-star-glow)"
+                    animate={{
+                      offsetDistance: ["0%", "100%"],
+                      opacity: [0, 1, 1, 1, 0],
+                    }}
+                    transition={{
+                      offsetDistance: { duration: 3, repeat: Infinity, ease: "linear" },
+                      opacity: { duration: 3, repeat: Infinity, ease: "linear", times: [0, 0.1, 0.5, 0.9, 1] },
+                    }}
+                    style={{ offsetPath: `rect(1px 1px round 16px 16px calc(100% - 2px) calc(100% - 2px))` }}
+                  />
+                </svg>
+
+                <div className="absolute inset-0 flex items-center justify-center z-0">
+                  <motion.div
+                    whileHover={{ scale: 1.17, transition: { type: "spring", stiffness: 400, damping: 14 } }}
+                    className="transition-colors duration-300"
+                  >
+                    <work.icon className="w-10 h-10 text-primary/70 group-hover:text-primary drop-shadow-md" />
+                  </motion.div>
+                </div>
+              </div>
+
+              <div className="flex flex-col justify-center items-center p-4 flex-1 text-center">
+                <h3 className="text-base font-bold text-[#03305f] leading-tight">
+                  {work.title}
+                </h3>
+              </div>
+            </SilverGlowCard>
+          </Link>
         ))}
       </div>
     </section>

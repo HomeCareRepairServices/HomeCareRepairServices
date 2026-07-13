@@ -16,43 +16,40 @@ const services = [
 
 export function ServiceCategories() {
   return (
-    <section className="py-20 px-4 bg-muted/30">
+    <section className="py-24 px-4">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-center mb-16" 
         >
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             What Do You Need Fixed?
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="mt-5 text-lg text-muted-foreground max-w-2xl mx-auto">
             {siteConfig.shortName} covers all major home appliances and maintenance across {siteConfig.address.split(',')[0]}.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, i) => (
             <motion.div
               key={service.title}
-              // This makes the cards slide up one by one as you scroll down on mobile
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
             >
-              {/* HERE IS YOUR NEW 3D SILVER GLOW CARD! */}
-              <SilverGlowCard className="h-full bg-card p-6 cursor-pointer">
-                <div className="flex flex-col items-center text-center space-y-4">
-                  {/* Silver/Muted Icon background */}
-                  <div className="w-16 h-16 rounded-2xl bg-secondary/10 flex items-center justify-center border border-border">
-                    <service.Icon className="w-8 h-8 text-secondary" />
+              <SilverGlowCard className="h-full p-6">
+                <div className="flex flex-col items-center text-center gap-6">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-secondary/10 text-secondary">
+                    <service.Icon className="size-7" />
                   </div>
-                  <div>
+                  <div className="space-y-3">
                     <h3 className="text-xl font-semibold text-foreground">{service.title}</h3>
-                    <p className="mt-2 text-sm text-muted-foreground">{service.desc}</p>
+                    <p className="text-sm leading-relaxed text-muted-foreground">{service.desc}</p>
                   </div>
                 </div>
               </SilverGlowCard>

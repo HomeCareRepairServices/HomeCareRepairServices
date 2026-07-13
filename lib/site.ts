@@ -36,59 +36,85 @@ export function whatsappLink(message?: string) {
   if (!message) return base
   return `${base}?text=${encodeURIComponent(message)}`
 }
-  export const serviceCategories = [
-  {
-    title: "Water Purifier",
-    href: "/services/ro-sales-repair",
-    items: [
-      { title: "RO Sales & Repair", href: "/services/ro-sales-repair" },
-      { title: "RO Service", href: "/services/ro-service" },
-      { title: "RO Installation", href: "/services/ro-installation" },
-      { title: "RO AMC", href: "/services/ro-amc" },
-    ],
-  },
-  {
-    title: "Air Conditioning",
-    href: "/services/ac-service",
-    items: [
-      { title: "AC Service", href: "/services/ac-service" },
-      { title: "AC Installation", href: "/services/ac-installation" },
-    ],
-  },
-  {
-    title: "Kitchen Appliances",
-    href: "/services/chimney-cleaning",
-    items: [
-      { title: "Chimney Cleaning", href: "/services/chimney-cleaning" },
-      { title: "Chimney Installation", href: "/services/chimney-installation" },
-    ],
-  },
-  {
-    title: "Home Appliances",
-    href: "/services/washing-machine-repair",
-    items: [
-      { title: "Washing Machine Repair", href: "/services/washing-machine-repair" },
-      { title: "Refrigerator Repair", href: "/services/refrigerator-repair" },
-      { title: "Geyser Repair", href: "/services/geyser-repair" },
-      { title: "Geyser Installation", href: "/services/geyser-installation" },
-      { title: "Inverter Repair", href: "/services/inverter-repair" },
-    ],
-  },
-  {
-    title: "Electrical & Interior",
-    href: "/services/electrical-services",
-    items: [
-      { title: "Electrical Services", href: "/services/electrical-services" },
-      { title: "PVC Door Services", href: "/services/pvc-door-services" },
-      { title: "PVC Wall Panel", href: "/services/pvc-wall-panel-services" },
-    ],
-  },
-  {
-    title: "Cleaning & Decor",
-    href: "/services/water-tank-cleaning",
-    items: [
-      { title: "Water Tank Cleaning", href: "/services/water-tank-cleaning" },
-      { title: "Lighting Decoration", href: "/services/lighting-decoration" },
-    ],
-  },
-] as const
+export const serviceCategories = [
+    {
+      title: "Water Purifier",
+      href: "/services/water-purifier",
+      items: [
+        { title: "RO Sales & Repair", href: "/services/water-purifier/ro-sales-repair" },
+        { title: "RO Service", href: "/services/water-purifier/ro-service" },
+        { title: "RO Installation", href: "/services/water-purifier/ro-installation" },
+        { title: "RO AMC", href: "/services/water-purifier/ro-amc" },
+        { title: "UV Water Purifier", href: "/services/water-purifier/uv-water-purifier-installation" },
+        { title: "Water Softener", href: "/services/water-purifier/water-softener-installation" },
+      ],
+    },
+    {
+      title: "Air Conditioning",
+      href: "/services/ac-services",
+      items: [
+        { title: "AC Service", href: "/services/ac-services/ac-service" },
+        { title: "AC Repair", href: "/services/ac-services/ac-repair" },
+        { title: "AC Installation", href: "/services/ac-services/ac-installation" },
+        { title: "AC Gas Refilling", href: "/services/ac-services/ac-gas-refilling" },
+        { title: "AC Deep Cleaning", href: "/services/ac-services/ac-deep-cleaning" },
+        { title: "AC AMC", href: "/services/ac-services/ac-amc" },
+      ],
+    },
+    {
+      title: "Kitchen Appliances",
+      href: "/services/kitchen-appliances",
+      items: [
+        { title: "Chimney Cleaning", href: "/services/kitchen-appliances/chimney-cleaning" },
+        { title: "Chimney Repair", href: "/services/kitchen-appliances/chimney-repair" },
+        { title: "Chimney Installation", href: "/services/kitchen-appliances/chimney-installation" },
+        { title: "Hob Repair", href: "/services/kitchen-appliances/hob-repair" },
+        { title: "Gas Stove Repair", href: "/services/kitchen-appliances/gas-stove-repair" },
+        { title: "Modular Kitchen", href: "/services/kitchen-appliances/modular-kitchen-solutions" },
+      ],
+    },
+    {
+      title: "Home Appliances",
+      href: "/services/home-appliances",
+      items: [
+        { title: "Washing Machine Repair", href: "/services/home-appliances/washing-machine-repair" },
+        { title: "Refrigerator Repair", href: "/services/home-appliances/refrigerator-repair" },
+        { title: "Geyser Repair", href: "/services/home-appliances/geyser-repair" },
+        { title: "Geyser Installation", href: "/services/home-appliances/geyser-installation" },
+        { title: "Microwave Repair", href: "/services/home-appliances/microwave-repair" },
+        { title: "Water Dispenser Repair", href: "/services/home-appliances/water-dispenser-repair" },
+        { title: "Inverter Repair", href: "/services/home-appliances/inverter-repair" },
+      ],
+    },
+    {
+      title: "Electrical & Interior",
+      href: "/services/electrical-interior",
+      items: [
+        { title: "Electrical Repair", href: "/services/electrical-interior/electrical-repair" },
+        { title: "Fan Installation", href: "/services/electrical-interior/fan-installation" },
+        { title: "TV Wall Mount", href: "/services/electrical-interior/tv-wall-mount-installation" },
+        { title: "MCB Panel Upgrade", href: "/services/electrical-interior/mcb-panel-upgrade" },
+        { title: "Switch Board Repair", href: "/services/electrical-interior/switch-board-repair" },
+        { title: "PVC Wall Panel", href: "/services/electrical-interior/pvc-wall-panel-installation" },
+        { title: "False Ceiling", href: "/services/electrical-interior/false-ceiling-lighting" },
+      ],
+    },
+    {
+      title: "Cleaning Services",
+      href: "/services/cleaning-services",
+      items: [
+        { title: "Water Tank Cleaning", href: "/services/cleaning-services/water-tank-cleaning" },
+      ],
+    },
+    {
+      title: "Decoration Services",
+      href: "/services/decoration-services",
+      items: [
+        { title: "Wedding Lighting", href: "/services/decoration-services/wedding-lighting-decoration" },
+        { title: "Festival Lighting", href: "/services/decoration-services/festival-lighting-decoration" },
+        { title: "Birthday Decoration", href: "/services/decoration-services/birthday-decoration" },
+        { title: "House Decoration", href: "/services/decoration-services/house-decoration" },
+        { title: "Event Decoration", href: "/services/decoration-services/event-decoration" },
+      ],
+    },
+  ] as const

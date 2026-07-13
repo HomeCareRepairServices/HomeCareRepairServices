@@ -1,5 +1,7 @@
 "use client"
 
+import { ThemeToggle } from "@/components/theme-toggle"
+import { SilverGlowCard } from "@/components/silver-glow-card"
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -8,6 +10,8 @@ import { Menu, X, Droplets, ChevronDown } from "lucide-react"
 import { CallButton } from "@/components/cta"
 import { cn } from "@/lib/utils"
 import { mainNav, siteConfig, serviceCategories } from "@/lib/site"
+import { areas } from "@/lib/data/areas"
+import { ServicesMegaMenu, MobileServicesMenu } from "@/components/layout/services-mega-menu"
 
 export function SiteHeader() {
   const pathname = usePathname()
@@ -15,6 +19,8 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false)
   const [megaOpen, setMegaOpen] = useState(false)
   const megaTimeout = useRef<NodeJS.Timeout | null>(null)
+  const [areasMegaOpen, setAreasMegaOpen] = useState(false)
+  const areasMegaTimeout = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -39,8 +45,16 @@ export function SiteHeader() {
     megaTimeout.current = setTimeout(() => setMegaOpen(false), 150)
   }
 
-  // Filter out "Services" from the main nav because we are building a custom one
-  const filteredNav = mainNav.filter((item) => item.title !== "Services")
+  const handleAreasMegaEnter = () => {
+    if (areasMegaTimeout.current) clearTimeout(areasMegaTimeout.current)
+    setAreasMegaOpen(true)
+  }
+  const handleAreasMegaLeave = () => {
+    areasMegaTimeout.current = setTimeout(() => setAreasMegaOpen(false), 150)
+  }
+
+  // Filter out "Services" and "Areas" from the main nav because we have custom mega menus
+  const filteredNav = mainNav.filter((item) => item.title !== "Services" && item.title !== "Areas")
 
   return (
     <header
@@ -57,7 +71,7 @@ export function SiteHeader() {
             <Droplets className="size-5" />
           </span>
           <span className="flex flex-col leading-none">
-            <span className="text-base font-bold tracking-tight text-foreground">
+            <span className="text-lg font-bold tracking-tight text-foreground">
               {siteConfig.shortName}
             </span>
             <span className="text-[11px] font-medium text-muted-foreground">
@@ -73,7 +87,7 @@ export function SiteHeader() {
               key={item.href}
               href={item.href}
               className={cn(
-                "relative rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                "relative rounded-md px-4 py-2 text-[15px] font-semibold transition-colors",
                 isActive(item.href)
                   ? "text-primary"
                   : "text-muted-foreground hover:text-foreground",
@@ -97,7 +111,7 @@ export function SiteHeader() {
           >
             <button
               className={cn(
-                "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                "flex items-center gap-1 rounded-md px-4 py-2 text-[15px] font-semibold transition-colors",
                 pathname.startsWith("/services")
                   ? "text-primary"
                   : "text-muted-foreground hover:text-foreground"
@@ -114,42 +128,66 @@ export function SiteHeader() {
                   className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-secondary"
                 />
             )}
+            
+            {/* New Premium Mega Menu Component */}
+            <ServicesMegaMenu isOpen={megaOpen} onEnter={handleMegaEnter} onLeave={handleMegaLeave} />
+          </div>
 
-            {/* The Mega Menu Dropdown */}
+          {/* Custom Areas Mega Menu Button */}
+          <div
+            onMouseEnter={handleAreasMegaEnter}
+            onMouseLeave={handleAreasMegaLeave}
+            className="relative"
+          >
+            <button
+              className={cn(
+                "flex items-center gap-1 rounded-md px-4 py-2 text-[15px] font-semibold transition-colors",
+                pathname.startsWith("/areas")
+                  ? "text-primary"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              Areas
+              <ChevronDown className="size-4 transition-transform duration-200" 
+                style={{ transform: areasMegaOpen ? "rotate(180deg)" : "rotate(0deg)" }} 
+              />
+            </button>
+            {pathname.startsWith("/areas") && (
+               <motion.span
+                  layoutId="nav-underline"
+                  className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-secondary"
+                />
+            )}
+
+            {/* The Areas Mega Menu Dropdown */}
             <AnimatePresence>
-              {megaOpen && (
+              {areasMegaOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  transition={{ duration: 0.2 }}
-                  onMouseEnter={handleMegaEnter}
-                  onMouseLeave={handleMegaLeave}
+                  initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.98 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  onMouseEnter={handleAreasMegaEnter}
+                  onMouseLeave={handleAreasMegaLeave}
                   className="absolute left-1/2 top-full -translate-x-1/2 pt-2 w-[600px]"
                 >
-                  <div className="grid grid-cols-2 gap-3 rounded-xl border border-border bg-card p-4 shadow-xl shadow-secondary/5">
-                    {serviceCategories.map((cat) => (
-                      <div key={cat.title}>
-                        <Link 
-                          href={cat.href} 
-                          className="text-sm font-semibold text-foreground hover:text-primary transition-colors mb-2 block"
+                  <div className="rounded-2xl border border-[#D8DCE6]/30 p-6 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] bg-[rgba(15,46,110,0.92)] backdrop-blur-xl relative overflow-hidden group/areas-dropdown">
+                    
+                    <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none z-10">
+                      <div className="absolute inset-0 w-[80px] h-[100%] bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/areas-dropdown:translate-x-[1000%] transition-transform duration-1000 ease-out" />
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-x-6 gap-y-3 relative z-0">
+                      {areas.map((area) => (
+                        <Link
+                          key={area.slug}
+                          href={`/areas/${area.slug}`}
+                          className="text-[15px] text-[#D7DFEA] hover:text-white transition-all duration-200 hover:underline decoration-[#D8DCE6]/50 underline-offset-4 py-1"
                         >
-                          {cat.title}
+                          {area.name}
                         </Link>
-                        <ul className="space-y-1.5">
-                          {cat.items.map((sub) => (
-                            <li key={sub.href}>
-                              <Link 
-                                href={sub.href}
-                                className="text-sm text-muted-foreground hover:text-foreground transition-colors block rounded-md px-2 py-1 hover:bg-muted"
-                              >
-                                {sub.title}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 </motion.div>
               )}
@@ -158,6 +196,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <CallButton size="sm" className="hidden sm:inline-flex" />
           <button
             type="button"
@@ -187,7 +226,7 @@ export function SiteHeader() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "rounded-md px-3 py-2.5 text-base font-medium transition-colors",
+                    "rounded-md px-3 py-3 text-[17px] font-semibold transition-colors",
                     isActive(item.href)
                       ? "bg-muted text-primary"
                       : "text-foreground hover:bg-muted",
@@ -197,28 +236,25 @@ export function SiteHeader() {
                 </Link>
               ))}
               
-              {/* Mobile Services List */}
+              {/* Mobile Areas List */}
               <div className="pt-2 mt-2 border-t border-border">
                 <span className="px-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                  Our Services
+                  Service Areas
                 </span>
-                {serviceCategories.map((cat) => (
-                  <div key={cat.title} className="mt-2">
-                    <span className="block px-3 py-1 text-sm font-semibold text-foreground">
-                      {cat.title}
-                    </span>
-                    {cat.items.map((sub) => (
-                      <Link
-                        key={sub.href}
-                        href={sub.href}
-                        className="block rounded-md pl-6 pr-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-                      >
-                        {sub.title}
-                      </Link>
-                    ))}
-                  </div>
-                ))}
+                <div className="mt-2 grid grid-cols-2">
+                  {areas.map((area) => (
+                    <Link
+                      key={area.slug}
+                      href={`/areas/${area.slug}`}
+                      className="block rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                    >
+                      {area.name}
+                    </Link>
+                  ))}
+                </div>
               </div>
+
+              <MobileServicesMenu />
 
               <CallButton size="lg" className="mt-4 w-full" label={`Call ${siteConfig.phone}`} />
             </nav>

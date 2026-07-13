@@ -84,8 +84,8 @@ export function SiteFooter() {
                 </li>
               ))}
               <li>
-                <Link href="/our-work" className="text-muted-foreground transition-colors hover:text-primary">
-                  Our Work
+                <Link href="/our-work-and-reviews" className="text-muted-foreground transition-colors hover:text-primary">
+                  Our Work &amp; Customer Reviews
                 </Link>
               </li>
               <li>
