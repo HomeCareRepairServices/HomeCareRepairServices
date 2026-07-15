@@ -96,7 +96,7 @@ export default function ServicesPage() {
           <h2 className="text-3xl font-bold mb-4">All Our Services</h2>
           <p className="text-muted-foreground">Scroll, drag, or click a card to book.</p>
         </div>
-        <ServicesCarousel items={services} />
+        <ServicesCarousel items={services.map(({ icon, ...rest }) => rest)} />
       </section>
 
       {/* S6: WHY CHOOSE US */}

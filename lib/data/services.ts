@@ -108,6 +108,8 @@ export const services: Service[] = [
   { slug: "event-decoration", name: "Event Decoration", short: "Corporate & party decor", category: "decoration-services", type: "installation", icon: Sparkles },
 ]
 
+export const serviceIconMap = Object.fromEntries(services.map((s) => [s.slug, s.icon])) as Record<string, LucideIcon>
+
 export const serviceMap = Object.fromEntries(services.map((s) => [s.slug, s]))
 
 export const popularServices = services.filter((s) => s.popular)

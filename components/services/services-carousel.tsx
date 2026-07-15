@@ -7,7 +7,7 @@ import type { Service } from "@/lib/data/services"
 
 const BUFFER = 8
 
-export function ServicesCarousel({ items }: { items: Service[] }) {
+export function ServicesCarousel({ items }: { items: Omit<Service, "icon">[] }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [dims, setDims] = useState({ w: 240, h: 300 })
   const [range, setRange] = useState({ start: -BUFFER, end: BUFFER })

@@ -2,9 +2,10 @@
 
 import { motion, useTransform, type MotionValue } from "framer-motion"
 import type { Service } from "@/lib/data/services"
+import { serviceIconMap } from "@/lib/data/services"
 
 interface ServiceCard3DProps {
-  service: Service
+  service: Omit<Service, "icon">
   virtualIndex: number
   position: MotionValue<number>
   velocity: MotionValue<number>
@@ -43,7 +44,7 @@ export function ServiceCard3D({ service, virtualIndex, position, velocity, width
   // --- EXACT GALLERY MATH END ---
 
   const displayIndex = ((virtualIndex % 100) + 100) % 100
-  const Icon = service.icon
+  const Icon = serviceIconMap[service.slug]
 
   return (
     <motion.div
