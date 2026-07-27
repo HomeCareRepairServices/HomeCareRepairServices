@@ -120,4 +120,3 @@ export const areas: Area[] = [
   },
 ]
 
-export const areaMap = Object.fromEntries(areas.map((a) => [a.slug, a]))

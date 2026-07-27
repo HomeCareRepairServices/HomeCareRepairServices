@@ -110,14 +110,4 @@ export const services: Service[] = [
 
 export const serviceIconMap = Object.fromEntries(services.map((s) => [s.slug, s.icon])) as Record<string, LucideIcon>
 
-export const serviceMap = Object.fromEntries(services.map((s) => [s.slug, s]))
-
 export const popularServices = services.filter((s) => s.popular)
-
-export function servicesByType(type: ServiceType) {
-  return services.filter((s) => s.type === type)
-}
-
-export function servicesByCategory(categorySlug: string) {
-  return services.filter((s) => s.category === categorySlug)
-}

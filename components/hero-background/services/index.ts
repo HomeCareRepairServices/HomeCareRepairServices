@@ -1,0 +1,5 @@
+export { WaterPurifier } from "./WaterPurifier"
+export { default as ACAirflow } from "./ACAirflow"
+export { default as Refrigerator } from "./Refrigerator"
+export { default as WashingMachine } from "./WashingMachine"
+export { default as Electrical } from "./Electrical"

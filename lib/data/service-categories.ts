@@ -33,7 +33,7 @@ export const serviceCategoriesData: Record<ServiceCategorySlug, ServiceCategoryD
     metaTitle: "Expert RO & Water Purifier Services | Home Care Repair",
     metaDescription: "Professional RO installation, repair, and AMC plans in Rishikesh, Haridwar & Dehradun. Trusted experts for all water purifier brands. Book now!",
     intro: "Ensure your family drinks safe, pure water. Our certified technicians handle everything from new RO installations to urgent repairs and annual maintenance for all major brands.",
-    heroImage: "/images/categories/water-purifier-hero.webp",
+    heroImage: "/images/categories/water-purifier-hero.svg",
     services: [
       { slug: "ro-sales-repair", title: "RO Sales & Repair", description: "Complete sales and repair solutions for all types of Reverse Osmosis systems.", icon: "💧", image: "/images/services/ro-sales-repair.webp" },
       { slug: "ro-service", title: "RO Service", description: "Regular servicing to keep your purifier running at peak efficiency.", icon: "🔧", image: "/images/services/ro-service.webp" },
@@ -53,7 +53,7 @@ export const serviceCategoriesData: Record<ServiceCategorySlug, ServiceCategoryD
     metaTitle: "Fast AC Repair, Service & Installation | Home Care Repair",
     metaDescription: "Reliable AC repair, gas refilling, deep cleaning, and installation in Rishikesh, Haridwar & Dehradun. Same-day service available.",
     intro: "Beat the heat with our comprehensive AC services. Whether it's a minor repair, deep cleaning, or a full split AC installation, our experts deliver fast, reliable solutions.",
-    heroImage: "/images/categories/ac-services-hero.webp",
+    heroImage: "/images/categories/ac-services-hero.svg",
     services: [
       { slug: "ac-service", title: "AC Service", description: "General maintenance and servicing to keep your AC running smoothly.", icon: "🛠️", image: "/images/services/ac-service.webp" },
       { slug: "ac-repair", title: "AC Repair", description: "Expert diagnostics and repair for all AC cooling and mechanical issues.", icon: "❄️", image: "/images/services/ac-repair.webp" },
@@ -73,7 +73,7 @@ export const serviceCategoriesData: Record<ServiceCategorySlug, ServiceCategoryD
     metaTitle: "Chimney & Kitchen Appliance Repair | Home Care Repair",
     metaDescription: "Professional kitchen chimney cleaning, installation, and modular kitchen solutions in Rishikesh & Haridwar. Book now!",
     intro: "Keep your kitchen smoke-free and functional. We specialize in chimney maintenance, cooktop repairs, and modular kitchen solutions tailored to your home.",
-    heroImage: "/images/categories/kitchen-appliances-hero.webp",
+    heroImage: "/images/categories/kitchen-appliances-hero.svg",
     services: [
       { slug: "chimney-cleaning", title: "Chimney Cleaning", description: "Deep cleaning to remove grease and restore suction power.", icon: "💨", image: "/images/services/chimney-cleaning.webp" },
       { slug: "chimney-repair", title: "Chimney Repair", description: "Fixing motor, fan, and electrical issues in kitchen chimneys.", icon: "🔧", image: "/images/services/chimney-repair.webp" },
@@ -92,7 +92,7 @@ export const serviceCategoriesData: Record<ServiceCategorySlug, ServiceCategoryD
     metaTitle: "Washing Machine, Fridge & Geyser Repair | Home Care Repair",
     metaDescription: "Expert repair for washing machines, refrigerators, geysers, and inverters in Rishikesh, Haridwar & Dehradun. Trusted local technicians.",
     intro: "Don't let a broken appliance disrupt your day. We provide fast, reliable repair services for all major home appliances right at your doorstep.",
-    heroImage: "/images/categories/home-appliances-hero.webp",
+    heroImage: "/images/categories/home-appliances-hero.svg",
     services: [
       { slug: "washing-machine-repair", title: "Washing Machine Repair", description: "Fixing drum issues, draining problems, and motor faults.", icon: "🧺", image: "/images/services/washing-machine.webp" },
       { slug: "refrigerator-repair", title: "Refrigerator Repair", description: "Cooling issues, gas charging, and thermostat replacements.", icon: "🧊", image: "/images/services/refrigerator.webp" },
@@ -112,7 +112,7 @@ export const serviceCategoriesData: Record<ServiceCategorySlug, ServiceCategoryD
     metaTitle: "Electrician & PVC Wall Panel Work | Home Care Repair",
     metaDescription: "Safe electrical wiring, switchboard installation, and premium PVC wall paneling in Rishikesh & Haridwar. Book a licensed electrician.",
     intro: "From safe electrical wiring to aesthetic interior upgrades, our skilled electricians and craftsmen ensure your home is both safe and beautiful.",
-    heroImage: "/images/categories/electrical-interior-hero.webp",
+    heroImage: "/images/categories/electrical-interior-hero.svg",
     services: [
       { slug: "electrical-repair", title: "Electrical Repair", description: "Wiring, short circuit fixes, and general electrical troubleshooting.", icon: "⚡", image: "/images/services/electrical-repair.webp" },
       { slug: "fan-installation", title: "Fan Installation", description: "Secure installation of ceiling fans, exhaust fans, and decorative fans.", icon: "🌀", image: "/images/services/fan-installation.webp" },
@@ -132,7 +132,7 @@ export const serviceCategoriesData: Record<ServiceCategorySlug, ServiceCategoryD
     metaTitle: "Professional Water Tank Cleaning | Home Care Repair",
     metaDescription: "Professional water tank cleaning services in Rishikesh, Haridwar & Dehradun. Anti-bacterial treatment. Affordable rates.",
     intro: "Ensure hygiene and safety with our professional cleaning services. We use FDA-approved chemicals to deliver spotless results.",
-    heroImage: "/images/categories/cleaning-services-hero.webp",
+    heroImage: "/images/categories/cleaning-services-hero.svg",
     services: [
       { slug: "water-tank-cleaning", title: "Water Tank Cleaning", description: "Anti-bacterial deep cleaning for overhead and underground tanks.", icon: "🚰", image: "/images/services/water-tank-cleaning.webp" },
     ],
@@ -146,7 +146,7 @@ export const serviceCategoriesData: Record<ServiceCategorySlug, ServiceCategoryD
     metaTitle: "Wedding, Festival & Event Decoration | Home Care Repair",
     metaDescription: "Stunning wedding, festival, and birthday lighting decoration services in Rishikesh & Haridwar. Setup and removal included.",
     intro: "Transform your space for any occasion. From intimate birthdays to grand weddings, our experts handle setup, lighting, and removal seamlessly.",
-    heroImage: "/images/categories/decoration-services-hero.webp",
+    heroImage: "/images/categories/decoration-services-hero.svg",
     services: [
       { slug: "wedding-lighting-decoration", title: "Wedding Lighting Decoration", description: "Elegant and grand lighting setups tailored for wedding venues.", icon: "💒", image: "/images/services/wedding-decor.webp" },
       { slug: "festival-lighting-decoration", title: "Festival Lighting Decoration", description: "Diwali, Holi, and other festival-specific lighting and decor.", icon: "🪔", image: "/images/services/festival-decor.webp" },

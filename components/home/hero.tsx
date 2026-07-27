@@ -1,17 +1,10 @@
 "use client"
 
-import Image from "next/image"
 import { motion } from "framer-motion"
-import { Star, ShieldCheck, Clock, MapPin, Droplets, Wind, Flame, WashingMachine } from "lucide-react"
+import { Star, ShieldCheck, Clock, MapPin } from "lucide-react"
 import { CallButton, WhatsAppButton } from "@/components/cta"
+import { HeroBackground } from "@/components/hero-background/HeroBackground"
 import { siteConfig } from "@/lib/site"
-
-const floatingIcons = [
-  { Icon: Droplets, className: "left-[8%] top-[18%]", delay: 0 },
-  { Icon: Wind, className: "right-[12%] top-[24%]", delay: 0.6 },
-  { Icon: Flame, className: "left-[16%] bottom-[20%]", delay: 1.1 },
-  { Icon: WashingMachine, className: "right-[8%] bottom-[26%]", delay: 1.6 },
-]
 
 const trust = [
   { Icon: ShieldCheck, label: "Verified Technicians" },
@@ -21,54 +14,21 @@ const trust = [
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-border bg-water-grid">
-      
-      {/* --- 1. PREMIUM DESKTOP BACKGROUND IMAGE (Hidden on Mobile) --- */}
-      <motion.div 
-        className="absolute inset-0 hidden lg:block z-0"
-        initial={{ scale: 1.0 }}
-        animate={{ scale: 1.1 }}
-        transition={{ 
-          duration: 20, 
-          ease: "linear", 
-          repeat: Infinity, 
-          repeatType: "reverse" 
-        }}
-        style={{ willChange: "transform" }} // Forces GPU acceleration for 60fps
-      >
-        <Image
-          src="/images/hero-bg.webp" // Ensure this image exists in your public folder
-          alt="Home Care Repair Services in Rishikesh, Haridwar & Dehradun"
-          fill
-          className="object-cover"
-          priority // Critical for LCP (Largest Contentful Paint)
-          quality={85}
-        />
-      </motion.div>
+    <section className="relative overflow-hidden border-b border-border bg-slate-950 -mt-16">
+      {/* Blueprint Engineering SVGs — Main Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <HeroBackground />
+      </div>
 
-      {/* --- 2. GRADIENT OVERLAYS --- */}
-      {/* Base overlay for Mobile (Light Theme) */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-secondary/5 via-background/40 to-background z-[1]" />
-      
-      {/* Dark overlay for Desktop (Ensures text readability over the image) */}
-      <div className="pointer-events-none absolute inset-0 hidden lg:block bg-gradient-to-b from-black/50 via-black/60 to-background/95 z-[1]" />
+      {/* Subtle Radial Vignette */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at center, transparent 30%, rgba(2,6,23,0.8) 100%)" }}
+      />
 
-      {/* --- 3. FLOATING ICONS (Faded out on Desktop so they don't clash with the image) --- */}
-      {floatingIcons.map(({ Icon, className, delay }, i) => (
-        <motion.div
-          key={i}
-          className={`pointer-events-none absolute hidden text-secondary/25 lg:text-white/10 md:block z-[2] ${className}`}
-          animate={{ y: [0, -16, 0] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay }}
-        >
-          <Icon className="size-12 lg:size-16" />
-        </motion.div>
-      ))}
-
-      {/* --- 4. HERO CONTENT --- */}
-      <div className="relative z-10 mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 sm:py-28 lg:py-32">
-        
-        {/* Rating Badge - Turns into Glassmorphism on Desktop */}
+      {/* Hero Content - Scales with viewport */}
+      <div className="relative z-10 mx-auto w-full max-w-3xl px-5 pt-28 pb-20 text-center sm:px-6 sm:max-w-4xl sm:pt-32 sm:pb-24 lg:max-w-5xl xl:max-w-6xl lg:pt-32 lg:pb-20">
+        {/* Rating Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

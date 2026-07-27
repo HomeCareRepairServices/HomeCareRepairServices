@@ -1,10 +1,8 @@
 import { Hero } from "@/components/home/hero"
-import { ServiceCategories } from "@/components/home/service-categories"
 import { HowItWorks } from "@/components/home/how-it-works"
-import { PopularServices } from "@/components/home/popular-services"
+import { ServiceExplorer } from "@/components/services/ServiceExplorer"
 import { LocationsCarousel } from "@/components/services/locations-carousel"
 import { WhyChooseUs } from "@/components/home/why-choose-us"
-import { GalleryPreview } from "@/components/home/gallery-preview"
 import { Testimonials } from "@/components/home/testimonials"
 import { FaqPreview } from "@/components/home/faq-preview"
 import { ContactCta } from "@/components/contact-cta"
@@ -13,12 +11,22 @@ import { LocalBusinessSchema } from "@/components/schema"
 export default function Home() {
   return (
     <>
+      {/* JSON-LD for Local Business SEO */}
       <LocalBusinessSchema />
+
+      {/* 1. Hero Section (Includes Trust Indicators) */}
       <Hero />
-      <ServiceCategories />
+
+      {/* 2. How It Works */}
       <HowItWorks />
-      <PopularServices />
-{/* Premium Animated Locations Carousel */}
+
+      {/* 3. What Do You Need Fixed? (Service Explorer Accordion) */}
+      <ServiceExplorer />
+
+      {/* 4. Why Choose Us */}
+      <WhyChooseUs />
+
+      {/* 5. Areas We Work */}
       <section className="py-16 sm:py-20 bg-muted/30 border-y border-border">
         <div className="max-w-6xl mx-auto px-4 mb-8 text-center">
           <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
@@ -29,11 +37,15 @@ export default function Home() {
           </p>
         </div>
         <LocationsCarousel />
-      </section> 
-      <WhyChooseUs />
-      <GalleryPreview />
+      </section>
+
+      {/* 6. Customer Reviews */}
       <Testimonials />
+
+      {/* 7. FAQ Section */}
       <FaqPreview />
+
+      {/* 8. Final CTA */}
       <ContactCta />
     </>
   )
