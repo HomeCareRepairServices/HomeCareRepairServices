@@ -1,112 +1,254 @@
-"use client"
+'use client';
 
-import { motion } from "framer-motion"
-import {
-  BlueprintContainer,
-  BlueprintGlow,
-  BlueprintLabel,
-} from "../primitives"
+import React from 'react';
+import { motion } from 'framer-motion';
+import { useConstructionPhase } from '../hooks/useIllustrationAnimation';
+import { ELECTRICAL_COLORS, ANIMATION_TIMINGS, ANIMATION_EASING } from '../constants/colors';
+import { AnimatedPath, AnimatedGroup } from '../primitives/AnimatedPath';
+import { GlowBreathing } from '../primitives/EnergyFlow';
+import { ParticleFlow } from '../primitives/ParticleFlow';
 
-export default function Electrical() {
-  const breakerX = 640
-  const breakerY = 340
-  const load1X = 1140
-  const load1Y = 340
-  const load2X = 640
-  const load2Y = 620
-  const groundEndX = 280
-  const groundEndY = 820
+/**
+ * Electrical
+ *
+ * Premium product illustration celebrating intelligent energy distribution.
+ *
+ * Narrative: Shows a clean, modern home electrical system - power source flows through
+ * a breaker (protection), distributes to multiple zones/outlets, with subtle safety
+ * indicators showing intelligent load management and protection.
+ *
+ * Visual Language:
+ * - Clean schematic aesthetic (elegant geometry, not realistic wires)
+ * - Central breaker as protection/intelligence point
+ * - Multiple load endpoints showing distribution
+ * - Energy pulses flowing through the system
+ * - Warm amber energy accent color
+ * - Minimal, modern, trustworthy aesthetic
+ */
+export function Electrical() {
+  const { isConstructing, isLiving } = useConstructionPhase(ANIMATION_TIMINGS.constructionMedium + 1.5);
+
+  const energyParticles = [
+    // Source to breaker
+    { id: 'e1', startX: 20, startY: 120, endX: 50, endY: 120, delay: 0, duration: 1.5, radius: 1.5, color: ELECTRICAL_COLORS.energy, opacity: 0.8 },
+    { id: 'e2', startX: 22, startY: 115, endX: 48, endY: 115, delay: 0.4, duration: 1.5, radius: 1.2, color: ELECTRICAL_COLORS.primary, opacity: 0.6 },
+
+    // Breaker to load 1 (top-left)
+    { id: 'e3', startX: 65, startY: 90, endX: 100, endY: 85, delay: 0.8, duration: 2, radius: 1, color: ELECTRICAL_COLORS.energy, opacity: 0.7 },
+
+    // Breaker to load 2 (bottom-left)
+    { id: 'e4', startX: 65, startY: 150, endX: 100, endY: 155, delay: 1.2, duration: 2, radius: 1, color: ELECTRICAL_COLORS.energy, opacity: 0.7 },
+
+    // Breaker to load 3 (top-right)
+    { id: 'e5', startX: 70, startY: 110, endX: 140, endY: 90, delay: 0.9, duration: 2.2, radius: 1, color: ELECTRICAL_COLORS.energy, opacity: 0.6 },
+
+    // Breaker to load 4 (bottom-right)
+    { id: 'e6', startX: 70, startY: 130, endX: 140, endY: 150, delay: 1.3, duration: 2.2, radius: 1, color: ELECTRICAL_COLORS.energy, opacity: 0.6 },
+  ];
 
   return (
-    <BlueprintContainer isRoot={false}>
-      <g stroke="#80FFDB" strokeWidth="0.3" strokeDasharray="8 6" opacity={0.04}>
-        <line x1={breakerX} y1={280} x2={breakerX} y2={800} />
-        <line x1={200} y1={breakerY} x2={1200} y2={breakerY} />
-        <line x1={200} y1={load2Y} x2={800} y2={load2Y} />
-        <line x1={200} y1={groundEndY} x2={800} y2={groundEndY} />
-      </g>
+    <svg viewBox="0 0 240 240" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <filter id="glow-blur">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" />
+        </filter>
+      </defs>
 
-      <g stroke="#80FFDB" strokeWidth="0.6" fill="none" opacity={0.12}>
-        <line x1={160} y1={breakerY} x2={breakerX - 30} y2={breakerY} />
-        <path d={`M ${breakerX + 30} ${breakerY} L ${load1X - 30} ${load1Y}`} />
-        <path d={`M ${breakerX} ${breakerY + 30} L ${load2X} ${load2Y - 20}`} />
-        <path d={`M ${breakerX} ${breakerY + 30} L ${breakerX} ${groundEndY - 40}`} />
-        <path d={`M ${breakerX} ${groundEndY} L ${groundEndX} ${groundEndY}`} />
-      </g>
+      {/* === CONSTRUCTION PHASE === */}
+      {isConstructing && (
+        <>
+          {/* Stage 1: Main distribution frame (0-0.8s) */}
+          <AnimatedPath
+            d="M 15 80 L 200 80 L 205 85 L 205 155 L 200 160 L 15 160 Q 10 160 10 155 L 10 85 Q 10 80 15 80"
+            stroke={ELECTRICAL_COLORS.primary}
+            strokeWidth="1.5"
+            duration={ANIMATION_TIMINGS.constructionFast}
+            delay={0}
+            easing={ANIMATION_EASING.smooth}
+          />
 
-      <g transform={`translate(${breakerX}, ${breakerY})`}>
-        <rect x="-40" y="-50" width="80" height="100" rx="4" fill="none" stroke="#80FFDB" strokeWidth="0.8" opacity={0.15} />
-        <rect x="-34" y="-44" width="68" height="88" rx="2" fill="none" stroke="#EAF8FF" strokeWidth="0.3" opacity={0.06} />
-        <line x1="-50" y1="0" x2="50" y2="0" stroke="#EAF8FF" strokeWidth="0.2" opacity={0.06} />
-        <line x1="0" y1="-60" x2="0" y2="60" stroke="#EAF8FF" strokeWidth="0.2" opacity={0.06} />
-        <g stroke="#FFD166" strokeWidth="0.8" opacity={0.25}>
-          <path d="M -15,-10 L 0,0 L 15,10" />
-          <path d="M 15,-10 L 0,0 L -15,10" />
-        </g>
-        <motion.g
-          animate={{ opacity: [0, 1, 1, 0] }}
-          transition={{ duration: 12, times: [0.1, 0.14, 0.18, 0.22], repeat: Infinity }}
-        >
-          <circle r="25" fill="#FFD166" filter="url(#blueprint-glow)" opacity={0.6} />
-          <g stroke="#FFFFFF" strokeWidth="1" fill="none" opacity={0.8}>
-            <path d="M -15,-10 L 0,0 L 15,10" />
-            <path d="M 15,-10 L 0,0 L -15,10" />
-          </g>
-        </motion.g>
-      </g>
+          {/* Stage 2: Main power line and breaker (0.8-2s) */}
+          <AnimatedGroup
+            paths={[
+              {
+                d: 'M 10 120 L 50 120',
+                stroke: ELECTRICAL_COLORS.energy,
+                strokeWidth: 1.5,
+              },
+              {
+                d: 'M 50 105 L 50 135 L 70 135 L 70 105 Z',
+                stroke: ELECTRICAL_COLORS.primary,
+                strokeWidth: 1,
+                fill: 'none',
+              },
+            ]}
+            baseDelay={ANIMATION_TIMINGS.constructionFast}
+            stagger={0.15}
+            easing={ANIMATION_EASING.smooth}
+          />
 
-      <motion.circle
-        r="4"
-        fill="#9FFFCB"
-        filter="url(#blueprint-glow)"
-        animate={{
-          cx: [160, breakerX, breakerX, breakerX],
-          opacity: [0, 0.8, 0, 0],
-        }}
-        transition={{ duration: 12, times: [0, 0.02, 0.08, 0.12], repeat: Infinity, ease: "linear" }}
+          {/* Stage 3: Distribution lines to loads (2-3.2s) */}
+          <AnimatedGroup
+            paths={[
+              {
+                d: 'M 70 100 L 120 90',
+                stroke: ELECTRICAL_COLORS.primary,
+                strokeWidth: 0.8,
+              },
+              {
+                d: 'M 70 140 L 120 150',
+                stroke: ELECTRICAL_COLORS.primary,
+                strokeWidth: 0.8,
+              },
+              {
+                d: 'M 70 110 L 160 90',
+                stroke: ELECTRICAL_COLORS.primary,
+                strokeWidth: 0.8,
+              },
+              {
+                d: 'M 70 130 L 160 150',
+                stroke: ELECTRICAL_COLORS.primary,
+                strokeWidth: 0.8,
+              },
+            ]}
+            baseDelay={ANIMATION_TIMINGS.constructionFast + ANIMATION_TIMINGS.constructionMedium}
+            stagger={0.1}
+            easing={ANIMATION_EASING.smooth}
+          />
+
+          {/* Stage 4: Load endpoints (3.2-3.8s) */}
+          <motion.g
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              delay: ANIMATION_TIMINGS.constructionFast + ANIMATION_TIMINGS.constructionMedium + ANIMATION_TIMINGS.constructionSlow,
+              duration: 0.4,
+            }}
+          >
+            <circle cx="120" cy="90" r="5" fill={ELECTRICAL_COLORS.energy} opacity="0.2" />
+            <circle cx="120" cy="150" r="5" fill={ELECTRICAL_COLORS.energy} opacity="0.2" />
+            <circle cx="160" cy="90" r="5" fill={ELECTRICAL_COLORS.energy} opacity="0.2" />
+            <circle cx="160" cy="150" r="5" fill={ELECTRICAL_COLORS.energy} opacity="0.2" />
+            <circle cx="60" cy="120" r="4" fill={ELECTRICAL_COLORS.primary} opacity="0.2" filter="blur(3px)" />
+          </motion.g>
+        </>
+      )}
+
+      {/* === LIVING SYSTEM PHASE === */}
+      {isLiving && (
+        <>
+          {/* Power source glow (active) */}
+          <motion.circle
+            cx="15"
+            cy="120"
+            r="5"
+            fill={ELECTRICAL_COLORS.energy}
+            animate={{ opacity: [0.4, 1, 0.4] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+          />
+
+          {/* Breaker protection indicator (breathing glow) */}
+          <motion.rect
+            x="45"
+            y="105"
+            width="25"
+            height="30"
+            rx="2"
+            fill={ELECTRICAL_COLORS.primary}
+            animate={{ opacity: [0.15, 0.4, 0.15] }}
+            transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+          />
+
+          {/* Breaker internal state */}
+          <motion.line
+            x1="52"
+            y1="110"
+            x2="63"
+            y2="130"
+            stroke={ELECTRICAL_COLORS.primary}
+            strokeWidth="1"
+            animate={{ opacity: [0.3, 0.8, 0.3] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          />
+
+          {/* Energy particle flow through system */}
+          <ParticleFlow particles={energyParticles} loop={true} easing="linear" />
+
+          {/* Load indicators - breathing glows */}
+          <motion.circle
+            cx="120"
+            cy="90"
+            r="6"
+            fill={ELECTRICAL_COLORS.energy}
+            animate={{ opacity: [0.2, 0.7, 0.2] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <motion.circle
+            cx="120"
+            cy="150"
+            r="6"
+            fill={ELECTRICAL_COLORS.energy}
+            animate={{ opacity: [0.25, 0.6, 0.25] }}
+            transition={{ duration: 2.1, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
+          />
+          <motion.circle
+            cx="160"
+            cy="90"
+            r="6"
+            fill={ELECTRICAL_COLORS.energy}
+            animate={{ opacity: [0.3, 0.75, 0.3] }}
+            transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
+          />
+          <motion.circle
+            cx="160"
+            cy="150"
+            r="6"
+            fill={ELECTRICAL_COLORS.energy}
+            animate={{ opacity: [0.25, 0.65, 0.25] }}
+            transition={{ duration: 2.15, repeat: Infinity, ease: 'easeInOut', delay: 0.9 }}
+          />
+
+          {/* Ground connection indicators */}
+          <motion.path
+            d="M 120 100 L 120 110"
+            stroke={ELECTRICAL_COLORS.primary}
+            strokeWidth="0.8"
+            animate={{ opacity: [0.3, 0.7, 0.3] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <motion.path
+            d="M 160 100 L 160 110"
+            stroke={ELECTRICAL_COLORS.primary}
+            strokeWidth="0.8"
+            animate={{ opacity: [0.3, 0.7, 0.3] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
+          />
+        </>
+      )}
+
+      {/* Static system outline */}
+      <path
+        d="M 15 80 L 200 80 L 205 85 L 205 155 L 200 160 L 15 160 Q 10 160 10 155 L 10 85 Q 10 80 15 80"
+        fill="none"
+        stroke={ELECTRICAL_COLORS.primary}
+        strokeWidth="1.2"
+        opacity="0.5"
       />
 
-      <motion.circle
-        r="3.5"
-        fill="#06D6A0"
-        filter="url(#blueprint-glow)"
-        animate={{
-          cx: [breakerX, load1X, load1X, load1X],
-          cy: [breakerY, load1Y, load1Y, load1Y],
-          opacity: [0, 0.2, 0.2, 0],
-        }}
-        transition={{ duration: 12, times: [0.3, 0.5, 0.6, 0.65], repeat: Infinity, ease: "linear" }}
-      />
+      {/* Main power line */}
+      <line x1="10" y1="120" x2="200" y2="120" stroke={ELECTRICAL_COLORS.primary} strokeWidth="0.6" opacity="0.2" />
 
-      <motion.circle
-        r="3.5"
-        fill="#06D6A0"
-        filter="url(#blueprint-glow)"
-        animate={{
-          cx: [breakerX, load2X, load2X, load2X],
-          cy: [breakerY, load2Y, load2Y, load2Y],
-          opacity: [0, 0.2, 0.2, 0],
-        }}
-        transition={{ duration: 12, times: [0.5, 0.7, 0.8, 0.85], repeat: Infinity, ease: "linear" }}
-      />
+      {/* Breaker box (always visible) */}
+      <rect x="45" y="105" width="25" height="30" rx="2" fill="none" stroke={ELECTRICAL_COLORS.primary} strokeWidth="0.8" opacity="0.4" />
 
-      <motion.circle
-        r="3.5"
-        fill="#80FFDB"
-        filter="url(#blueprint-glow)"
-        animate={{
-          cx: [breakerX, breakerX, groundEndX, groundEndX],
-          cy: [breakerY, breakerY, groundEndY, groundEndY],
-          opacity: [0, 0.6, 0.6, 0],
-        }}
-        transition={{ duration: 12, times: [0.6, 0.8, 0.85, 0.9], repeat: Infinity, ease: "linear" }}
-      />
+      {/* Distribution lines */}
+      <path d="M 70 100 L 120 90 M 70 140 L 120 150 M 70 110 L 160 90 M 70 130 L 160 150" fill="none" stroke={ELECTRICAL_COLORS.primary} strokeWidth="0.6" opacity="0.25" strokeDasharray="1.5 1.5" />
 
-      <BlueprintLabel x={300} y={breakerY - 10} text="MAIN LINE" lineColor="#9FFFCB" textColor="#9FFFCB" />
-      <BlueprintLabel x={breakerX} y={breakerY - 70} text="BREAKER" lineColor="#FFD166" textColor="#FFD166" />
-      <BlueprintLabel x={load1X + 50} y={load1Y - 10} text="LOAD 1" lineColor="#06D6A0" textColor="#06D6A0" />
-      <BlueprintLabel x={load2X + 50} y={load2Y - 10} text="LOAD 2" lineColor="#06D6A0" textColor="#06D6A0" />
-      <BlueprintLabel x={groundEndX + 50} y={groundEndY - 10} text="GROUND" lineColor="#80FFDB" textColor="#80FFDB" />
-    </BlueprintContainer>
-  )
+      {/* Load endpoints */}
+      <circle cx="120" cy="90" r="4" fill="none" stroke={ELECTRICAL_COLORS.energy} strokeWidth="0.8" opacity="0.4" />
+      <circle cx="120" cy="150" r="4" fill="none" stroke={ELECTRICAL_COLORS.energy} strokeWidth="0.8" opacity="0.4" />
+      <circle cx="160" cy="90" r="4" fill="none" stroke={ELECTRICAL_COLORS.energy} strokeWidth="0.8" opacity="0.4" />
+      <circle cx="160" cy="150" r="4" fill="none" stroke={ELECTRICAL_COLORS.energy} strokeWidth="0.8" opacity="0.4" />
+    </svg>
+  );
 }
