@@ -1,303 +1,210 @@
-"use client"
+'use client';
 
-import { useEffect } from "react"
-import { motion, useMotionValue, useTransform, animate } from "framer-motion"
-import {
-  BlueprintContainer,
-  BlueprintGlow,
-  BlueprintNode,
-  BlueprintPipe,
-  BlueprintValve,
-  BlueprintArrow,
-  BlueprintLabel,
-  BlueprintParticle,
-} from "../primitives"
+import React from 'react';
+import { motion } from 'framer-motion';
+import { useConstructionPhase } from '../hooks/useIllustrationAnimation';
+import { REFRIGERATOR_COLORS, ANIMATION_TIMINGS, ANIMATION_EASING } from '../constants/colors';
+import { AnimatedPath, AnimatedGroup } from '../primitives/AnimatedPath';
+import { GlowBreathing, ThermalCycle } from '../primitives/EnergyFlow';
 
 /**
- * Refrigerator Cooling Circuit Blueprint
- * 
- * An engineering schematic illustrating the closed-loop vapor-compression cycle.
- * Features a continuous cyan pulse tracking the refrigerant flow.
+ * Refrigerator
+ *
+ * Premium product illustration celebrating intelligent cooling and freshness.
+ *
+ * Narrative: Shows an elegant refrigeration cycle where refrigerant travels through
+ * a closed loop - warm on the compressor side (amber glow), transforming into cool
+ * at the evaporator (blue glow) that chills the food chamber. Demonstrates the
+ * intelligent engineering that keeps food fresh.
+ *
+ * Visual Language:
+ * - Isometric 3D cutaway view
+ * - Color thermal gradient: warm (compressor) → cool (evaporator)
+ * - Elegant refrigerant cycle loop
+ * - Pulsing thermal indicators
+ * - Minimalist modern appliance aesthetic
  */
-export default function Refrigerator() {
-  // Layout Coordinates for the closed loop
-  const leftX = 720
-  const rightX = 1200
-  const topY = 460
-  const bottomY = 620
-  const cx = 960
-  const cy = 540
+export function Refrigerator() {
+  const { isConstructing, isLiving } = useConstructionPhase(ANIMATION_TIMINGS.constructionMedium + 1.5);
 
-  // Path string for the continuous loop
-  const circuitPath = `M ${leftX} ${topY} L ${rightX} ${topY} L ${rightX} ${bottomY} L ${leftX} ${bottomY} Z`
-
-  // Main driving progress value (0 to 1 over the cycle duration)
-  const progress = useMotionValue(0)
-
-  useEffect(() => {
-    const controls = animate(progress, [0, 1], {
-      duration: 14,
-      ease: "linear",
-      repeat: Infinity,
-    })
-    return () => controls.stop()
-  }, [progress])
-
-  // Sequence-driven state transforms based on progress
-  // 0.00-0.15: Compressor
-  const compressorScale = useTransform(
-    progress,
-    [0, 0.15, 0.85, 1],
-    [1, 1.1, 1, 1]
-  )
-
-  // 0.35-0.50: Expansion Valve
-  const valveOpen = useTransform(
-    progress,
-    [0.35, 0.5, 0.8, 1],
-    [0.5, 1, 1, 0.5]
-  )
-
-  // 0.45-0.70: Evaporator Glow
-  const evaporatorGlow = useTransform(
-    progress,
-    [0.4, 0.65, 0.85, 1],
-    [0, 0.2, 0.2, 0]
-  )
-
-  // 0.85-0.95: Temp Sensor Flash
-  const tempFlash = useTransform(
-    progress,
-    [0.85, 0.9, 0.95, 1],
-    [0, 1, 0, 0]
-  )
+  const cycleWaypoints = [
+    { x: 60, y: 80 },   // Compressor (warm)
+    { x: 140, y: 80 },  // Condenser (warm to cool)
+    { x: 140, y: 130 }, // Expansion
+    { x: 60, y: 130 },  // Evaporator (cold)
+  ];
 
   return (
-    <BlueprintContainer isRoot={false}>
-      {/* =========================================================
-          CAD GUIDE LINES
-          ========================================================= */}
-      <g stroke="#80FFDB" strokeWidth="0.3" strokeDasharray="8 6" opacity={0.04} vectorEffect="non-scaling-stroke">
-        <line x1={leftX} y1={topY - 40} x2={leftX} y2={bottomY + 40} />
-        <line x1={rightX} y1={topY - 40} x2={rightX} y2={bottomY + 40} />
-        <line x1={leftX - 40} y1={topY} x2={rightX + 40} y2={topY} />
-        <line x1={leftX - 40} y1={bottomY} x2={rightX + 40} y2={bottomY} />
-      </g>
+    <svg viewBox="0 0 240 240" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="fridge-body" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor={REFRIGERATOR_COLORS.bodyLight} stopOpacity="0.8" />
+          <stop offset="100%" stopColor={REFRIGERATOR_COLORS.background} stopOpacity="0.9" />
+        </linearGradient>
 
-      {/* =========================================================
-          COOLING CIRCUIT PIPES
-          ========================================================= */}
-      {/* High Pressure Side (Top & Right) */}
-      <g opacity={0.15} stroke="#80FFDB" strokeWidth="1" fill="none" vectorEffect="non-scaling-stroke">
-        <path d={`M ${leftX} ${topY} L ${rightX} ${topY}`} />
-        <path d={`M ${rightX} ${topY} L ${rightX} ${bottomY}`} />
-      </g>
-      {/* Low Pressure Side (Bottom & Left) */}
-      <g opacity={0.12} stroke="#80FFDB" strokeWidth="1" fill="none" vectorEffect="non-scaling-stroke">
-        <path d={`M ${rightX} ${bottomY} L ${leftX} ${bottomY}`} />
-        <path d={`M ${leftX} ${bottomY} L ${leftX} ${topY}`} />
-      </g>
+        <filter id="glow-blur">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" />
+        </filter>
+      </defs>
 
-      {/* Flow Direction Arrows */}
-      <g opacity={0.1}>
-        <BlueprintArrow x={(leftX + rightX) / 2} y={topY} rotation={0} strokeColor="#80FFDB" length={10} />
-        <BlueprintArrow x={rightX} y={(topY + bottomY) / 2} rotation={90} strokeColor="#80FFDB" length={10} />
-        <BlueprintArrow x={(leftX + rightX) / 2} y={bottomY} rotation={180} strokeColor="#80FFDB" length={10} />
-        <BlueprintArrow x={leftX} y={(topY + bottomY) / 2} rotation={270} strokeColor="#80FFDB" length={10} />
-      </g>
+      {/* === CONSTRUCTION PHASE === */}
+      {isConstructing && (
+        <>
+          {/* Stage 1: Main housing (0-0.8s) */}
+          <AnimatedPath
+            d="M 25 85 L 175 85 L 180 90 L 180 160 L 175 165 L 25 165 Q 20 165 20 160 L 20 90 Q 20 85 25 85"
+            stroke={REFRIGERATOR_COLORS.cool}
+            strokeWidth="1.5"
+            duration={ANIMATION_TIMINGS.constructionFast}
+            delay={0}
+            easing={ANIMATION_EASING.smooth}
+          />
 
-      {/* =========================================================
-          COMPRESSOR (Top-Left)
-          ========================================================= */}
-      <g transform={`translate(${leftX}, ${topY})`}>
-        <motion.g style={{ scale: compressorScale, transformOrigin: "0 0" }}>
-          <BlueprintNode size={50} strokeColor="#80FFDB" speed={0} />
-          {/* Internal Motor Schematic */}
-          <circle r="30" fill="none" stroke="#EAF8FF" strokeWidth="0.3" opacity={0.1} vectorEffect="non-scaling-stroke" />
-          <circle r="10" fill="none" stroke="#EAF8FF" strokeWidth="0.5" opacity={0.15} vectorEffect="non-scaling-stroke" />
-          <line x1="-20" y1="0" x2="20" y2="0" stroke="#EAF8FF" strokeWidth="0.4" opacity={0.1} vectorEffect="non-scaling-stroke" />
-          <line x1="0" y1="-20" x2="0" y2="20" stroke="#EAF8FF" strokeWidth="0.4" opacity={0.1} vectorEffect="non-scaling-stroke" />
-        </motion.g>
-        <BlueprintLabel x={0} y={70} text="COMPRESSOR" lineColor="#80FFDB" textColor="#EAF8FF" />
-      </g>
+          {/* Stage 2: Interior chamber (0.8-2s) */}
+          <AnimatedPath
+            d="M 30 100 L 170 100 L 170 155 L 30 155"
+            stroke={REFRIGERATOR_COLORS.coolDark}
+            strokeWidth="0.8"
+            duration={ANIMATION_TIMINGS.constructionMedium}
+            delay={ANIMATION_TIMINGS.constructionFast}
+            easing={ANIMATION_EASING.smooth}
+          />
 
-      {/* =========================================================
-          CONDENSER (Top-Right)
-          ========================================================= */}
-      <g transform={`translate(${rightX}, ${topY})`}>
-        <BlueprintNode size={50} strokeColor="#80FFDB" speed={0} />
-        {/* Internal Fin Schematic */}
-        <g stroke="#EAF8FF" strokeWidth="0.5" opacity={0.12} vectorEffect="non-scaling-stroke">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <line key={i} x1={-35 + i * 15} y1="-30" x2={-35 + i * 15} y2="30" />
-          ))}
-        </g>
-        <BlueprintLabel x={0} y={70} text="CONDENSER" lineColor="#80FFDB" textColor="#EAF8FF" />
-      </g>
+          {/* Stage 3: Cooling cycle loop (2-3.2s) */}
+          <AnimatedGroup
+            paths={[
+              {
+                d: 'M 50 95 L 110 95',
+                stroke: REFRIGERATOR_COLORS.warm,
+                strokeWidth: 1.2,
+              },
+              {
+                d: 'M 110 95 L 110 135',
+                stroke: REFRIGERATOR_COLORS.cool,
+                strokeWidth: 1.2,
+              },
+              {
+                d: 'M 110 135 L 50 135',
+                stroke: REFRIGERATOR_COLORS.coolDark,
+                strokeWidth: 1.2,
+              },
+              {
+                d: 'M 50 135 L 50 95',
+                stroke: REFRIGERATOR_COLORS.warm,
+                strokeWidth: 1.2,
+              },
+            ]}
+            baseDelay={ANIMATION_TIMINGS.constructionFast + ANIMATION_TIMINGS.constructionMedium}
+            stagger={0.12}
+            easing={ANIMATION_EASING.smooth}
+          />
 
-      {/* =========================================================
-          EXPANSION VALVE (Bottom-Right)
-          ========================================================= */}
-      <g transform={`translate(${rightX}, ${bottomY})`}>
-        <BlueprintNode size={40} strokeColor="#80FFDB" speed={0} />
-        <motion.g
-          style={{ scaleY: valveOpen, transformOrigin: "0 0" }}
-        >
-          <BlueprintValve strokeColor="#80FFDB" speed={0} isOpen={true} />
-        </motion.g>
-        <BlueprintLabel x={0} y={70} text="EXPANSION" lineColor="#FFD166" textColor="#FFD166" />
-      </g>
+          {/* Stage 4: Polish and glows (3.2-3.8s) */}
+          <motion.g
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              delay: ANIMATION_TIMINGS.constructionFast + ANIMATION_TIMINGS.constructionMedium + ANIMATION_TIMINGS.constructionSlow,
+              duration: 0.4,
+            }}
+          >
+            <circle cx="50" cy="95" r="5" fill={REFRIGERATOR_COLORS.warm} opacity="0.2" filter="blur(4px)" />
+            <circle cx="110" cy="115" r="5" fill={REFRIGERATOR_COLORS.cool} opacity="0.25" filter="blur(4px)" />
+          </motion.g>
+        </>
+      )}
 
-      {/* =========================================================
-          EVAPORATOR (Bottom-Left)
-          ========================================================= */}
-      <g transform={`translate(${leftX}, ${bottomY})`}>
-        <BlueprintNode size={50} strokeColor="#80FFDB" speed={0} />
-        {/* Internal Coil Schematic */}
-        <path
-          d="M -30,-20 Q -20,-30 -10,-20 T 10,-20 Q 20,-10 30,-20"
-          fill="none"
-          stroke="#9FFFCB"
-          strokeWidth="0.5"
-          opacity={0.15}
-          vectorEffect="non-scaling-stroke"
-        />
-        <path
-          d="M -30,0 Q -20,-10 -10,0 T 10,0 Q 20,10 30,0"
-          fill="none"
-          stroke="#9FFFCB"
-          strokeWidth="0.5"
-          opacity={0.15}
-          vectorEffect="non-scaling-stroke"
-        />
-        <path
-          d="M -30,20 Q -20,10 -10,20 T 10,20 Q 20,30 30,20"
-          fill="none"
-          stroke="#9FFFCB"
-          strokeWidth="0.5"
-          opacity={0.15}
-          vectorEffect="non-scaling-stroke"
-        />
-        
-        {/* Active Evaporator Glow */}
-        <motion.g
-          style={{ opacity: evaporatorGlow }}
-        >
-          <circle r={60} fill="#9FFFCB" filter="url(#blueprint-glow)" />
-        </motion.g>
+      {/* === LIVING SYSTEM PHASE === */}
+      {isLiving && (
+        <>
+          {/* Static structure */}
+          <rect x="30" y="100" width="140" height="55" rx="3" fill="url(#fridge-body)" opacity="0.15" />
 
-        <BlueprintLabel x={0} y={70} text="EVAPORATOR" lineColor="#9FFFCB" textColor="#9FFFCB" />
-      </g>
+          {/* Thermal cycle visualization */}
+          {/* Warm side (compressor) - amber glow */}
+          <motion.circle
+            cx="50"
+            cy="95"
+            r="4"
+            fill={REFRIGERATOR_COLORS.warm}
+            animate={{ opacity: [0.3, 0.8, 0.3] }}
+            transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          
+          {/* Cooling transition - gradient effect */}
+          <motion.circle
+            cx="110"
+            cy="100"
+            r="3"
+            fill={REFRIGERATOR_COLORS.cool}
+            animate={{ opacity: [0.2, 0.6, 0.2] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+          />
 
-      {/* =========================================================
-          TEMPERATURE SENSOR (Left, Midway)
-          ========================================================= */}
-      <g transform={`translate(${leftX - 80}, ${cy})`}>
-        <rect 
-          x="-18" y="-18" 
-          width="36" height="36" 
-          rx="4"
-          fill="none" 
-          stroke="#EAF8FF" 
-          strokeWidth="0.5" 
-          opacity={0.15} 
-          vectorEffect="non-scaling-stroke" 
-        />
-        <circle r="4" fill="none" stroke="#EAF8FF" strokeWidth="0.3" opacity={0.1} />
-        <text x="0" y="4" textAnchor="middle" fontSize="6" fontFamily="ui-monospace, monospace" fill="#EAF8FF" opacity={0.2}>°C</text>
-        
-        {/* Flash Indicator */}
-        <motion.circle
-          cx="0" cy="0" r="8"
-          fill="#06D6A0"
-          style={{ opacity: tempFlash }}
-          filter="url(#blueprint-glow)"
-        />
+          {/* Cold side (evaporator) - bright cool glow */}
+          <motion.circle
+            cx="110"
+            cy="135"
+            r="5"
+            fill={REFRIGERATOR_COLORS.coolDark}
+            animate={{ opacity: [0.4, 1, 0.4] }}
+            transition={{ duration: 2.3, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+          />
 
-        <BlueprintLabel x={0} y={40} text="TEMP SENSOR" lineColor="#06D6A0" textColor="#06D6A0" />
-      </g>
+          {/* Return path glow */}
+          <motion.circle
+            cx="50"
+            cy="135"
+            r="3"
+            fill={REFRIGERATOR_COLORS.warm}
+            animate={{ opacity: [0.25, 0.5, 0.25] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+          />
 
-      {/* =========================================================
-          CYAN PULSE (The Refrigerant)
-          ========================================================= */}
-      <motion.circle
-        r="6"
-        fill="#9FFFCB"
-        filter="url(#blueprint-glow)"
-        opacity={0.8}
-        animate={{
-          x: [
-            leftX, rightX, rightX, leftX, leftX // Top, Right, Bottom, Left, Top
-          ],
-          y: [
-            topY, topY, bottomY, bottomY, topY
-          ]
-        }}
-        transition={{
-          duration: 14,
-          ease: "linear",
-          repeat: Infinity,
-          times: [0, 0.25, 0.5, 0.75, 1]
-        }}
+          {/* Interior cold air indicator */}
+          <motion.path
+            d="M 140 110 L 145 110 M 140 120 L 145 120 M 140 130 L 145 130"
+            stroke={REFRIGERATOR_COLORS.coolDark}
+            strokeWidth="1"
+            strokeLinecap="round"
+            animate={{ opacity: [0.4, 0.9, 0.4] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+          />
+
+          {/* Frost sparkle effect (subtle) */}
+          <motion.circle
+            cx="160"
+            cy="105"
+            r="1.5"
+            fill={REFRIGERATOR_COLORS.frost}
+            animate={{ opacity: [0, 0.8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeOut' }}
+          />
+          <motion.circle
+            cx="162"
+            cy="125"
+            r="1"
+            fill={REFRIGERATOR_COLORS.frost}
+            animate={{ opacity: [0, 0.7, 0] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeOut', delay: 0.3 }}
+          />
+        </>
+      )}
+
+      {/* Static cooling cycle outline */}
+      <path d="M 50 95 L 110 95 L 110 135 L 50 135 Z" fill="none" stroke={REFRIGERATOR_COLORS.primary} strokeWidth="1" opacity="0.4" />
+
+      {/* Fridge housing outline */}
+      <path
+        d="M 25 85 L 175 85 L 180 90 L 180 160 L 175 165 L 25 165 Q 20 165 20 160 L 20 90 Q 20 85 25 85"
+        fill="none"
+        stroke={REFRIGERATOR_COLORS.cool}
+        strokeWidth="1.2"
+        opacity="0.5"
       />
 
-      {/* Secondary trailing pulse for depth */}
-      <motion.circle
-        r="4"
-        fill="#80FFDB"
-        opacity={0.4}
-        animate={{
-          x: [
-            leftX, rightX, rightX, leftX, leftX
-          ],
-          y: [
-            topY, topY, bottomY, bottomY, topY
-          ]
-        }}
-        transition={{
-          duration: 14,
-          ease: "linear",
-          repeat: Infinity,
-          times: [0.02, 0.27, 0.52, 0.77, 1.02]
-        }}
-      />
-
-      {/* =========================================================
-          AMBIENT TECHNICAL DETAILS
-          ========================================================= */}
-      {/* Connection bolts at corners */}
-      {[
-        [leftX, topY],
-        [rightX, topY],
-        [rightX, bottomY],
-        [leftX, bottomY]
-      ].map(([bx, by], i) => (
-        <g key={i} transform={`translate(${bx}, ${by})`}>
-          <circle r="3" fill="none" stroke="#80FFDB" strokeWidth="0.3" opacity={0.2} />
-          <circle r="0.8" fill="#80FFDB" opacity={0.3} />
-        </g>
-      ))}
-
-      {/* Expansion valve state text */}
-      <text x={rightX + 60} y={bottomY + 10} fontSize="5" fontFamily="ui-monospace, monospace" fill="#FFD166" opacity={0.2} letterSpacing="0.5">
-        <motion.tspan
-          animate={{ opacity: [0.2, 0.8, 0.2] }}
-          transition={{ duration: 14, times: [0.35, 0.5, 0.8, 1], repeat: Infinity }}
-        >
-          OPEN
-        </motion.tspan>
-      </text>
-
-      {/* Evaporator state text */}
-      <text x={leftX - 80} y={cy - 40} fontSize="5" fontFamily="ui-monospace, monospace" fill="#9FFFCB" opacity={0.2} letterSpacing="0.5">
-        <motion.tspan
-          animate={{ opacity: [0.2, 0.8, 0.2] }}
-          transition={{ duration: 14, times: [0.4, 0.65, 0.85, 1], repeat: Infinity }}
-        >
-          ABSORBING
-        </motion.tspan>
-      </text>
-
-    </BlueprintContainer>
-  )
+      {/* Interior chamber outline */}
+      <rect x="30" y="100" width="140" height="55" rx="3" fill="none" stroke={REFRIGERATOR_COLORS.coolDark} strokeWidth="0.8" opacity="0.3" />
+    </svg>
+  );
 }

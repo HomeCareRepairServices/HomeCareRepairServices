@@ -1,420 +1,201 @@
-"use client"
+'use client';
 
-import { motion } from "framer-motion"
-import {
-  BlueprintContainer,
-  BlueprintGlow,
-  BlueprintNode,
-  BlueprintLabel,
-  BlueprintParticle,
-} from "../primitives"
+import React from 'react';
+import { motion } from 'framer-motion';
+import { useConstructionPhase } from '../hooks/useIllustrationAnimation';
+import { WASHING_MACHINE_COLORS, ANIMATION_TIMINGS, ANIMATION_EASING } from '../constants/colors';
+import { AnimatedPath, AnimatedGroup } from '../primitives/AnimatedPath';
+import { ParticleFlow } from '../primitives/ParticleFlow';
 
 /**
- * WashingMachine Blueprint
- * 
- * A front-load washing machine schematic illustrating the mechanical wash cycle.
- * Features a precise oscillating drum, cascading water flow, and internal motor linkage.
+ * WashingMachine
+ *
+ * Premium product illustration celebrating clean through intelligent motion.
+ *
+ * Narrative: Shows a rotating drum with water inlet at top flowing down,
+ * circulating around the rotating drum (where clothes tumble and clean),
+ * and draining at the bottom. The gentle drum rotation and water flow
+ * illustrate the elegance of the wash cycle.
+ *
+ * Visual Language:
+ * - Isometric 3D cutaway view
+ * - Central rotating drum as the hero element
+ * - Water flow animation showing circulation
+ * - Gentle drum rotation (not aggressive)
+ * - Aqua/silver metallic aesthetic
  */
-export default function WashingMachine() {
-  // Core Layout Coordinates
-  const cx = 960
-  const cy = 560
+export function WashingMachine() {
+  const { isConstructing, isLiving } = useConstructionPhase(ANIMATION_TIMINGS.constructionMedium + 1.5);
 
-  // Machine Housing Dimensions
-  const mx = 760 // machine x start
-  const my = 460 // machine y start
-  const mw = 400 // machine width
-  const mh = 220 // machine height
+  const waterParticles = [
+    // Inlet water flowing down
+    { id: 'w1', startX: 120, startY: 85, endX: 100, endY: 110, delay: 0, duration: 2, radius: 1.5, color: WASHING_MACHINE_COLORS.waterDark, opacity: 0.7 },
+    { id: 'w2', startX: 120, startY: 90, endX: 105, endY: 115, delay: 0.3, duration: 2, radius: 1.3, color: WASHING_MACHINE_COLORS.waterDark, opacity: 0.6 },
 
-  // Sub-component Coordinates
-  const drumX = cx
-  const drumY = cy
-  const drumR = 75
+    // Water circulating around drum
+    { id: 'w3', startX: 95, startY: 120, endX: 85, endY: 140, delay: 0.8, duration: 2.2, radius: 1.2, color: WASHING_MACHINE_COLORS.aqua, opacity: 0.5 },
+    { id: 'w4', startX: 130, startY: 120, endX: 140, endY: 140, delay: 1, duration: 2.2, radius: 1.2, color: WASHING_MACHINE_COLORS.aqua, opacity: 0.5 },
 
-  const motorX = mx + 80
-  const motorY = my + mh - 40
-
-  const controlX = mx + mw - 70
-  const controlY = my + 40
-
-  const inletX = cx - 60
-  const outletX = cx + 60
-  const pipeY = my - 20
+    // Water draining
+    { id: 'w5', startX: 120, startY: 150, endX: 120, endY: 175, delay: 2, duration: 1.8, radius: 1, color: WASHING_MACHINE_COLORS.waterGlow, opacity: 0.6 },
+  ];
 
   return (
-    <BlueprintContainer isRoot={false}>
-      {/* =========================================================
-          GLOBAL DEFS (Drum Mesh Pattern)
-          ========================================================= */}
+    <svg viewBox="0 0 240 240" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
       <defs>
-        <pattern id="drum-mesh" width="8" height="8" patternUnits="userSpaceOnUse">
-          <circle cx="4" cy="4" r="0.8" fill="none" stroke="#80FFDB" strokeWidth="0.2" opacity="0.4" />
-        </pattern>
+        <linearGradient id="drum-body" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor={WASHING_MACHINE_COLORS.silver} stopOpacity="0.3" />
+          <stop offset="100%" stopColor={WASHING_MACHINE_COLORS.silverLight} stopOpacity="0.15" />
+        </linearGradient>
+
+        <filter id="glow-blur">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" />
+        </filter>
       </defs>
 
-      {/* =========================================================
-          BACKGROUND MECHANICS (Subtle blueprints)
-          ========================================================= */}
-      <g opacity={0.04} stroke="#80FFDB" strokeWidth="0.3" strokeDasharray="6 8" vectorEffect="non-scaling-stroke">
-        <line x1={cx} y1={my - 30} x2={cx} y2={my + mh + 30} />
-        <line x1={motorX} y1={my - 30} x2={motorX} y2={my + mh + 30} />
-        <line x1={mx} y1={cy} x2={mx + mw} y2={cy} />
-      </g>
-
-      <BlueprintGlow x={cx} y={cy} color="#80FFDB" radius={100} opacity={0.02} />
-
-
-      {/* =========================================================
-          MAIN MACHINE HOUSING
-          ========================================================= */}
-      {/* Outer Casing */}
-      <rect 
-        x={mx} y={my} 
-        width={mw} height={mh} 
-        rx="16" ry="16"
-        fill="none" 
-        stroke="#80FFDB" 
-        strokeWidth="0.8" 
-        opacity={0.15} 
-        vectorEffect="non-scaling-stroke" 
-      />
-      {/* Inner Casing */}
-      <rect 
-        x={mx + 12} y={my + 12} 
-        width={mw - 24} height={mh - 24} 
-        rx="12" ry="12"
-        fill="none" 
-        stroke="#80FFDB" 
-        strokeWidth="0.3" 
-        opacity={0.08} 
-        vectorEffect="non-scaling-stroke" 
-      />
-
-      {/* Door Seal Ring */}
-      <circle 
-        cx={cx} cy={cy} 
-        r={drumR + 8} 
-        fill="none" 
-        stroke="#EAF8FF" 
-        strokeWidth="0.5" 
-        opacity={0.1} 
-        vectorEffect="non-scaling-stroke" 
-      />
-      <circle 
-        cx={cx} cy={cy} 
-        r={drumR + 4} 
-        fill="none" 
-        stroke="#EAF8FF" 
-        strokeWidth="0.3" 
-        strokeDasharray="4 4"
-        opacity={0.08} 
-        vectorEffect="non-scaling-stroke" 
-      />
-
-
-      {/* =========================================================
-          DRUM (Center)
-          ========================================================= */}
-      <g transform={`translate(${drumX}, ${drumY})`}>
-        {/* Drum Shell */}
-        <circle 
-          r={drumR} 
-          fill="none" 
-          stroke="#80FFDB" 
-          strokeWidth="0.8" 
-          opacity={0.2} 
-          vectorEffect="non-scaling-stroke" 
-        />
-        
-        {/* Mesh Pattern inside drum */}
-        <circle 
-          r={drumR - 4} 
-          fill="url(#drum-mesh)" 
-          opacity={0.6}
-        />
-
-        {/* Pulsing wash/swirl effect inside drum */}
-        <motion.g
-          animate={{ rotate: 360 }}
-          transition={{ duration: 6, ease: "linear", repeat: Infinity }}
-          style={{ transformOrigin: "0px 0px" }}
-        >
-          <path 
-            d="M -40,0 A 40,40 0 0,1 0,0 A 40,40 0 0,1 -40,0" 
-            fill="none" 
-            stroke="#CAF0F8" 
-            strokeWidth="0.5" 
-            opacity={0.1} 
-            vectorEffect="non-scaling-stroke"
-            strokeDasharray="2 4"
+      {/* === CONSTRUCTION PHASE === */}
+      {isConstructing && (
+        <>
+          {/* Stage 1: Washing machine housing (0-0.8s) */}
+          <AnimatedPath
+            d="M 30 75 L 200 75 L 205 80 L 205 160 L 200 165 L 30 165 Q 25 165 25 160 L 25 80 Q 25 75 30 75"
+            stroke={WASHING_MACHINE_COLORS.aqua}
+            strokeWidth="1.5"
+            duration={ANIMATION_TIMINGS.constructionFast}
+            delay={0}
+            easing={ANIMATION_EASING.smooth}
           />
-          <path 
-            d="M 0,-50 A 50,50 0 0,1 0,50 A 50,50 0 0,1 0,-50" 
-            fill="none" 
-            stroke="#CAF0F8" 
-            strokeWidth="0.5" 
-            opacity={0.1} 
-            vectorEffect="non-scaling-stroke"
-            strokeDasharray="2 4"
+
+          {/* Stage 2: Drum outline (0.8-2s) */}
+          <AnimatedPath
+            d="M 80 95 L 160 95 L 160 145 L 80 145 Z"
+            stroke={WASHING_MACHINE_COLORS.silver}
+            strokeWidth="1"
+            duration={ANIMATION_TIMINGS.constructionMedium}
+            delay={ANIMATION_TIMINGS.constructionFast}
+            easing={ANIMATION_EASING.smooth}
           />
-        </motion.g>
 
-        {/* The Drum Itself - OSCILLATING MOTION */}
-        {/* 10° -> Pause -> -10° -> Pause */}
-        <motion.g
-          animate={{ rotate: [0, 10, 10, 0, -10, -10, 0] }}
-          transition={{ 
-            duration: 12, 
-            times: [0, 0.18, 0.35, 0.5, 0.68, 0.85, 1], 
-            ease: "easeInOut", 
-            repeat: Infinity 
-          }}
-          style={{ transformOrigin: "0px 0px" }}
-        >
-          {/* Structural Fins */}
-          <g stroke="#80FFDB" strokeWidth="0.6" opacity={0.15} vectorEffect="non-scaling-stroke">
-            <line x1={0} y1={-drumR + 10} x2={0} y2={drumR - 10} />
-            <line x1={-drumR + 10} y1={0} x2={drumR - 10} y2={0} />
-            <line x1={-drumR * 0.7} y1={-drumR * 0.7} x2={drumR * 0.7} y2={drumR * 0.7} />
-            <line x1={-drumR * 0.7} y1={drumR * 0.7} x2={drumR * 0.7} y2={-drumR * 0.7} />
-            <line x1={drumR * 0.7} y1={-drumR * 0.7} x2={-drumR * 0.7} y2={-drumR * 0.7} />
-            <line x1={drumR * 0.7} y1={drumR * 0.7} x2={-drumR * 0.7} y2={drumR * 0.7} />
-          </g>
-          <circle r="8" fill="none" stroke="#80FFDB" strokeWidth="0.4" opacity={0.12} />
-        </motion.g>
-      </g>
+          {/* Stage 3: Water inlet and drain (2-3.2s) */}
+          <AnimatedGroup
+            paths={[
+              {
+                d: 'M 120 75 L 120 95',
+                stroke: WASHING_MACHINE_COLORS.waterDark,
+                strokeWidth: 1.2,
+              },
+              {
+                d: 'M 120 145 L 120 170',
+                stroke: WASHING_MACHINE_COLORS.waterGlow,
+                strokeWidth: 1,
+              },
+            ]}
+            baseDelay={ANIMATION_TIMINGS.constructionFast + ANIMATION_TIMINGS.constructionMedium}
+            stagger={0.2}
+            easing={ANIMATION_EASING.smooth}
+          />
 
+          {/* Stage 4: Polish and glows (3.2-3.8s) */}
+          <motion.g
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              delay: ANIMATION_TIMINGS.constructionFast + ANIMATION_TIMINGS.constructionMedium + ANIMATION_TIMINGS.constructionSlow,
+              duration: 0.4,
+            }}
+          >
+            <circle cx="120" cy="85" r="4" fill={WASHING_MACHINE_COLORS.waterDark} opacity="0.2" filter="blur(3px)" />
+            <circle cx="120" cy="175" r="3" fill={WASHING_MACHINE_COLORS.waterGlow} opacity="0.2" filter="blur(3px)" />
+            <circle cx="120" cy="120" r="6" fill={WASHING_MACHINE_COLORS.aqua} opacity="0.15" filter="blur(4px)" />
+          </motion.g>
+        </>
+      )}
 
-      {/* =========================================================
-          MOTOR (Bottom Left)
-          ========================================================= */}
-      <g transform={`translate(${motorX}, ${motorY})`}>
-        {/* Motor Housing */}
-        <rect 
-          x="-50" y="-35" 
-          width="100" height="70" 
-          rx="6"
-          fill="none" 
-          stroke="#80FFDB" 
-          strokeWidth="0.5" 
-          opacity={0.15} 
-          vectorEffect="non-scaling-stroke" 
-        />
-        
-        {/* Internal Stator Lines */}
-        <g stroke="#EAF8FF" strokeWidth="0.3" opacity={0.1} vectorEffect="non-scaling-stroke">
-          <circle r="22" fill="none" />
-          <circle r="12" fill="none" />
-          <line x1="-28" y1="0" x2="28" y2="0" />
-          <line x1="0" y1="-28" x2="0" y2="28" />
-        </g>
+      {/* === LIVING SYSTEM PHASE === */}
+      {isLiving && (
+        <>
+          {/* Drum body fill */}
+          <rect x="80" y="95" width="80" height="50" rx="3" fill="url(#drum-body)" />
 
-        {/* Motor Shaft to Drum connection line */}
-        <line 
-          x1="50" y1="0" x2={drumX - drumR - 8} 
-          y2={drumY} 
-          stroke="#80FFDB" 
-          strokeWidth="0.5" 
-          opacity={0.12} 
-          vectorEffect="non-scaling-stroke"
-          strokeDasharray="6 3" 
-        />
-        
-        {/* Motor Activity Pulse */}
-        <motion.circle
-          cx="0" cy="0" r="4"
-          fill="#06D6A0"
-          filter="url(#blueprint-glow)"
-          animate={{ opacity: [0, 0.6, 0] }}
-          transition={{ duration: 12, times: [0.4, 0.5, 0.65, 0.8, 0.95, 1], repeat: Infinity }}
-        />
-      </g>
+          {/* Rotating drum (gentle rotation) */}
+          <motion.g
+            animate={{ rotate: 360 }}
+            transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
+            style={{ transformOrigin: '120px 120px' }}
+          >
+            {/* Drum ribs/texture */}
+            <line x1="80" y1="120" x2="160" y2="120" stroke={WASHING_MACHINE_COLORS.silver} strokeWidth="0.6" opacity="0.5" />
+            <line x1="85" y1="100" x2="155" y2="100" stroke={WASHING_MACHINE_COLORS.silverLight} strokeWidth="0.5" opacity="0.3" />
+            <line x1="85" y1="140" x2="155" y2="140" stroke={WASHING_MACHINE_COLORS.silverLight} strokeWidth="0.5" opacity="0.3" />
+          </motion.g>
 
-      {/* =========================================================
-          BELT MECHANISM (Visual Link)
-          ========================================================= */}
-      <line 
-        x1={motorX} y1={motorY - 35} 
-        x2={drumX - drumR - 8} y2={drumY + 10} 
-        stroke="#EAF8FF" 
-        strokeWidth="1" 
-        opacity={0.06} 
-        vectorEffect="non-scaling-stroke" 
-      />
-      <line 
-        x1={motorX + 2} y1={motorY - 33} 
-        x2={drumX - drumR - 6} y2={drumY + 12} 
-        stroke="#EAF8FF" 
-        strokeWidth="0.5" 
-        opacity={0.08} 
-        vectorEffect="non-scaling-stroke" 
-      />
-
-
-      {/* =========================================================
-          CONTROL MODULE (Top Right)
-          ========================================================= */}
-      <g transform={`translate(${controlX}, ${controlY})`}>
-        <rect 
-          x="-50" y="-25" 
-          width="100" height="50" 
-          rx="8"
-          fill="none" 
-          stroke="#80FFDB" 
-          strokeWidth="0.5" 
-          opacity={0.12} 
-          vectorEffect="non-scaling-stroke" 
-        />
-        
-        {/* Display Panel Lines */}
-        <g stroke="#EAF8FF" strokeWidth="0.3" opacity={0.1} vectorEffect="non-scaling-stroke">
-          <line x1="-30" y1="-10" x2="30" y2="-10" />
-          <line x1="-30" y1="0" x2="30" y2="0" />
-          <line x1="-30" y1="10" x2="30" y2="10" />
-          <rect x="10" y="-15" width="25" height="30" rx="2" />
-        </g>
-
-        {/* LEDs */}
-        <g>
+          {/* Drum center glow (activity indicator) */}
           <motion.circle
-            cx="-20" cy="-8" r="2"
-            fill="#06D6A0"
-            animate={{ opacity: [0.1, 0.6, 0.1] }}
-            transition={{ duration: 3, repeat: Infinity, delay: 0 }}
+            cx="120"
+            cy="120"
+            r="20"
+            fill={WASHING_MACHINE_COLORS.aqua}
+            animate={{ opacity: [0.1, 0.3, 0.1] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+          />
+
+          {/* Water inlet flow */}
+          <motion.path
+            d="M 115 85 Q 120 90 125 85 M 115 82 Q 120 87 125 82"
+            stroke={WASHING_MACHINE_COLORS.waterDark}
+            strokeWidth="1"
+            strokeLinecap="round"
+            animate={{ opacity: [0.4, 0.9, 0.4] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+          />
+
+          {/* Particle flow through wash cycle */}
+          <ParticleFlow particles={waterParticles} loop={true} easing="easeInOut" />
+
+          {/* Water circulation glow indicators */}
+          <motion.circle
+            cx="90"
+            cy="130"
+            r="3"
+            fill={WASHING_MACHINE_COLORS.aqua}
+            animate={{ opacity: [0.2, 0.6, 0.2] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           />
           <motion.circle
-            cx="-20" cy="2" r="2"
-            fill="#80FFDB"
-            animate={{ opacity: [0.1, 0.6, 0.1] }}
-            transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
+            cx="150"
+            cy="130"
+            r="3"
+            fill={WASHING_MACHINE_COLORS.aqua}
+            animate={{ opacity: [0.2, 0.6, 0.2] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
           />
-          <motion.circle
-            cx="-20" cy="12" r="2"
-            fill="#FFD166"
-            animate={{ opacity: [0.1, 0.6, 0.1] }}
-            transition={{ duration: 4, repeat: Infinity, delay: 0.5 }}
+
+          {/* Drain flow indicator */}
+          <motion.path
+            d="M 120 150 L 120 160"
+            stroke={WASHING_MACHINE_COLORS.waterGlow}
+            strokeWidth="1.2"
+            strokeLinecap="round"
+            animate={{ opacity: [0.5, 0.9, 0.5] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
           />
-        </g>
+        </>
+      )}
 
-        {/* Wiring to Motor */}
-        <path 
-          d={`M -50,0 L ${motorX - controlX + 50}, ${motorY - controlY}`} 
-          fill="none" 
-          stroke="#80FFDB" 
-          strokeWidth="0.3" 
-          opacity={0.08} 
-          strokeDasharray="4 6"
-          vectorEffect="non-scaling-stroke" 
-        />
-      </g>
-
-
-      {/* =========================================================
-          WATER FLOW: INLET
-          ========================================================= */}
-      {/* Inlet Pipe */}
-      <g opacity={0.15} stroke="#80FFDB" strokeWidth="0.5" fill="none" vectorEffect="non-scaling-stroke">
-        <path d={`M ${inletX} ${pipeY} L ${inletX} ${drumY - drumR - 8}`} />
-        <path d={`M ${inletX - 4} ${pipeY} L ${inletX - 4} ${drumY - drumR - 4}`} />
-        <line x1={inletX - 6} y1={pipeY} x2={inletX + 6} y2={pipeY} />
-      </g>
-
-      {/* Inlet Flow Particles (Moving Down) */}
-      <motion.circle
-        cx={inletX - 2} r="1.5" fill="#CAF0F8"
-        animate={{ y: [pipeY, drumY - 40, pipeY], opacity: [0, 0.6, 0] }}
-        transition={{ duration: 6, ease: "linear", repeat: Infinity, delay: 0 }}
-      />
-      <motion.circle
-        cx={inletX + 2} r="1" fill="#CAF0F8"
-        animate={{ y: [pipeY, drumY - 30, pipeY], opacity: [0, 0.5, 0] }}
-        transition={{ duration: 6, ease: "linear", repeat: Infinity, delay: 2 }}
-      />
-      <motion.circle
-        cx={inletX} r="1.2" fill="#CAF0F8"
-        animate={{ y: [pipeY, drumY - 50, pipeY], opacity: [0, 0.4, 0] }}
-        transition={{ duration: 6, ease: "linear", repeat: Infinity, delay: 4 }}
+      {/* Static outlines */}
+      <path
+        d="M 30 75 L 200 75 L 205 80 L 205 160 L 200 165 L 30 165 Q 25 165 25 160 L 25 80 Q 25 75 30 75"
+        fill="none"
+        stroke={WASHING_MACHINE_COLORS.aqua}
+        strokeWidth="1.2"
+        opacity="0.5"
       />
 
+      {/* Drum outline */}
+      <rect x="80" y="95" width="80" height="50" rx="3" fill="none" stroke={WASHING_MACHINE_COLORS.silver} strokeWidth="0.8" opacity="0.4" />
 
-      {/* =========================================================
-          WATER FLOW: SWIRL (Inside Drum - visual only)
-          Note: True swirl is handled by the rotating drum mesh pattern,
-          but these particles add a nice layered fluid effect.
-          ========================================================= */}
-      <motion.g
-        animate={{ rotate: 360 }}
-        transition={{ duration: 12, ease: "linear", repeat: Infinity }}
-        style={{ transformOrigin: `${drumX}px ${drumY}px` }}
-      >
-        <motion.circle
-          cx={drumX - 20} cy={drumY - 20} r="1" fill="#80FFDB"
-          animate={{ opacity: [0, 0.4, 0] }}
-          transition={{ duration: 3, repeat: Infinity, delay: 0 }}
-        />
-        <motion.circle
-          cx={drumX + 25} cy={drumY + 15} r="1.2" fill="#9FFFCB"
-          animate={{ opacity: [0, 0.5, 0] }}
-          transition={{ duration: 3, repeat: Infinity, delay: 1.5 }}
-        />
-        <motion.circle
-          cx={drumX - 10} cy={drumY + 25} r="0.8" fill="#80FFDB"
-          animate={{ opacity: [0, 0.3, 0] }}
-          transition={{ duration: 3, repeat: Infinity, delay: 3 }}
-        />
-      </motion.g>
-
-
-      {/* =========================================================
-          WATER FLOW: DRAIN
-          ========================================================= */}
-      {/* Outlet Pipe */}
-      <g opacity={0.15} stroke="#80FFDB" strokeWidth="0.5" fill="none" vectorEffect="non-scaling-stroke">
-        <path d={`M ${outletX} ${drumY + drumR + 8} L ${outletX} ${my + mh + 10}`} />
-        <path d={`M ${outletX - 4} ${drumY + drumR + 4} L ${outletX - 4} ${my + mh + 14}`} />
-        <line x1={outletX - 6} y1={my + mh + 10} x2={outletX + 6} y2={my + mh + 10} />
-      </g>
-
-      {/* Drain Flow Particles (Moving Down) */}
-      <motion.circle
-        cx={outletX - 1} r="1.5" fill="#06D6A0"
-        animate={{ y: [drumY + drumR, my + mh + 20, drumY + drumR], opacity: [0, 0.6, 0] }}
-        transition={{ duration: 6, ease: "linear", repeat: Infinity, delay: 6 }}
-      />
-      <motion.circle
-        cx={outletX + 1} r="1" fill="#06D6A0"
-        animate={{ y: [drumY + drumR, my + mh + 10, drumY + drumR], opacity: [0, 0.4, 0] }}
-        transition={{ duration: 6, ease: "linear", repeat: Infinity, delay: 8 }}
-      />
-      <motion.circle
-        cx={outletX} r="1.2" fill="#06D6A0"
-        animate={{ y: [drumY + drumR, my + mh + 30, drumY + drumR], opacity: [0, 0.5, 0] }}
-        transition={{ duration: 6, ease: "linear", repeat: Infinity, delay: 10 }}
-      />
-
-
-      {/* =========================================================
-          TECHNICAL ANNOTATIONS (LABELS)
-          ========================================================= */}
-      <BlueprintLabel x={inletX} y={pipeY - 30} text="INLET" lineColor="#CAF0F8" textColor="#CAF0F8" />
-      <BlueprintLabel x={drumX} y={drumY + drumR + 50} text="DRUM" lineColor="#80FFDB" textColor="#EAF8FF" />
-      <BlueprintLabel x={motorX} y={motorY + 55} text="MOTOR" lineColor="#06D6A0" textColor="#06D6A0" />
-      <BlueprintLabel x={outletX} y={my + mh + 30} text="DRAIN" lineColor="#06D6A0" textColor="#06D6A0" />
-      <BlueprintLabel x={controlX} y={controlY - 45} text="CONTROL" lineColor="#80FFDB" textColor="#EAF8FF" />
-
-
-      {/* =========================================================
-          CAD REGISTRATION MARKS
-          ========================================================= */}
-      <g stroke="#80FFDB" strokeWidth="0.3" opacity={0.06} vectorEffect="non-scaling-stroke">
-        <line x1={mx - 20} y1={my - 20} x2={mx + 20} y2={my - 20} />
-        <line x1={mx - 20} y1={my - 20} x2={mx - 20} y2={my + 20} />
-        <line x1={mx + mw + 20} y1={my - 20} x2={mx + mw + 20} y2={my + 20} />
-        <line x1={mx + mw + 20} y1={my - 20} x2={mx + mw + 20} y2={my + 20} />
-        <line x1={mx - 20} y1={my + mh + 20} x2={mx + mw + 20} y2={my + mh + 20} />
-        <line x1={mx - 20} y1={my + mh + 20} x2={mx - 20} y2={my + mh + 40} />
-        <line x1={mx + mw + 20} y1={my + mh + 20} x2={mx + mw + 20} y2={my + mh + 40} />
-      </g>
-    </BlueprintContainer>
-  )
+      {/* Water pathways */}
+      <path d="M 120 75 L 120 95 L 90 130 L 150 130 L 120 150 L 120 170" fill="none" stroke={WASHING_MACHINE_COLORS.waterDark} strokeWidth="0.6" opacity="0.2" strokeDasharray="2 2" />
+    </svg>
+  );
 }
