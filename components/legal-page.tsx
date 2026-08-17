@@ -1,0 +1,3 @@
+import type { ReactNode } from "react"
+import { Breadcrumb, SupportHero, SupportShell } from "@/components/support-page"
+export function LegalPage({ title, current, intro, sections }: { title: string; current: string; intro: string; sections: { title: string; body: ReactNode }[] }) { return <SupportShell><Breadcrumb current={current} /><SupportHero eyebrow="Site Information" title={title} description={intro} /><article className="mx-auto max-w-4xl px-4 py-16 sm:px-6">{sections.map((section) => <section key={section.title} className="mb-8"><h2 className="text-2xl font-semibold text-foreground">{section.title}</h2><div className="mt-3 leading-relaxed text-muted-foreground">{section.body}</div></section>)}</article></SupportShell> }
