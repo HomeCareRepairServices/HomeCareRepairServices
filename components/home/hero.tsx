@@ -14,25 +14,11 @@ const trust = [
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-border bg-slate-950 -mt-16">
-      {/* Blueprint Engineering Network — Main Background */}
-      <div
-        className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
-        style={{
-          WebkitMaskImage:
-            "radial-gradient(ellipse 62% 58% at 50% 46%, transparent 0%, transparent 40%, rgba(0,0,0,0.6) 68%, black 88%, black 100%)",
-          maskImage:
-            "radial-gradient(ellipse 62% 58% at 50% 46%, transparent 0%, transparent 40%, rgba(0,0,0,0.6) 68%, black 88%, black 100%)",
-        }}
-      >
+    <section className="relative -mt-16 overflow-hidden border-b border-border bg-[#f8fbff]">
+      {/* Blueprint engineering network with a quiet, center-safe content zone */}
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <HeroBackground />
       </div>
-
-      {/* Subtle Radial Vignette */}
-      <div
-        className="absolute inset-0 z-[1] pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at center, transparent 30%, rgba(2,6,23,0.8) 100%)" }}
-      />
 
       {/* Hero Content - Scales with viewport */}
       <div className="relative z-10 mx-auto w-full max-w-3xl px-5 pt-28 pb-20 text-center sm:px-6 sm:max-w-4xl sm:pt-32 sm:pb-24 lg:max-w-5xl xl:max-w-6xl lg:pt-32 lg:pb-20">
@@ -59,10 +45,10 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.05 }}
-          className="text-balance text-4xl font-bold tracking-tight text-foreground lg:text-white sm:text-5xl lg:text-6xl"
+          className="text-balance text-4xl font-bold tracking-tight text-[#0a2850] sm:text-5xl lg:text-6xl"
         >
           Home Appliance Repair &amp;{" "}
-          <span className="text-secondary lg:text-sky-400">Installation Experts</span>
+          <span className="text-[#087fea]">Installation Experts</span>
         </motion.h1>
 
         {/* Subheadline */}
@@ -70,7 +56,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mx-auto mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground lg:text-white/70"
+          className="mx-auto mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-slate-600"
         >
           Fast, reliable doorstep service for RO water purifiers, ACs, chimneys,
           washing machines, refrigerators and more across Rishikesh, Haridwar &amp;
@@ -96,8 +82,8 @@ export function Hero() {
           className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3"
         >
           {trust.map(({ Icon, label }) => (
-            <li key={label} className="flex items-center gap-2 text-sm font-medium text-muted-foreground lg:text-white/80">
-              <Icon className="size-5 text-secondary lg:text-sky-400" />
+            <li key={label} className="flex items-center gap-2 text-sm font-medium text-slate-600">
+              <Icon className="size-5 text-[#087fea]" />
               {label}
             </li>
           ))}
