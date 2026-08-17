@@ -1,5 +1,0 @@
-export { WaterPurifier } from "./WaterPurifier"
-export { ACAirflow } from "./ACAirflow"
-export { Refrigerator } from "./Refrigerator"
-export { WashingMachine } from "./WashingMachine"
-export { Electrical } from "./Electrical"

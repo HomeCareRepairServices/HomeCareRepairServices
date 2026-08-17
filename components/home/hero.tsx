@@ -15,8 +15,16 @@ const trust = [
 export function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-border bg-slate-950 -mt-16">
-      {/* Blueprint Engineering SVGs — Main Background */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      {/* Blueprint Engineering Network — Main Background */}
+      <div
+        className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
+        style={{
+          WebkitMaskImage:
+            "radial-gradient(ellipse 62% 58% at 50% 46%, transparent 0%, transparent 40%, rgba(0,0,0,0.6) 68%, black 88%, black 100%)",
+          maskImage:
+            "radial-gradient(ellipse 62% 58% at 50% 46%, transparent 0%, transparent 40%, rgba(0,0,0,0.6) 68%, black 88%, black 100%)",
+        }}
+      >
         <HeroBackground />
       </div>
 
