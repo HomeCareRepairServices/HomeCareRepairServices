@@ -7,8 +7,8 @@ const circuits = [
   "M 1885 90 H 1770 L 1715 135 H 1590 L 1530 82 H 1410",
   "M 1875 330 H 1775 V 270 H 1635 L 1575 220 H 1480",
   "M 1890 625 H 1765 L 1705 570 H 1570 V 650 H 1450",
-  "M 470 690 V 635 H 650 L 700 675 H 820",
-  "M 1450 690 V 635 H 1270 L 1220 675 H 1100",
+  "M 470 650 V 605 H 650 L 700 645 H 820",
+  "M 1450 650 V 605 H 1270 L 1220 645 H 1100",
 ]
 
 const nodes = [
@@ -17,13 +17,12 @@ const nodes = [
 ] as const
 
 const services = [
-  { x: 230, y: 130, label: "RO / Water Purifier", icon: "drop" },
-  { x: 1690, y: 130, label: "AC Service & Installation", icon: "ac" },
-  { x: 245, y: 575, label: "Repair & Maintenance", icon: "tools" },
-  { x: 1675, y: 570, label: "Washing Machine Repair", icon: "plug" },
-  { x: 390, y: 315, label: "Chimney Cleaning", icon: "chimney" },
-  { x: 1535, y: 320, label: "Refrigerator Repair", icon: "fridge" },
-  { x: 960, y: 625, label: "Geyser Repair", icon: "geyser" },
+  { x: 245, y: 126, label: "RO / Water Purifier", icon: "drop" },
+  { x: 1675, y: 126, label: "AC Service & Installation", icon: "ac" },
+  { x: 285, y: 470, label: "Geyser Repair & Installation", icon: "geyser" },
+  { x: 1650, y: 470, label: "Washing Machine Repair", icon: "plug" },
+  { x: 1535, y: 290, label: "Refrigerator Repair", icon: "fridge" },
+  { x: 155, y: 570, label: "Electrical Switchboard", icon: "switchboard", compact: true },
 ]
 
 function ServiceIcon({ type }: { type: string }) {
@@ -33,32 +32,36 @@ function ServiceIcon({ type }: { type: string }) {
   if (type === "plug") return <><path d="M-10-20v18m20-18v18M-16-2h32v4a16 16 0 0 1-32 0v-4Zm16 20v10" /></>
   if (type === "chimney") return <><path d="M-20 24h40M-14 20 0-18l14 38M-10 5h20M-8-8H8" /></>
   if (type === "fridge") return <><rect x="-18" y="-28" width="36" height="56" rx="3" /><path d="M-18-4h36M8-17v7m0 25v7" /></>
+  if (type === "switchboard") return <><rect x="-25" y="-22" width="50" height="44" rx="4" /><circle cx="-11" cy="-8" r="3" /><circle cx="0" cy="-8" r="3" /><circle cx="11" cy="-8" r="3" /><path d="M-14 7h28M-10 15h20" /></>
   return <><rect x="-17" y="-25" width="34" height="50" rx="3" /><path d="M-10-12h20M-10 0h20M-10 12h20" /></>
 }
 
 export function HeroBackground() {
   return (
-    <svg className="absolute inset-0 size-full" viewBox="0 0 1920 720" preserveAspectRatio="none" aria-hidden="true">
+    <svg className="absolute inset-0 size-full hc-canvas" viewBox="0 0 1920 680" preserveAspectRatio="none" aria-hidden="true">
       <style>{`
-        .hc-flow { stroke-dasharray: 5 14; animation: hc-flow 4s linear infinite; }
-        .hc-pulse { animation: hc-pulse 3s ease-in-out infinite; }
-        .hc-float { animation: hc-float 8s ease-in-out infinite; }
+        .hc-canvas { transform: translateY(-10px) scaleX(.95); transform-origin: center top; }
+        .hc-flow { stroke-dasharray: 5 14; animation: hc-flow 3.2s linear infinite; }
+        .hc-pulse { animation: hc-pulse 2.4s ease-in-out infinite; }
+        .hc-service-art { animation: hc-service 5s ease-in-out infinite; }
+        .hc-float { animation: hc-float 6s ease-in-out infinite; }
         @keyframes hc-flow { to { stroke-dashoffset: -76; } }
         @keyframes hc-pulse { 0%,100% { opacity:.25; r:3 } 50% { opacity:1; r:5 } }
-        @keyframes hc-float { 0%,100% { transform:translateY(0); opacity:.35 } 50% { transform:translateY(-8px); opacity:.85 } }
-        @media (max-width: 1024px) { .hc-service-art { display: none; } }
-        @media (max-width: 700px) { .hc-flow { opacity: .65; } }
+        @keyframes hc-service { 0%,100% { opacity:.72 } 50% { opacity:1; filter: drop-shadow(0 0 5px rgba(0,174,235,.32)); } }
+        @keyframes hc-float { 0%,100% { transform:translateY(0); opacity:.35 } 50% { transform:translateY(-8px); opacity:.9 } }
+        @media (max-width: 1024px) { .hc-service-art { opacity: .35; transform: scale(.82); } }
+        @media (max-width: 700px) { .hc-service-art:nth-of-type(n+3) { display: none; } .hc-flow { opacity: .65; } }
         @media (prefers-reduced-motion: reduce) { .hc-flow,.hc-pulse,.hc-float { animation: none; } }
       `}</style>
       <defs>
         <radialGradient id="hero-wash"><stop offset="0" stopColor="#fff" stopOpacity=".98"/><stop offset=".62" stopColor="#f8fbff" stopOpacity=".9"/><stop offset="1" stopColor="#eaf5ff" stopOpacity=".15"/></radialGradient>
         <linearGradient id="hero-line" x1="0" x2="1"><stop stopColor="#087fea" stopOpacity=".1"/><stop offset=".5" stopColor="#00b8f5" stopOpacity=".78"/><stop offset="1" stopColor="#087fea" stopOpacity=".1"/></linearGradient>
         <pattern id="hero-dots" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#087fea" opacity=".15" /></pattern>
-        <mask id="hero-safe"><rect width="1920" height="720" fill="white"/><ellipse cx="960" cy="360" rx="540" ry="230" fill="black" /></mask>
+        <mask id="hero-safe"><rect width="1920" height="680" fill="white"/><ellipse cx="960" cy="360" rx="540" ry="230" fill="black" /></mask>
       </defs>
-      <rect width="1920" height="720" fill="#f8fbff" />
-      <rect width="1920" height="720" fill="url(#hero-wash)" />
-      <rect width="1920" height="720" fill="url(#hero-dots)" mask="url(#hero-safe)" />
+      <rect width="1920" height="680" fill="#f8fbff" />
+      <rect width="1920" height="680" fill="url(#hero-wash)" />
+      <rect width="1920" height="680" fill="url(#hero-dots)" mask="url(#hero-safe)" />
       <g fill="none" stroke="url(#hero-line)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" mask="url(#hero-safe)">
         {circuits.map((d) => <path key={d} d={d} />)}
         {circuits.slice(0, 6).map((d, i) => <path key={`flow-${d}`} d={d} className="hc-flow" style={{ animationDelay: `${i * .4}s` }} />)}
