@@ -14,7 +14,7 @@ const trust = [
 
 export function Hero() {
   return (
-    <section className="relative -mt-16 overflow-hidden border-b border-border bg-[#f8fbff]">
+    <section className="relative overflow-hidden border-b border-border bg-[#f8fbff]">
       {/* Blueprint engineering network with a quiet, center-safe content zone */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <HeroBackground />
@@ -27,15 +27,15 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-sm shadow-sm lg:bg-white/10 lg:border-white/20 lg:backdrop-blur-md"
+          className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-[#dbeafe] bg-white/90 px-4 py-1.5 text-sm shadow-sm backdrop-blur-md"
         >
-          <span className="flex items-center gap-0.5 text-accent lg:text-sky-400">
+          <span className="flex items-center gap-0.5 text-[#087fea]">
             {Array.from({ length: 5 }).map((_, i) => (
               <Star key={i} className="size-3.5 fill-current" />
             ))}
           </span>
-          <span className="font-medium text-foreground lg:text-white">{siteConfig.rating}</span>
-          <span className="text-muted-foreground lg:text-white/70">
+          <span className="font-medium text-[#0a1f44]">{siteConfig.rating}</span>
+          <span className="text-slate-600">
             ({siteConfig.reviewCount.toLocaleString()}+ happy customers)
           </span>
         </motion.div>
