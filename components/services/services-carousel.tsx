@@ -1,7 +1,8 @@
 "use client"
 
 import { useRef, useState, useEffect, useCallback, useMemo } from "react"
-import { useMotionValue, useSpring, useVelocity, animate } from "framer-motion"
+import { useRouter } from "next/navigation"
+import { useMotionValue, useSpring, useVelocity } from "framer-motion"
 import { ServiceCard3D } from "./service-3d-card"
 import type { Service } from "@/lib/data/services"
 
@@ -9,6 +10,7 @@ const BUFFER = 8
 
 export function ServicesCarousel({ items }: { items: Omit<Service, "icon">[] }) {
   const containerRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
   const [dims, setDims] = useState({ w: 240, h: 300 })
   const [range, setRange] = useState({ start: -BUFFER, end: BUFFER })
 
@@ -72,8 +74,8 @@ export function ServicesCarousel({ items }: { items: Omit<Service, "icon">[] }) 
     const vi = parseInt(card.getAttribute("data-vi")!, 10)
     if (isNaN(vi)) return
     const idx = ((vi % total) + total) % total
-    window.location.href = `/services/${items[idx].category}/${items[idx].slug}`
-  }, [raw, total, items])
+    router.push(`/services/${items[idx].category}/${items[idx].slug}`)
+  }, [router, total, items])
 
   const onKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === "ArrowLeft") raw.set(raw.get() - 1)
@@ -96,7 +98,7 @@ export function ServicesCarousel({ items }: { items: Omit<Service, "icon">[] }) 
     <div ref={containerRef} tabIndex={0} role="region" aria-label="Services carousel"
       onKeyDown={onKeyDown} onClick={onContainerClick}
       onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerCancel={onPointerUp}
-      className="relative mx-auto outline-none select-none"
+      className="relative mx-auto w-full max-w-full overflow-hidden outline-none select-none"
       style={{ height: dims.h + 70, perspective: "1200px", perspectiveOrigin: "50% 50%", touchAction: "none", cursor: "grab" }}
     >
       {visible.map(({ vi, service }) => (

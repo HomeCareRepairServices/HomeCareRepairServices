@@ -20,19 +20,19 @@ export function SiteFooter() {
                 {siteConfig.name}
               </span>
             </Link>
-            <p className="text-sm leading-relaxed text-muted-foreground">
+            <p className="break-words text-sm leading-relaxed text-muted-foreground">
               Your trusted local experts for RO, AC, chimney and home appliance
               repair, installation and maintenance across Rishikesh, Haridwar &
               Dehradun.
             </p>
             <div className="flex flex-col gap-2 text-sm">
-              <a href={siteConfig.phoneHref} className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary">
+              <a href={siteConfig.phoneHref} className="min-w-0 break-words flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary">
                 <Phone className="size-4 text-secondary" /> {siteConfig.phone}
               </a>
-              <a href={whatsappLink()} className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary">
+              <a href={whatsappLink()} className="min-w-0 break-words flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary">
                 <MessageCircle className="size-4 text-secondary" /> WhatsApp Us
               </a>
-              <a href={`mailto:${siteConfig.email}`} className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary">
+              <a href={`mailto:${siteConfig.email}`} className="min-w-0 break-words flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary">
                 <Mail className="size-4 text-secondary" /> {siteConfig.email}
               </a>
               <p className="flex items-start gap-2 text-muted-foreground">

@@ -143,7 +143,7 @@ export function LocationsCarousel() {
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onPointerCancel={onPointerUp}
-      className="relative mx-auto outline-none select-none"
+      className="relative mx-auto w-full max-w-full overflow-hidden outline-none select-none"
       style={{
         height: dims.h + 70,
         perspective: "1200px",

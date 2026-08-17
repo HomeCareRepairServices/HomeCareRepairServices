@@ -23,7 +23,7 @@ export function FloatingButtons() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 24 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className="fixed bottom-5 right-5 z-50 flex flex-col gap-3"
+          className="fixed bottom-4 right-4 z-40 flex max-w-[calc(100vw-2rem)] flex-col gap-3 sm:bottom-5 sm:right-5"
         >
           <a
             href={whatsappLink("Hi! I'd like to know more about your home repair services.")}
