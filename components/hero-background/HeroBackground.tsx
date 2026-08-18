@@ -20,16 +20,14 @@ const nodes = [
 ] as const
 
 const services = [
-  { x: 245, y: 112, label: "RO / Water Purifier", icon: "drop" },
-  { x: 1675, y: 112, label: "AC Service & Installation", icon: "ac" },
-  { x: 285, y: 270, label: "Geyser Repair", icon: "geyser" },
-  { x: 1635, y: 270, label: "Refrigerator Repair", icon: "fridge" },
-  { x: 385, y: 405, label: "Electrician Services", icon: "switchboard" },
-  { x: 1535, y: 405, label: "AC Maintenance", icon: "ac" },
-  { x: 245, y: 540, label: "Geyser Services", icon: "geyser" },
-  { x: 1675, y: 540, label: "Washing Machine Repair", icon: "plug" },
-  { x: 500, y: 585, label: "Solar Panel System", icon: "solar", compact: true },
-  { x: 1420, y: 585, label: "Decoration Services", icon: "decoration", compact: true },
+  { x: 170, y: 112, label: "RO / Water Purifier", icon: "drop" },
+  { x: 1750, y: 112, label: "AC Service & Installation", icon: "ac" },
+  { x: 150, y: 285, label: "Geyser Repair", icon: "geyser" },
+  { x: 1770, y: 285, label: "Refrigerator Repair", icon: "fridge" },
+  { x: 190, y: 430, label: "Electrician Services", icon: "switchboard" },
+  { x: 1730, y: 430, label: "Washing Machine Repair", icon: "plug" },
+  { x: 250, y: 555, label: "Solar Panel System", icon: "solar", compact: true },
+  { x: 1670, y: 555, label: "Decoration Services", icon: "decoration", compact: true },
 ]
 
 function ServiceIcon({ type }: { type: string }) {
@@ -49,23 +47,23 @@ export function HeroBackground() {
   return (
     <svg className="absolute inset-0 size-full hc-canvas hc-svg" viewBox="0 0 1920 680" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
       <style>{`
-        .hc-svg { --hero-bg: #f8fafc; --hero-line-a: #0284c7; --hero-line-b: #0d9488; --hero-node: #00d2ff; --hero-node-accent: #10b981; --hero-label: #0f172a; }
-        .dark .hc-svg { --hero-bg: #0b132b; --hero-line-a: #00d2ff; --hero-line-b: #3b82f6; --hero-node: #00d2ff; --hero-node-accent: #3b82f6; --hero-label: #ffffff; }
-        .hc-canvas { transform: translateY(-4px); transform-origin: center top; }
-        .hc-flow { stroke-dasharray: 5 14; animation: hc-flow 3.2s linear infinite; }
-        .hc-pulse { animation: hc-pulse 2.4s ease-in-out infinite; }
-        .hc-service-art { animation: hc-service 5s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
-        .hc-float { animation: hc-float 6s ease-in-out infinite; }
-        @keyframes hc-flow { to { stroke-dashoffset: -76; } }
-        @keyframes hc-pulse { 0%,100% { opacity:.25; r:3 } 50% { opacity:1; r:5 } }
-        @keyframes hc-service { 0%,100% { opacity:.72 } 50% { opacity:1; filter: drop-shadow(0 0 5px rgba(0,174,235,.32)); } }
-        @keyframes hc-float { 0%,100% { transform:translateY(0); opacity:.35 } 50% { transform:translateY(-8px); opacity:.9 } }
-        @media (max-width: 1024px) { .hc-service-art { opacity: .35; transform: scale(.82); } }
-        @media (max-width: 700px) { .hc-service-art:nth-of-type(n+3) { display: none; } .hc-flow { opacity: .65; } }
+        .hc-svg { --hero-bg: #0A0F1D; --hero-line-a: #00d2ff; --hero-line-b: #0284c7; --hero-node: #00d2ff; --hero-node-accent: #10b981; --hero-label: #f8fafc; --hero-stroke: rgba(0,210,255,.4); }
+        .dark .hc-svg { --hero-bg: #0A0F1D; --hero-line-a: #00d2ff; --hero-line-b: #0284c7; --hero-node: #00d2ff; --hero-node-accent: #10b981; --hero-label: #f8fafc; --hero-stroke: rgba(0,210,255,.4); }
+        .hc-canvas { transform: translateY(-6px); transform-origin: center top; }
+        .hc-flow { stroke: var(--hero-stroke); stroke-dasharray: 8 8; animation: dash 3.2s linear infinite; }
+        .hc-pulse { animation: pulse 2.4s ease-in-out infinite; }
+        .hc-service-art { animation: float 6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+        .hc-float { animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+        @keyframes dash { to { stroke-dashoffset: -40; } }
+        @keyframes pulse { 0%,100% { opacity:.28; } 50% { opacity:1; } }
+        @media (prefers-color-scheme: light) { .hc-svg { --hero-bg: #F8FAFC; --hero-line-a: #0284c7; --hero-line-b: #0d9488; --hero-node: #0284c7; --hero-node-accent: #10b981; --hero-label: #0f172a; --hero-stroke: rgba(2,132,199,.25); } }
+        @media (max-width: 1024px) { .hc-service-art { opacity: .62; transform: scale(.82); } }
+        @media (max-width: 700px) { .hc-service-art:nth-of-type(n+3) { display: none; } .hc-flow { opacity: .7; } }
         @media (prefers-reduced-motion: reduce) { .hc-flow,.hc-pulse,.hc-float,.hc-service-art { animation: none; } }
       `}</style>
       <defs>
-        <radialGradient id="hero-wash"><stop offset="0" stopColor="var(--hero-bg)" stopOpacity=".98"/><stop offset=".62" stopColor="var(--hero-bg)" stopOpacity=".9"/><stop offset="1" stopColor="var(--hero-bg)" stopOpacity=".15"/></radialGradient>
+        <radialGradient id="hero-wash"><stop offset="0" stopColor="var(--hero-bg)" stopOpacity=".98"/><stop offset=".62" stopColor="var(--hero-bg)" stopOpacity=".94"/><stop offset="1" stopColor="var(--hero-bg)" stopOpacity=".98"/></radialGradient>
         <linearGradient id="hero-line" x1="0" x2="1"><stop stopColor="var(--hero-line-a)" stopOpacity=".15"/><stop offset=".5" stopColor="var(--hero-node)" stopOpacity=".55"/><stop offset="1" stopColor="var(--hero-line-b)" stopOpacity=".15"/></linearGradient>
         <radialGradient id="hero-node-glow"><stop offset="0" stopColor="var(--hero-node)" stopOpacity=".38"/><stop offset=".65" stopColor="var(--hero-node-accent)" stopOpacity=".16"/><stop offset="1" stopColor="var(--hero-node-accent)" stopOpacity="0"/></radialGradient>
         <filter id="hero-neon" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
