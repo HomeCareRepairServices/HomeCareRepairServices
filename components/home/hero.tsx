@@ -14,14 +14,14 @@ const trust = [
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-border bg-[#f8fbff]">
+    <section className="relative -mt-2 overflow-hidden border-b border-border bg-[#f8fbff]">
       {/* Blueprint engineering network with a quiet, center-safe content zone */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <HeroBackground />
       </div>
 
       {/* Hero Content - Scales with viewport */}
-      <div className="relative z-10 mx-auto w-full max-w-3xl px-5 pt-28 pb-20 text-center sm:px-6 sm:max-w-4xl sm:pt-32 sm:pb-24 lg:max-w-5xl xl:max-w-6xl lg:pt-32 lg:pb-20">
+      <div className="relative z-10 mx-auto w-full max-w-3xl px-5 pt-20 pb-20 text-center sm:px-6 sm:max-w-4xl sm:pt-24 sm:pb-24 lg:max-w-5xl xl:max-w-6xl lg:pt-24 lg:pb-20">
         {/* Rating Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

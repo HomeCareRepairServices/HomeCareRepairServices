@@ -9,20 +9,25 @@ const circuits = [
   "M 1890 625 H 1765 L 1705 570 H 1570 V 650 H 1450",
   "M 470 650 V 605 H 650 L 700 645 H 820",
   "M 1450 650 V 605 H 1270 L 1220 645 H 1100",
+  "M 385 515 H 285 L 220 575 H 110",
+  "M 1535 515 H 1635 L 1700 575 H 1810",
+  "M 520 590 H 430 L 370 640 H 260",
 ]
 
 const nodes = [
   [70, 90], [205, 135], [390, 82], [45, 330], [345, 220], [25, 625], [215, 570], [480, 650],
-  [1850, 90], [1715, 135], [1575, 220], [1875, 330], [1635, 270], [1705, 570], [1570, 650], [1220, 675],
+  [1850, 90], [1715, 135], [1575, 220], [1875, 330], [1635, 270], [1705, 570], [1570, 650], [1220, 675], [1535, 515],
 ] as const
 
 const services = [
   { x: 245, y: 112, label: "RO / Water Purifier", icon: "drop" },
   { x: 1675, y: 112, label: "AC Service & Installation", icon: "ac" },
   { x: 285, y: 380, label: "Geyser Repair & Installation", icon: "geyser" },
-  { x: 1650, y: 402, label: "Washing Machine Repair", icon: "plug" },
+  { x: 1635, y: 380, label: "Washing Machine Repair", icon: "plug" },
   { x: 1535, y: 252, label: "Refrigerator Repair", icon: "fridge" },
-  { x: 155, y: 516, label: "Electrical Switchboard", icon: "switchboard", compact: true },
+  { x: 385, y: 515, label: "Electrician Services", icon: "switchboard", compact: true },
+  { x: 1535, y: 515, label: "Solar Panel System", icon: "solar", compact: true },
+  { x: 520, y: 590, label: "Decoration Services", icon: "decoration", compact: true },
 ]
 
 function ServiceIcon({ type }: { type: string }) {
@@ -33,6 +38,8 @@ function ServiceIcon({ type }: { type: string }) {
   if (type === "chimney") return <><path d="M-20 24h40M-14 20 0-18l14 38M-10 5h20M-8-8H8" /></>
   if (type === "fridge") return <><rect x="-18" y="-28" width="36" height="56" rx="3" /><path d="M-18-4h36M8-17v7m0 25v7" /></>
   if (type === "switchboard") return <><rect x="-25" y="-22" width="50" height="44" rx="4" /><circle cx="-11" cy="-8" r="3" /><circle cx="0" cy="-8" r="3" /><circle cx="11" cy="-8" r="3" /><path d="M-14 7h28M-10 15h20" /></>
+  if (type === "solar") return <><path d="M-25-12h50l-8 26h-34zM-17-12l-5-16M17-12l5-16M-9-12v26M0-12v26M9-12v26" /><path d="M-31 23h62M-12 28h24" /></>
+  if (type === "decoration") return <><path d="M0 24V-7M0-7C-23-31-38-2 0 2M0-7C23-31 38-2 0 2M0 2C-20 7-18 25 0 24M0 2C20 7 18 25 0 24" /><circle cx="0" cy="-7" r="4" /></>
   return <><rect x="-17" y="-25" width="34" height="50" rx="3" /><path d="M-10-12h20M-10 0h20M-10 12h20" /></>
 }
 
@@ -51,7 +58,7 @@ export function HeroBackground() {
         @keyframes hc-float { 0%,100% { transform:translateY(0); opacity:.35 } 50% { transform:translateY(-8px); opacity:.9 } }
         @media (max-width: 1024px) { .hc-service-art { opacity: .35; transform: scale(.82); } }
         @media (max-width: 700px) { .hc-service-art:nth-of-type(n+3) { display: none; } .hc-flow { opacity: .65; } }
-        @media (prefers-reduced-motion: reduce) { .hc-flow,.hc-pulse,.hc-float { animation: none; } }
+        @media (prefers-reduced-motion: reduce) { .hc-flow,.hc-pulse,.hc-float,.hc-service-art { animation: none; } }
       `}</style>
       <defs>
         <radialGradient id="hero-wash"><stop offset="0" stopColor="#fff" stopOpacity=".98"/><stop offset=".62" stopColor="#f8fbff" stopOpacity=".9"/><stop offset="1" stopColor="#eaf5ff" stopOpacity=".15"/></radialGradient>
