@@ -20,14 +20,14 @@ const nodes = [
 ] as const
 
 const services = [
-  { x: 170, y: 112, label: "RO / Water Purifier", icon: "drop" },
-  { x: 1750, y: 112, label: "AC Service & Installation", icon: "ac" },
-  { x: 150, y: 285, label: "Geyser Repair", icon: "geyser" },
-  { x: 1770, y: 285, label: "Refrigerator Repair", icon: "fridge" },
-  { x: 190, y: 430, label: "Electrician Services", icon: "switchboard" },
-  { x: 1730, y: 430, label: "Washing Machine Repair", icon: "plug" },
-  { x: 250, y: 555, label: "Solar Panel System", icon: "solar", compact: true },
-  { x: 1670, y: 555, label: "Decoration Services", icon: "decoration", compact: true },
+  { x: 245, y: 112, label: "RO / Water Purifier", icon: "drop" },
+  { x: 1675, y: 112, label: "AC Service & Installation", icon: "ac" },
+  { x: 285, y: 380, label: "Geyser Repair & Installation", icon: "geyser" },
+  { x: 1635, y: 380, label: "Washing Machine Repair", icon: "plug" },
+  { x: 1535, y: 252, label: "Refrigerator Repair", icon: "fridge" },
+  { x: 385, y: 515, label: "Electrician Services", icon: "switchboard", compact: true },
+  { x: 1535, y: 515, label: "Solar Panel System", icon: "solar", compact: true },
+  { x: 520, y: 590, label: "Decoration Services", icon: "decoration", compact: true },
 ]
 
 function ServiceIcon({ type }: { type: string }) {
@@ -45,32 +45,28 @@ function ServiceIcon({ type }: { type: string }) {
 
 export function HeroBackground() {
   return (
-    <svg className="absolute inset-0 size-full hc-canvas hc-svg" viewBox="0 0 1920 680" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+    <svg className="absolute inset-0 size-full hc-canvas" viewBox="0 0 1920 680" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
       <style>{`
-        .hc-svg { --hero-bg: #0A0F1D; --hero-line-a: #00d2ff; --hero-line-b: #0284c7; --hero-node: #00d2ff; --hero-node-accent: #10b981; --hero-label: #f8fafc; --hero-stroke: rgba(0,210,255,.4); }
-        .dark .hc-svg { --hero-bg: #0A0F1D; --hero-line-a: #00d2ff; --hero-line-b: #0284c7; --hero-node: #00d2ff; --hero-node-accent: #10b981; --hero-label: #f8fafc; --hero-stroke: rgba(0,210,255,.4); }
-        .hc-canvas { transform: translateY(-6px); transform-origin: center top; }
-        .hc-flow { stroke: var(--hero-stroke); stroke-dasharray: 8 8; animation: dash 3.2s linear infinite; }
-        .hc-pulse { animation: pulse 2.4s ease-in-out infinite; }
-        .hc-service-art { animation: float 6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
-        .hc-float { animation: float 6s ease-in-out infinite; }
-        @keyframes float { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
-        @keyframes dash { to { stroke-dashoffset: -40; } }
-        @keyframes pulse { 0%,100% { opacity:.28; } 50% { opacity:1; } }
-        @media (prefers-color-scheme: light) { .hc-svg { --hero-bg: #F8FAFC; --hero-line-a: #0284c7; --hero-line-b: #0d9488; --hero-node: #0284c7; --hero-node-accent: #10b981; --hero-label: #0f172a; --hero-stroke: rgba(2,132,199,.25); } }
-        @media (max-width: 1024px) { .hc-service-art { opacity: .62; transform: scale(.82); } }
-        @media (max-width: 700px) { .hc-service-art:nth-of-type(n+3) { display: none; } .hc-flow { opacity: .7; } }
+        .hc-canvas { transform: translateY(-4px); transform-origin: center top; }
+        .hc-flow { stroke-dasharray: 5 14; animation: hc-flow 3.2s linear infinite; }
+        .hc-pulse { animation: hc-pulse 2.4s ease-in-out infinite; }
+        .hc-service-art { animation: hc-service 5s ease-in-out infinite; }
+        .hc-float { animation: hc-float 6s ease-in-out infinite; }
+        @keyframes hc-flow { to { stroke-dashoffset: -76; } }
+        @keyframes hc-pulse { 0%,100% { opacity:.25; r:3 } 50% { opacity:1; r:5 } }
+        @keyframes hc-service { 0%,100% { opacity:.72 } 50% { opacity:1; filter: drop-shadow(0 0 5px rgba(0,174,235,.32)); } }
+        @keyframes hc-float { 0%,100% { transform:translateY(0); opacity:.35 } 50% { transform:translateY(-8px); opacity:.9 } }
+        @media (max-width: 1024px) { .hc-service-art { opacity: .35; transform: scale(.82); } }
+        @media (max-width: 700px) { .hc-service-art:nth-of-type(n+3) { display: none; } .hc-flow { opacity: .65; } }
         @media (prefers-reduced-motion: reduce) { .hc-flow,.hc-pulse,.hc-float,.hc-service-art { animation: none; } }
       `}</style>
       <defs>
-        <radialGradient id="hero-wash"><stop offset="0" stopColor="var(--hero-bg)" stopOpacity=".98"/><stop offset=".62" stopColor="var(--hero-bg)" stopOpacity=".94"/><stop offset="1" stopColor="var(--hero-bg)" stopOpacity=".98"/></radialGradient>
-        <linearGradient id="hero-line" x1="0" x2="1"><stop stopColor="var(--hero-line-a)" stopOpacity=".15"/><stop offset=".5" stopColor="var(--hero-node)" stopOpacity=".55"/><stop offset="1" stopColor="var(--hero-line-b)" stopOpacity=".15"/></linearGradient>
-        <radialGradient id="hero-node-glow"><stop offset="0" stopColor="var(--hero-node)" stopOpacity=".38"/><stop offset=".65" stopColor="var(--hero-node-accent)" stopOpacity=".16"/><stop offset="1" stopColor="var(--hero-node-accent)" stopOpacity="0"/></radialGradient>
-        <filter id="hero-neon" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <radialGradient id="hero-wash"><stop offset="0" stopColor="#fff" stopOpacity=".98"/><stop offset=".62" stopColor="#f8fbff" stopOpacity=".9"/><stop offset="1" stopColor="#eaf5ff" stopOpacity=".15"/></radialGradient>
+        <linearGradient id="hero-line" x1="0" x2="1"><stop stopColor="#087fea" stopOpacity=".1"/><stop offset=".5" stopColor="#00b8f5" stopOpacity=".78"/><stop offset="1" stopColor="#087fea" stopOpacity=".1"/></linearGradient>
         <pattern id="hero-dots" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#087fea" opacity=".15" /></pattern>
         <mask id="hero-safe"><rect width="1920" height="680" fill="white"/><ellipse cx="960" cy="360" rx="540" ry="230" fill="black" /></mask>
       </defs>
-      <rect width="1920" height="680" fill="var(--hero-bg)" />
+      <rect width="1920" height="680" fill="#f8fbff" />
       <rect width="1920" height="680" fill="url(#hero-wash)" />
       <rect width="1920" height="680" fill="url(#hero-dots)" mask="url(#hero-safe)" />
       <g fill="none" stroke="url(#hero-line)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" mask="url(#hero-safe)">
@@ -83,15 +79,14 @@ export function HeroBackground() {
       </g>
       {services.map((service) => (
         <g key={service.label} className="hc-service-art" transform={`translate(${service.x} ${service.y})`}>
-          <circle r="88" fill="url(#hero-node-glow)" filter="url(#hero-neon)" />
-          <circle r="64" fill="var(--hero-bg)" fillOpacity=".86" stroke="var(--hero-node)" strokeOpacity=".42" strokeWidth="1.5" />
-          <circle r="52" fill="none" stroke="var(--hero-node-accent)" strokeOpacity=".38" strokeDasharray="2 8" />
-          <g fill="none" stroke="var(--hero-line-a)" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><ServiceIcon type={service.icon} /></g>
-          <text y="88" textAnchor="middle" fill="var(--hero-label)" fontSize="13" fontWeight="600">{service.label}</text>
+          <circle r="64" fill="#fff" fillOpacity=".75" stroke="#087fea" strokeOpacity=".28" strokeWidth="1.5" />
+          <circle r="52" fill="none" stroke="#00b8f5" strokeOpacity=".18" strokeDasharray="2 8" />
+          <g fill="none" stroke="#087fea" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><ServiceIcon type={service.icon} /></g>
+          <text y="88" textAnchor="middle" fill="#0a2850" fontSize="13" fontWeight="600">{service.label}</text>
         </g>
       ))}
-      <g>{nodes.map(([x, y], i) => <g key={`${x}-${y}`}><circle cx={x} cy={y} r="8" fill="none" stroke="var(--hero-node-accent)" strokeOpacity=".28" /><circle cx={x} cy={y} r="3" fill={i % 3 === 0 ? "var(--hero-node-accent)" : "var(--hero-line-a)"} className="hc-pulse" style={{ animationDelay: `${i * .2}s` }} /></g>)}</g>
-      <g fill="var(--hero-node)" opacity=".7">{[[180,260],[540,360],[1380,300],[1750,540],[440,610],[1380,620]].map(([x,y], i) => <circle key={i} cx={x} cy={y} r="2.5" className="hc-float" style={{ animationDelay: `${i * .7}s` }} />)}</g>
+      <g>{nodes.map(([x, y], i) => <g key={`${x}-${y}`}><circle cx={x} cy={y} r="8" fill="none" stroke="#22c55e" strokeOpacity=".28" /><circle cx={x} cy={y} r="3" fill={i % 3 === 0 ? "#22c55e" : "#087fea"} className="hc-pulse" style={{ animationDelay: `${i * .2}s` }} /></g>)}</g>
+      <g fill="#00b8f5" opacity=".7">{[[180,260],[540,360],[1380,300],[1750,540],[440,610],[1380,620]].map(([x,y], i) => <circle key={i} cx={x} cy={y} r="2.5" className="hc-float" style={{ animationDelay: `${i * .7}s` }} />)}</g>
     </svg>
   )
 }
