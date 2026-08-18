@@ -17,12 +17,12 @@ const nodes = [
 ] as const
 
 const services = [
-  { x: 245, y: 126, label: "RO / Water Purifier", icon: "drop" },
-  { x: 1675, y: 126, label: "AC Service & Installation", icon: "ac" },
-  { x: 285, y: 470, label: "Geyser Repair & Installation", icon: "geyser" },
-  { x: 1650, y: 470, label: "Washing Machine Repair", icon: "plug" },
-  { x: 1535, y: 290, label: "Refrigerator Repair", icon: "fridge" },
-  { x: 155, y: 570, label: "Electrical Switchboard", icon: "switchboard", compact: true },
+  { x: 245, y: 112, label: "RO / Water Purifier", icon: "drop" },
+  { x: 1675, y: 112, label: "AC Service & Installation", icon: "ac" },
+  { x: 285, y: 380, label: "Geyser Repair & Installation", icon: "geyser" },
+  { x: 1650, y: 402, label: "Washing Machine Repair", icon: "plug" },
+  { x: 1535, y: 252, label: "Refrigerator Repair", icon: "fridge" },
+  { x: 155, y: 516, label: "Electrical Switchboard", icon: "switchboard", compact: true },
 ]
 
 function ServiceIcon({ type }: { type: string }) {
@@ -38,9 +38,9 @@ function ServiceIcon({ type }: { type: string }) {
 
 export function HeroBackground() {
   return (
-    <svg className="absolute inset-0 size-full hc-canvas" viewBox="0 0 1920 680" preserveAspectRatio="none" aria-hidden="true">
+    <svg className="absolute inset-0 size-full hc-canvas" viewBox="0 0 1920 680" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
       <style>{`
-        .hc-canvas { transform: translateY(-10px) scaleX(.95); transform-origin: center top; }
+        .hc-canvas { transform: translateY(-4px); transform-origin: center top; }
         .hc-flow { stroke-dasharray: 5 14; animation: hc-flow 3.2s linear infinite; }
         .hc-pulse { animation: hc-pulse 2.4s ease-in-out infinite; }
         .hc-service-art { animation: hc-service 5s ease-in-out infinite; }
@@ -67,7 +67,7 @@ export function HeroBackground() {
         {circuits.slice(0, 6).map((d, i) => <path key={`flow-${d}`} d={d} className="hc-flow" style={{ animationDelay: `${i * .4}s` }} />)}
       </g>
       <g fill="none" stroke="#087fea" strokeOpacity=".16" strokeWidth="1" mask="url(#hero-safe)">
-        <path d="M0 54H1920M0 670H1920M110 0V720M1810 0V720" />
+        <path d="M0 54H1920M0 660H1920M110 0V680M1810 0V680" />
         <path d="M100 220h110m-55-55v110M1780 670h90m-45-45v90M620 1020h160m-80-35v70" />
       </g>
       {services.map((service) => (
@@ -75,11 +75,11 @@ export function HeroBackground() {
           <circle r="64" fill="#fff" fillOpacity=".75" stroke="#087fea" strokeOpacity=".28" strokeWidth="1.5" />
           <circle r="52" fill="none" stroke="#00b8f5" strokeOpacity=".18" strokeDasharray="2 8" />
           <g fill="none" stroke="#087fea" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><ServiceIcon type={service.icon} /></g>
-          <text y="92" textAnchor="middle" fill="#0a2850" fontSize="16" fontWeight="600">{service.label}</text>
+          <text y="88" textAnchor="middle" fill="#0a2850" fontSize="13" fontWeight="600">{service.label}</text>
         </g>
       ))}
       <g>{nodes.map(([x, y], i) => <g key={`${x}-${y}`}><circle cx={x} cy={y} r="8" fill="none" stroke="#22c55e" strokeOpacity=".28" /><circle cx={x} cy={y} r="3" fill={i % 3 === 0 ? "#22c55e" : "#087fea"} className="hc-pulse" style={{ animationDelay: `${i * .2}s` }} /></g>)}</g>
-      <g fill="#00b8f5" opacity=".7">{[[180,260],[540,360],[1380,300],[1750,540],[440,890],[1380,920]].map(([x,y], i) => <circle key={i} cx={x} cy={y} r="2.5" className="hc-float" style={{ animationDelay: `${i * .7}s` }} />)}</g>
+      <g fill="#00b8f5" opacity=".7">{[[180,260],[540,360],[1380,300],[1750,540],[440,610],[1380,620]].map(([x,y], i) => <circle key={i} cx={x} cy={y} r="2.5" className="hc-float" style={{ animationDelay: `${i * .7}s` }} />)}</g>
     </svg>
   )
 }
