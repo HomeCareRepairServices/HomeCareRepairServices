@@ -11,20 +11,33 @@ const services = [
   { x: 1700, y: 570, label: "Decoration Services", icon: "decoration", side: "right" },
 ] as const
 
-const leftPaths = [
-  "M0 64H92L132 104H178L220 112",
-  "M0 148H72V198H148L220 270",
-  "M0 282H104L142 246H190L220 270",
-  "M0 366H62V428H220",
-  "M0 506H84L126 548H178L220 570",
-  "M0 638H104L150 590H220",
-  "M220 112H310L354 72H452",
-  "M220 270H330L380 220H488",
-  "M220 428H320L370 378H480",
-  "M220 570H326L370 612H490",
+const blueprintPaths = [
+  { d: "M0 58H86L126 98V150H188L220 112", side: "left", kind: "primary" },
+  { d: "M0 146H58V208H118L154 174H220V270", side: "left", kind: "secondary" },
+  { d: "M0 282H78L112 316H172V358L220 380", side: "left", kind: "primary" },
+  { d: "M0 392H54V450H132L170 412H220V428", side: "left", kind: "secondary" },
+  { d: "M0 520H86L124 486H176V548L220 570", side: "left", kind: "primary" },
+  { d: "M0 638H72L108 602H148L184 566", side: "left", kind: "secondary" },
+  { d: "M220 112H286L326 78H420V42H520", side: "left", kind: "secondary" },
+  { d: "M220 270H302V236H364L406 194H486", side: "left", kind: "primary" },
+  { d: "M220 380H286L326 416H390V462H480", side: "left", kind: "secondary" },
+  { d: "M220 570H294L336 604H410V638H504", side: "left", kind: "primary" },
+  { d: "M1920 74H1828L1788 116V158H1728L1700 112", side: "right", kind: "primary" },
+  { d: "M1920 172H1862V228H1806L1768 194H1700V270", side: "right", kind: "secondary" },
+  { d: "M1920 294H1844L1810 326H1748V366L1700 380", side: "right", kind: "primary" },
+  { d: "M1920 412H1860V468H1790L1750 430H1700V428", side: "right", kind: "secondary" },
+  { d: "M1920 532H1838L1798 498H1740V548L1700 570", side: "right", kind: "primary" },
+  { d: "M1920 646H1848L1812 608H1768L1730 570", side: "right", kind: "secondary" },
+  { d: "M1700 112H1634L1594 80H1502V44H1400", side: "right", kind: "secondary" },
+  { d: "M1700 270H1618V236H1556L1514 194H1430", side: "right", kind: "primary" },
+  { d: "M1700 380H1634L1594 416H1530V462H1440", side: "right", kind: "secondary" },
+  { d: "M1700 570H1626L1584 604H1510V638H1418", side: "right", kind: "primary" },
 ] as const
 
-const rightPaths = leftPaths.map((path) => path.replace(/M0/g, "M1920").replace(/H(\d+)/g, (_, value) => `H${1920 - Number(value)}`).replace(/V/g, "V"))
+const junctions = [
+  [86,58],[126,98],[188,150],[58,146],[118,208],[154,174],[78,282],[112,316],[172,358],[54,392],[132,450],[176,486],[124,520],[176,548],[108,602],[286,112],[326,78],[364,236],[406,194],[286,380],[326,416],[390,462],[294,570],[336,604],
+  [1828,74],[1788,116],[1728,158],[1862,172],[1806,228],[1768,194],[1844,294],[1810,326],[1748,366],[1860,412],[1790,468],[1750,430],[1838,532],[1798,498],[1740,548],[1848,646],[1812,608],[1634,112],[1594,80],[1618,270],[1556,236],[1514,194],[1634,380],[1594,416],[1530,462],[1626,570],[1584,604]
+] as const
 
 function ServiceIcon({ type }: { type: string }) {
   if (type === "drop") return <path d="M0-24C-6-12-17-4-17 7a17 17 0 0 0 34 0C17-4 6-12 0-24ZM-8 9c3 5 8 7 13 4" />
@@ -41,9 +54,9 @@ export function HeroBackground() {
   return (
     <svg className="absolute inset-0 size-full" viewBox="0 0 1920 680" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
       <style>{`
-        .hc-primary { fill:none; stroke:#2563eb; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; opacity:.58; }
-        .hc-secondary { fill:none; stroke:#5b9bf6; stroke-width:1.2; stroke-linecap:round; stroke-linejoin:round; opacity:.42; }
-        .hc-energy { fill:none; stroke:#00d2ff; stroke-width:3; stroke-dasharray:7 19; animation:hc-flow 3.8s linear infinite; opacity:.82; }
+        .hc-primary { fill:none; stroke:#2563eb; stroke-width:2.25; stroke-linecap:round; stroke-linejoin:round; opacity:.66; }
+        .hc-secondary { fill:none; stroke:#5b9bf6; stroke-width:1.15; stroke-linecap:round; stroke-linejoin:round; opacity:.46; }
+        .hc-energy { fill:none; stroke:#00d2ff; stroke-width:2.7; stroke-dasharray:6 20; animation:hc-flow 3.1s linear infinite; opacity:.9; }
         .hc-junction { fill:#00d2ff; animation:hc-pulse 2.8s ease-in-out infinite; }
         .hc-service-art { animation:hc-service 6s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
         .hc-grid { fill:url(#hero-grid); opacity:.34; }
@@ -55,7 +68,7 @@ export function HeroBackground() {
         @media (prefers-reduced-motion:reduce) { .hc-energy,.hc-junction,.hc-service-art { animation:none } }
       `}</style>
       <defs>
-        <radialGradient id="hero-wash"><stop offset="0" stopColor="#f8fafc" stopOpacity="1"/><stop offset=".62" stopColor="#f8fafc" stopOpacity=".9"/><stop offset="1" stopColor="#dbeafe" stopOpacity=".7"/></radialGradient>
+        <radialGradient id="hero-wash"><stop offset="0" stopColor="#f8fafc" stopOpacity="1"/><stop offset=".5" stopColor="#f8fafc" stopOpacity=".98"/><stop offset=".78" stopColor="#f8fafc" stopOpacity=".82"/><stop offset="1" stopColor="#dbeafe" stopOpacity=".68"/></radialGradient>
         <pattern id="hero-grid" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#2563eb" /></pattern>
         <linearGradient id="fade-left"><stop stopColor="#f8fafc" stopOpacity="0"/><stop offset=".68" stopColor="#f8fafc" stopOpacity=".12"/><stop offset="1" stopColor="#f8fafc" stopOpacity=".95"/></linearGradient>
         <mask id="hero-safe"><rect width="1920" height="680" fill="white"/><ellipse cx="960" cy="350" rx="670" ry="285" fill="black" /></mask>
@@ -64,14 +77,17 @@ export function HeroBackground() {
       <rect width="1920" height="680" fill="url(#hero-wash)" />
       <rect width="1920" height="680" className="hc-grid" mask="url(#hero-safe)" />
       <g mask="url(#hero-safe)">
-        {leftPaths.map((d, i) => <path key={`l-${i}`} d={d} className={i % 3 === 0 ? "hc-primary" : "hc-secondary"} />)}
-        {rightPaths.map((d, i) => <path key={`r-${i}`} d={d} className={i % 3 === 0 ? "hc-primary" : "hc-secondary"} />)}
-        <path d="M0 86H112L158 132M0 418H80L130 368M1920 86H1808L1762 132M1920 418H1840L1790 368" className="hc-energy" />
-        {[...leftPaths.slice(0,5), ...rightPaths.slice(0,5)].map((d, i) => <path key={`e-${i}`} d={d} className="hc-energy" style={{ animationDelay:`${i * .32}s` }} />)}
-        <g className="hc-secondary"><path d="M0 40H130M0 640H160M1920 40H1790M1920 640H1760" /><path d="M80 0V190M1840 0V190M86 500V680M1834 500V680" /></g>
+        {blueprintPaths.map(({ d, kind }, i) => <path key={`bp-${i}`} d={d} className={kind === "primary" ? "hc-primary" : "hc-secondary"} />)}
+        {blueprintPaths.filter(({ kind }) => kind === "primary").map(({ d }, i) => <path key={`energy-${i}`} d={d} className="hc-energy" style={{ animationDelay:`${i * .42}s` }} />)}
+        <path d="M0 86H72V128H128M0 446H82L112 416M1920 96H1842V136H1792M1920 458H1840L1804 422" className="hc-energy" />
+        <g className="hc-secondary">
+          <path d="M18 18H132L164 50M18 662H112L148 626" />
+          <path d="M1902 24H1790L1754 58M1902 660H1814L1776 622" />
+          <path d="M102 0V82M178 0V54M1818 0V72M1744 0V48M102 680V610M178 680V632M1818 680V604M1744 680V640" />
+          <path d="M260 176H322L350 148M1660 176H1598L1570 148" />
+        </g>
       </g>
-      <g mask="url(#hero-safe)">{[...leftPaths.slice(0,7), ...rightPaths.slice(0,7)].map((d, i) => <path key={`j-${i}`} d={d} pathLength="1" stroke="transparent" fill="none" />)}</g>
-      <g>{[[92,64],[132,104],[354,72],[72,198],[142,246],[104,282],[126,548],[178,570],[1790,64],[1788,104],[1566,72],[1848,198],[1778,246],[1816,282],[1794,548],[1742,570]].map(([x,y], i) => <circle key={`${x}-${y}`} cx={x} cy={y} r="3.5" className="hc-junction" style={{animationDelay:`${i*.16}s`}} />)}</g>
+      <g>{junctions.map(([x,y], i) => <circle key={`${x}-${y}`} cx={x} cy={y} r="3.5" className="hc-junction" style={{animationDelay:`${i*.11}s`}} />)}</g>
       {services.map((service, i) => <g key={service.label} transform={`translate(${service.x} ${service.y})`}>
         <g className="hc-service-art" style={{animationDelay:`${i*.35}s`}}>
           <circle r="66" fill="#f8fafc" fillOpacity=".94" stroke="#2563eb" strokeOpacity=".48" strokeWidth="2" />
