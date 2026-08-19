@@ -21,7 +21,7 @@ export function Hero() {
       </div>
 
       {/* Hero Content - Scales with viewport */}
-      <div className="relative z-10 mx-auto w-full max-w-3xl px-5 pt-20 pb-20 text-center sm:px-6 sm:max-w-4xl sm:pt-24 sm:pb-24 lg:max-w-5xl xl:max-w-6xl lg:pt-24 lg:pb-20">
+      <div className="relative z-10 mx-auto w-full max-w-3xl px-5 pt-16 pb-20 text-center sm:px-6 sm:max-w-4xl sm:pt-20 sm:pb-24 lg:max-w-5xl xl:max-w-6xl lg:pt-20 lg:pb-20">
         {/* Rating Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
