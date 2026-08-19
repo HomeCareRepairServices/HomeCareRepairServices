@@ -52,7 +52,7 @@ function ServiceIcon({ type }: { type: string }) {
 
 export function HeroBackground() {
   return (
-    <svg className="absolute inset-0 size-full" viewBox="0 0 1920 680" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+    <svg className="absolute inset-0 size-full" viewBox="0 0 1920 680" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <style>{`
         .hc-primary { fill:none; stroke:#2563eb; stroke-width:2.25; stroke-linecap:round; stroke-linejoin:round; opacity:.66; }
         .hc-secondary { fill:none; stroke:#5b9bf6; stroke-width:1.15; stroke-linecap:round; stroke-linejoin:round; opacity:.46; }
@@ -73,6 +73,7 @@ export function HeroBackground() {
         <linearGradient id="fade-left"><stop stopColor="#f8fafc" stopOpacity="0"/><stop offset=".68" stopColor="#f8fafc" stopOpacity=".12"/><stop offset="1" stopColor="#f8fafc" stopOpacity=".95"/></linearGradient>
         <mask id="hero-safe"><rect width="1920" height="680" fill="white"/><ellipse cx="960" cy="350" rx="670" ry="285" fill="black" /></mask>
       </defs>
+      <rect x="-100" y="-100" width="2120" height="1000" fill="#f8fafc" />
       <rect width="1920" height="680" fill="#f8fafc" />
       <rect width="1920" height="680" fill="url(#hero-wash)" />
       <rect width="1920" height="680" className="hc-grid" mask="url(#hero-safe)" />
