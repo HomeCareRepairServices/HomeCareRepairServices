@@ -1,92 +1,86 @@
 "use client"
 
-const circuits = [
-  "M 35 90 H 150 L 205 135 H 330 L 390 82 H 510",
-  "M 45 330 H 145 V 270 H 285 L 345 220 H 430",
-  "M 25 625 H 155 L 215 570 H 350 V 650 H 480",
-  "M 1885 90 H 1770 L 1715 135 H 1590 L 1530 82 H 1410",
-  "M 1875 330 H 1775 V 270 H 1635 L 1575 220 H 1480",
-  "M 1890 625 H 1765 L 1705 570 H 1570 V 650 H 1450",
-  "M 470 650 V 605 H 650 L 700 645 H 820",
-  "M 1450 650 V 605 H 1270 L 1220 645 H 1100",
-  "M 385 515 H 285 L 220 575 H 110",
-  "M 1535 515 H 1635 L 1700 575 H 1810",
-  "M 520 590 H 430 L 370 640 H 260",
-]
-
-const nodes = [
-  [70, 90], [205, 135], [390, 82], [45, 330], [345, 220], [25, 625], [215, 570], [480, 650],
-  [1850, 90], [1715, 135], [1575, 220], [1875, 330], [1635, 270], [1705, 570], [1570, 650], [1220, 675], [1535, 515],
+const services = [
+  { x: 220, y: 112, label: "RO / Water Purifier", icon: "drop", side: "left" },
+  { x: 220, y: 270, label: "Geyser Repair", icon: "geyser", side: "left" },
+  { x: 220, y: 428, label: "Electrician Services", icon: "switchboard", side: "left" },
+  { x: 220, y: 570, label: "Solar Panel System", icon: "solar", side: "left" },
+  { x: 1700, y: 112, label: "AC Service & Installation", icon: "ac", side: "right" },
+  { x: 1700, y: 270, label: "Refrigerator Repair", icon: "fridge", side: "right" },
+  { x: 1700, y: 428, label: "Washing Machine Repair", icon: "plug", side: "right" },
+  { x: 1700, y: 570, label: "Decoration Services", icon: "decoration", side: "right" },
 ] as const
 
-const services = [
-  { x: 245, y: 112, label: "RO / Water Purifier", icon: "drop" },
-  { x: 1675, y: 112, label: "AC Service & Installation", icon: "ac" },
-  { x: 285, y: 380, label: "Geyser Repair & Installation", icon: "geyser" },
-  { x: 1635, y: 380, label: "Washing Machine Repair", icon: "plug" },
-  { x: 1535, y: 252, label: "Refrigerator Repair", icon: "fridge" },
-  { x: 385, y: 515, label: "Electrician Services", icon: "switchboard", compact: true },
-  { x: 1535, y: 515, label: "Solar Panel System", icon: "solar", compact: true },
-  { x: 520, y: 590, label: "Decoration Services", icon: "decoration", compact: true },
-]
+const leftPaths = [
+  "M0 64H92L132 104H178L220 112",
+  "M0 148H72V198H148L220 270",
+  "M0 282H104L142 246H190L220 270",
+  "M0 366H62V428H220",
+  "M0 506H84L126 548H178L220 570",
+  "M0 638H104L150 590H220",
+  "M220 112H310L354 72H452",
+  "M220 270H330L380 220H488",
+  "M220 428H320L370 378H480",
+  "M220 570H326L370 612H490",
+] as const
+
+const rightPaths = leftPaths.map((path) => path.replace(/M0/g, "M1920").replace(/H(\d+)/g, (_, value) => `H${1920 - Number(value)}`).replace(/V/g, "V"))
 
 function ServiceIcon({ type }: { type: string }) {
-  if (type === "drop") return <path d="M0-22 C-5-12-16-4-16 7a16 16 0 0 0 32 0C16-4 5-12 0-22Z M-7 9c3 5 8 6 12 4" />
-  if (type === "ac") return <><rect x="-28" y="-15" width="56" height="30" rx="4" /><path d="M-20-5h40 M-15 15v10m15-10v10m15-10v10" /></>
-  if (type === "tools") return <><path d="m-25 22 47-47 M-19 18-25 24l6 6 6-6 M12-20a12 12 0 0 0 15 15l-10 10-15-15 10-10Z" /></>
-  if (type === "plug") return <><path d="M-10-20v18m20-18v18M-16-2h32v4a16 16 0 0 1-32 0v-4Zm16 20v10" /></>
-  if (type === "chimney") return <><path d="M-20 24h40M-14 20 0-18l14 38M-10 5h20M-8-8H8" /></>
-  if (type === "fridge") return <><rect x="-18" y="-28" width="36" height="56" rx="3" /><path d="M-18-4h36M8-17v7m0 25v7" /></>
-  if (type === "switchboard") return <><rect x="-25" y="-22" width="50" height="44" rx="4" /><circle cx="-11" cy="-8" r="3" /><circle cx="0" cy="-8" r="3" /><circle cx="11" cy="-8" r="3" /><path d="M-14 7h28M-10 15h20" /></>
-  if (type === "solar") return <><path d="M-25-12h50l-8 26h-34zM-17-12l-5-16M17-12l5-16M-9-12v26M0-12v26M9-12v26" /><path d="M-31 23h62M-12 28h24" /></>
-  if (type === "decoration") return <><path d="M0 24V-7M0-7C-23-31-38-2 0 2M0-7C23-31 38-2 0 2M0 2C-20 7-18 25 0 24M0 2C20 7 18 25 0 24" /><circle cx="0" cy="-7" r="4" /></>
-  return <><rect x="-17" y="-25" width="34" height="50" rx="3" /><path d="M-10-12h20M-10 0h20M-10 12h20" /></>
+  if (type === "drop") return <path d="M0-24C-6-12-17-4-17 7a17 17 0 0 0 34 0C17-4 6-12 0-24ZM-8 9c3 5 8 7 13 4" />
+  if (type === "geyser") return <><rect x="-17" y="-27" width="34" height="54" rx="4" /><path d="M-10-12h20M-10 0h20M-10 12h20M-7 34c0 8-6 8-6 14m20-14c0 8-6 8-6 14" /></>
+  if (type === "switchboard") return <><rect x="-28" y="-23" width="56" height="46" rx="5" /><circle cx="-13" cy="-8" r="3" /><circle cx="0" cy="-8" r="3" /><circle cx="13" cy="-8" r="3" /><path d="M-17 8h34M-12 16h24" /></>
+  if (type === "solar") return <><path d="M-27-13h54l-9 29h-36zM-18-13l-5-28M18-13l5-28M-10-13v29M0-13v29M10-13v29M-34 24h68M-12 31h24" /></>
+  if (type === "ac") return <><rect x="-31" y="-16" width="62" height="32" rx="5" /><path d="M-22-5h44M-18 16v13m18-13v13m18-13v13" /></>
+  if (type === "fridge") return <><rect x="-19" y="-29" width="38" height="58" rx="4" /><path d="M-19-5h38M9-19v8m0 26v8" /></>
+  if (type === "plug") return <><path d="M-11-22v20m22-20v20M-18-2h36v5a18 18 0 0 1-36 0v-5Zm18 23v12" /></>
+  return <><path d="M0 28V-8M0-8C-24-33-39-2 0 3M0-8C24-33 39-2 0 3M0 3C-20 8-18 27 0 28M0 3C20 8 18 27 0 28" /><circle cx="0" cy="-8" r="4" /></>
 }
 
 export function HeroBackground() {
   return (
-    <svg className="absolute inset-0 size-full hc-canvas" viewBox="0 0 1920 680" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+    <svg className="absolute inset-0 size-full" viewBox="0 0 1920 680" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
       <style>{`
-        .hc-canvas { transform: translateY(-4px); transform-origin: center top; }
-        .hc-flow { stroke-dasharray: 5 14; animation: hc-flow 3.2s linear infinite; }
-        .hc-pulse { animation: hc-pulse 2.4s ease-in-out infinite; }
-        .hc-service-art { animation: hc-service 5s ease-in-out infinite; }
-        .hc-float { animation: hc-float 6s ease-in-out infinite; }
-        @keyframes hc-flow { to { stroke-dashoffset: -76; } }
-        @keyframes hc-pulse { 0%,100% { opacity:.25; r:3 } 50% { opacity:1; r:5 } }
-        @keyframes hc-service { 0%,100% { opacity:.72 } 50% { opacity:1; filter: drop-shadow(0 0 5px rgba(0,174,235,.32)); } }
-        @keyframes hc-float { 0%,100% { transform:translateY(0); opacity:.35 } 50% { transform:translateY(-8px); opacity:.9 } }
-        @media (max-width: 1024px) { .hc-service-art { opacity: .35; transform: scale(.82); } }
-        @media (max-width: 700px) { .hc-service-art:nth-of-type(n+3) { display: none; } .hc-flow { opacity: .65; } }
-        @media (prefers-reduced-motion: reduce) { .hc-flow,.hc-pulse,.hc-float,.hc-service-art { animation: none; } }
+        .hc-primary { fill:none; stroke:#2563eb; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; opacity:.58; }
+        .hc-secondary { fill:none; stroke:#5b9bf6; stroke-width:1.2; stroke-linecap:round; stroke-linejoin:round; opacity:.42; }
+        .hc-energy { fill:none; stroke:#00d2ff; stroke-width:3; stroke-dasharray:7 19; animation:hc-flow 3.8s linear infinite; opacity:.82; }
+        .hc-junction { fill:#00d2ff; animation:hc-pulse 2.8s ease-in-out infinite; }
+        .hc-service-art { animation:hc-service 6s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
+        .hc-grid { fill:url(#hero-grid); opacity:.34; }
+        @keyframes hc-flow { to { stroke-dashoffset:-104; } }
+        @keyframes hc-pulse { 0%,100% { opacity:.35; r:3 } 50% { opacity:1; r:5.5 } }
+        @keyframes hc-service { 0%,100% { opacity:.86 } 50% { opacity:1; filter:drop-shadow(0 0 7px rgba(0,210,255,.36)) } }
+        @media (max-width:1024px) { .hc-primary,.hc-secondary { opacity:.18 } .hc-service-art { display:none } .hc-energy { opacity:.38 } }
+        @media (max-width:700px) { .hc-primary,.hc-secondary { opacity:.12 } .hc-energy { opacity:.28 } }
+        @media (prefers-reduced-motion:reduce) { .hc-energy,.hc-junction,.hc-service-art { animation:none } }
       `}</style>
       <defs>
-        <radialGradient id="hero-wash"><stop offset="0" stopColor="#fff" stopOpacity=".98"/><stop offset=".62" stopColor="#f8fbff" stopOpacity=".9"/><stop offset="1" stopColor="#eaf5ff" stopOpacity=".15"/></radialGradient>
-        <linearGradient id="hero-line" x1="0" x2="1"><stop stopColor="#087fea" stopOpacity=".1"/><stop offset=".5" stopColor="#00b8f5" stopOpacity=".78"/><stop offset="1" stopColor="#087fea" stopOpacity=".1"/></linearGradient>
-        <pattern id="hero-dots" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#087fea" opacity=".15" /></pattern>
-        <mask id="hero-safe"><rect width="1920" height="680" fill="white"/><ellipse cx="960" cy="360" rx="540" ry="230" fill="black" /></mask>
+        <radialGradient id="hero-wash"><stop offset="0" stopColor="#f8fafc" stopOpacity="1"/><stop offset=".62" stopColor="#f8fafc" stopOpacity=".9"/><stop offset="1" stopColor="#dbeafe" stopOpacity=".7"/></radialGradient>
+        <pattern id="hero-grid" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#2563eb" /></pattern>
+        <linearGradient id="fade-left"><stop stopColor="#f8fafc" stopOpacity="0"/><stop offset=".68" stopColor="#f8fafc" stopOpacity=".12"/><stop offset="1" stopColor="#f8fafc" stopOpacity=".95"/></linearGradient>
+        <mask id="hero-safe"><rect width="1920" height="680" fill="white"/><ellipse cx="960" cy="350" rx="670" ry="285" fill="black" /></mask>
       </defs>
-      <rect width="1920" height="680" fill="#f8fbff" />
+      <rect width="1920" height="680" fill="#f8fafc" />
       <rect width="1920" height="680" fill="url(#hero-wash)" />
-      <rect width="1920" height="680" fill="url(#hero-dots)" mask="url(#hero-safe)" />
-      <g fill="none" stroke="url(#hero-line)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" mask="url(#hero-safe)">
-        {circuits.map((d) => <path key={d} d={d} />)}
-        {circuits.slice(0, 6).map((d, i) => <path key={`flow-${d}`} d={d} className="hc-flow" style={{ animationDelay: `${i * .4}s` }} />)}
+      <rect width="1920" height="680" className="hc-grid" mask="url(#hero-safe)" />
+      <g mask="url(#hero-safe)">
+        {leftPaths.map((d, i) => <path key={`l-${i}`} d={d} className={i % 3 === 0 ? "hc-primary" : "hc-secondary"} />)}
+        {rightPaths.map((d, i) => <path key={`r-${i}`} d={d} className={i % 3 === 0 ? "hc-primary" : "hc-secondary"} />)}
+        <path d="M0 86H112L158 132M0 418H80L130 368M1920 86H1808L1762 132M1920 418H1840L1790 368" className="hc-energy" />
+        {[...leftPaths.slice(0,5), ...rightPaths.slice(0,5)].map((d, i) => <path key={`e-${i}`} d={d} className="hc-energy" style={{ animationDelay:`${i * .32}s` }} />)}
+        <g className="hc-secondary"><path d="M0 40H130M0 640H160M1920 40H1790M1920 640H1760" /><path d="M80 0V190M1840 0V190M86 500V680M1834 500V680" /></g>
       </g>
-      <g fill="none" stroke="#087fea" strokeOpacity=".16" strokeWidth="1" mask="url(#hero-safe)">
-        <path d="M0 54H1920M0 660H1920M110 0V680M1810 0V680" />
-        <path d="M100 220h110m-55-55v110M1780 670h90m-45-45v90M620 1020h160m-80-35v70" />
-      </g>
-      {services.map((service) => (
-        <g key={service.label} className="hc-service-art" transform={`translate(${service.x} ${service.y})`}>
-          <circle r="64" fill="#fff" fillOpacity=".75" stroke="#087fea" strokeOpacity=".28" strokeWidth="1.5" />
-          <circle r="52" fill="none" stroke="#00b8f5" strokeOpacity=".18" strokeDasharray="2 8" />
-          <g fill="none" stroke="#087fea" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><ServiceIcon type={service.icon} /></g>
-          <text y="88" textAnchor="middle" fill="#0a2850" fontSize="13" fontWeight="600">{service.label}</text>
+      <g mask="url(#hero-safe)">{[...leftPaths.slice(0,7), ...rightPaths.slice(0,7)].map((d, i) => <path key={`j-${i}`} d={d} pathLength="1" stroke="transparent" fill="none" />)}</g>
+      <g>{[[92,64],[132,104],[354,72],[72,198],[142,246],[104,282],[126,548],[178,570],[1790,64],[1788,104],[1566,72],[1848,198],[1778,246],[1816,282],[1794,548],[1742,570]].map(([x,y], i) => <circle key={`${x}-${y}`} cx={x} cy={y} r="3.5" className="hc-junction" style={{animationDelay:`${i*.16}s`}} />)}</g>
+      {services.map((service, i) => <g key={service.label} transform={`translate(${service.x} ${service.y})`}>
+        <g className="hc-service-art" style={{animationDelay:`${i*.35}s`}}>
+          <circle r="66" fill="#f8fafc" fillOpacity=".94" stroke="#2563eb" strokeOpacity=".48" strokeWidth="2" />
+          <circle r="55" fill="none" stroke="#00d2ff" strokeOpacity=".6" strokeWidth="1.5" strokeDasharray="3 8" />
+          <circle r="72" fill="none" stroke="#00d2ff" strokeOpacity=".25" strokeWidth="2" />
+          <g fill="none" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><ServiceIcon type={service.icon} /></g>
+          <text y="92" textAnchor="middle" fill="#0b132b" fontSize="14" fontWeight="650">{service.label}</text>
         </g>
-      ))}
-      <g>{nodes.map(([x, y], i) => <g key={`${x}-${y}`}><circle cx={x} cy={y} r="8" fill="none" stroke="#22c55e" strokeOpacity=".28" /><circle cx={x} cy={y} r="3" fill={i % 3 === 0 ? "#22c55e" : "#087fea"} className="hc-pulse" style={{ animationDelay: `${i * .2}s` }} /></g>)}</g>
-      <g fill="#00b8f5" opacity=".7">{[[180,260],[540,360],[1380,300],[1750,540],[440,610],[1380,620]].map(([x,y], i) => <circle key={i} cx={x} cy={y} r="2.5" className="hc-float" style={{ animationDelay: `${i * .7}s` }} />)}</g>
+      </g>)}
     </svg>
   )
 }
