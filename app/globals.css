@@ -54,18 +54,18 @@
   color-scheme: light;
   
   /* Backgrounds */
-  --background: oklch(0.984 0.006 270);        /* #FAFBFF */
-  --foreground: oklch(0.19 0.055 270);         /* #1E2A4A */
+  --background: oklch(0.975 0.008 255);        /* titanium silver */
+  --foreground: oklch(0.18 0.035 255);         /* graphite */
   
-  --card: oklch(1 0 0);                         /* #FFFFFF */
-  --card-foreground: oklch(0.19 0.055 270);     /* #1E2A4A */
+  --card: oklch(0.995 0.004 250);               /* brushed silver */
+  --card-foreground: oklch(0.18 0.035 255);
 
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.19 0.055 270);
+  --popover: oklch(0.99 0.006 250);
+  --popover-foreground: oklch(0.18 0.035 255);
   
   /* Deep Rich Blue (#1E3A8A) */
-  --primary: oklch(0.27 0.13 270);             
-  --primary-foreground: oklch(0.98 0 0); 
+  --primary: oklch(0.25 0.075 255);
+  --primary-foreground: oklch(0.98 0.005 250);
   
   /* Soft Blue-Silver (#94A3B8) */
   --secondary: oklch(0.66 0.03 250);         
@@ -94,6 +94,20 @@
   --chart-5: oklch(0.49 0.035 255);
   
   --radius: 0.75rem;
+  --hero-blue: #2854a3;
+  --hero-steel: #8fa5bf;
+  --hero-cyan: #00a9c6;
+  --hero-wash: #F1F6FA;
+  --metallic-surface: #F0F3F7;
+  --metallic-surface-elevated: #FFFFFF;
+  --metallic-border: #D4DCE6;
+  --technical-cyan: #27A9D6;
+  --technical-cyan-soft: #7DD3E8;
+  --technical-cobalt: #2563B8;
+  --technical-glow: rgba(39, 169, 214, 0.12);
+  --heading-primary: #17233A;
+  --heading-highlight: #1E4F91;
+  --body-text: #526579;
   
   --sidebar: oklch(0.984 0.006 270);
   --sidebar-foreground: oklch(0.19 0.055 270);
@@ -113,17 +127,17 @@
   color-scheme: dark;
   
   /* The Void - Deep dark background */
-  --background: oklch(0.12 0.04 260);        
-  /* Bright Silver Headings */
-  --foreground: oklch(0.97 0.005 250);       
+  --background: oklch(0.105 0.025 255);       /* midnight titanium */
+  /* brushed silver headings */
+  --foreground: oklch(0.92 0.012 250);
   
   /* True translucent glass */
-  --card: oklch(0.26 0.14 270 / 0.5);       
-  /* Premium Silver Text */
-  --card-foreground: oklch(0.81 0 0);        
+  --card: oklch(0.19 0.025 255 / 0.88);
+  /* premium silver text */
+  --card-foreground: oklch(0.82 0.01 250);
 
-  --popover: oklch(0.18 0.06 260);
-  --popover-foreground: oklch(0.81 0 0);
+  --popover: oklch(0.16 0.025 255 / 0.96);
+  --popover-foreground: oklch(0.86 0.01 250);
   
   /* THE POP - Vibrant Sky Blue */
   --primary: oklch(0.80 0.12 230);           
@@ -160,6 +174,20 @@
   --sidebar-accent-foreground: oklch(0.81 0 0);
   --sidebar-border: oklch(0.52 0.05 230 / 0.25);
   --sidebar-ring: oklch(0.80 0.12 230);
+  --hero-blue: #9fb6d1;
+  --hero-steel: #526981;
+  --hero-cyan: #43d4ef;
+  --hero-wash: #0A1628;
+  --metallic-surface: #111827;
+  --metallic-surface-elevated: #182235;
+  --metallic-border: #223B57;
+  --technical-cyan: #38BDF8;
+  --technical-cyan-soft: #164E7A;
+  --technical-cobalt: #3B82F6;
+  --technical-glow: rgba(56, 189, 248, 0.18);
+  --heading-primary: #F1F5F9;
+  --heading-highlight: #38BDF8;
+  --body-text: #AAB8C5;
 }
 
 @layer base {

@@ -61,7 +61,7 @@ export function SiteHeader() {
       className={cn(
         "fixed top-0 z-50 w-full border-b transition-colors duration-300",
         scrolled
-          ? "border-border bg-background/85 backdrop-blur-md"
+          ? "border-[var(--metallic-border)] bg-[var(--metallic-surface-elevated)]/80 backdrop-blur-lg"
           : "border-transparent bg-transparent",
       )}
     >
@@ -97,7 +97,7 @@ export function SiteHeader() {
               {isActive(item.href) && (
                 <motion.span
                   layoutId="nav-underline"
-                  className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-secondary"
+                  className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-[var(--technical-cobalt)] dark:bg-[var(--technical-cyan)]"
                 />
               )}
             </Link>
@@ -125,7 +125,7 @@ export function SiteHeader() {
             {pathname.startsWith("/services") && (
                <motion.span
                   layoutId="nav-underline"
-                  className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-secondary"
+                  className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-[var(--technical-cobalt)] dark:bg-[var(--technical-cyan)]"
                 />
             )}
             
@@ -155,7 +155,7 @@ export function SiteHeader() {
             {pathname.startsWith("/areas") && (
                <motion.span
                   layoutId="nav-underline"
-                  className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-secondary"
+                  className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-[var(--technical-cobalt)] dark:bg-[var(--technical-cyan)]"
                 />
             )}
 
@@ -171,7 +171,7 @@ export function SiteHeader() {
                   onMouseLeave={handleAreasMegaLeave}
                   className="absolute left-1/2 top-full -translate-x-1/2 pt-2 w-[600px]"
                 >
-                  <div className="rounded-2xl border border-[#D8DCE6]/30 p-6 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] bg-[rgba(15,46,110,0.92)] backdrop-blur-xl relative overflow-hidden group/areas-dropdown">
+                  <div className="rounded-2xl border border-[var(--metallic-border)] p-6 shadow-[0_8px_32px_rgba(23,35,58,0.08),0_2px_8px_rgba(23,35,58,0.04)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3),0_0_0_1px_rgba(56,189,248,0.08)] bg-gradient-to-b from-white/95 to-[var(--metallic-surface)]/95 dark:from-[var(--metallic-surface-elevated)]/95 dark:to-[var(--metallic-surface)]/95 backdrop-blur-xl relative overflow-hidden group/areas-dropdown">
                     
                     <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none z-10">
                       <div className="absolute inset-0 w-[80px] h-[100%] bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/areas-dropdown:translate-x-[1000%] transition-transform duration-1000 ease-out" />
@@ -182,7 +182,7 @@ export function SiteHeader() {
                         <Link
                           key={area.slug}
                           href={`/areas/${area.slug}`}
-                          className="text-[15px] text-[#D7DFEA] hover:text-white transition-all duration-200 hover:underline decoration-[#D8DCE6]/50 underline-offset-4 py-1"
+                          className="text-[15px] text-[var(--body-text)] hover:text-[var(--technical-cobalt)] dark:hover:text-[var(--technical-cyan)] transition-all duration-200 hover:underline decoration-[var(--metallic-border)] underline-offset-4 py-1"
                         >
                           {area.name}
                         </Link>
