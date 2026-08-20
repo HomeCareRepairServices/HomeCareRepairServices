@@ -1,18 +1,18 @@
 "use client"
 
 const services = [
-  { x: 220, y: 112, label: "RO / Water Purifier", icon: "drop", side: "left" },
-  { x: 220, y: 270, label: "Geyser Repair", icon: "geyser", side: "left" },
-  { x: 220, y: 428, label: "Electrician Services", icon: "switchboard", side: "left" },
-  { x: 220, y: 570, label: "Solar Panel System", icon: "solar", side: "left" },
-  { x: 1700, y: 112, label: "AC Service & Installation", icon: "ac", side: "right" },
-  { x: 1700, y: 270, label: "Refrigerator Repair", icon: "fridge", side: "right" },
-  { x: 1700, y: 428, label: "Washing Machine Repair", icon: "plug", side: "right" },
-  { x: 1700, y: 570, label: "Decoration Services", icon: "decoration", side: "right" },
+  { x: 380, y: 112, label: "RO / Water Purifier", icon: "drop", side: "left" },
+  { x: 260, y: 270, label: "Geyser Repair", icon: "geyser", side: "left" },
+  { x: 250, y: 428, label: "Electrician Services", icon: "switchboard", side: "left" },
+  { x: 370, y: 570, label: "Solar Panel System", icon: "solar", side: "left" },
+  { x: 1540, y: 112, label: "AC Service & Installation", icon: "ac", side: "right" },
+  { x: 1660, y: 270, label: "Refrigerator Repair", icon: "fridge", side: "right" },
+  { x: 1670, y: 428, label: "Washing Machine Repair", icon: "plug", side: "right" },
+  { x: 1550, y: 570, label: "Decoration Services", icon: "decoration", side: "right" },
 ] as const
 
 const blueprintPaths = [
-  { d: "M0 58H86L126 98V150H188L220 112", side: "left", kind: "primary" },
+  { d: "M120 58H156L196 98V150H248L380 112", side: "left", kind: "primary" },
   { d: "M0 146H58V208H118L154 174H220V270", side: "left", kind: "secondary" },
   { d: "M0 282H78L112 316H172V358L220 380", side: "left", kind: "primary" },
   { d: "M0 392H54V450H132L170 412H220V428", side: "left", kind: "secondary" },
@@ -22,7 +22,7 @@ const blueprintPaths = [
   { d: "M220 270H302V236H364L406 194H486", side: "left", kind: "primary" },
   { d: "M220 380H286L326 416H390V462H480", side: "left", kind: "secondary" },
   { d: "M220 570H294L336 604H410V638H504", side: "left", kind: "primary" },
-  { d: "M1920 74H1828L1788 116V158H1728L1700 112", side: "right", kind: "primary" },
+  { d: "M1800 74H1764L1724 116V158H1672L1540 112", side: "right", kind: "primary" },
   { d: "M1920 172H1862V228H1806L1768 194H1700V270", side: "right", kind: "secondary" },
   { d: "M1920 294H1844L1810 326H1748V366L1700 380", side: "right", kind: "primary" },
   { d: "M1920 412H1860V468H1790L1750 430H1700V428", side: "right", kind: "secondary" },
@@ -91,11 +91,11 @@ export function HeroBackground() {
       <g>{junctions.map(([x,y], i) => <circle key={`${x}-${y}`} cx={x} cy={y} r="3.5" className="hc-junction" style={{animationDelay:`${i*.11}s`}} />)}</g>
       {services.map((service, i) => <g key={service.label} transform={`translate(${service.x} ${service.y})`}>
         <g className="hc-service-art" style={{animationDelay:`${i*.35}s`}}>
-          <circle r="66" fill="#f8fafc" fillOpacity=".94" stroke="#2563eb" strokeOpacity=".48" strokeWidth="2" />
-          <circle r="55" fill="none" stroke="#00d2ff" strokeOpacity=".6" strokeWidth="1.5" strokeDasharray="3 8" />
-          <circle r="72" fill="none" stroke="#00d2ff" strokeOpacity=".25" strokeWidth="2" />
-          <g fill="none" stroke="#2563eb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><ServiceIcon type={service.icon} /></g>
-          <text y="92" textAnchor="middle" fill="#0b132b" fontSize="14" fontWeight="650">{service.label}</text>
+          <circle r="40" fill="#f8fafc" fillOpacity=".94" stroke="#2563eb" strokeOpacity=".48" strokeWidth="2" />
+          <circle r="31" fill="none" stroke="#00d2ff" strokeOpacity=".6" strokeWidth="1.5" strokeDasharray="3 8" />
+          <circle r="48" fill="none" stroke="#00d2ff" strokeOpacity=".25" strokeWidth="2" />
+          <g fill="none" stroke="#2563eb" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><ServiceIcon type={service.icon} /></g>
+          <text y="62" textAnchor="middle" fill="#0b132b" fontSize="12" fontWeight="650">{service.label}</text>
         </g>
       </g>)}
     </svg>
