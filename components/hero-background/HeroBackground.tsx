@@ -1,18 +1,18 @@
 "use client"
 
 const services = [
-  { x: 380, y: 200, label: "RO / Water Purifier", icon: "drop", side: "left" },
+  { x: 380, y: 240, label: "RO / Water Purifier", icon: "drop", side: "left" },
   { x: 260, y: 270, label: "Geyser Repair", icon: "geyser", side: "left" },
   { x: 250, y: 428, label: "Electrician Services", icon: "switchboard", side: "left" },
   { x: 370, y: 570, label: "Solar Panel System", icon: "solar", side: "left" },
-  { x: 1540, y: 200, label: "AC Service & Installation", icon: "ac", side: "right" },
+  { x: 1540, y: 240, label: "AC Service & Installation", icon: "ac", side: "right" },
   { x: 1660, y: 270, label: "Refrigerator Repair", icon: "fridge", side: "right" },
   { x: 1670, y: 428, label: "Washing Machine Repair", icon: "plug", side: "right" },
   { x: 1550, y: 570, label: "Decoration Services", icon: "decoration", side: "right" },
 ] as const
 
 const blueprintPaths = [
-  { d: "M120 58H156L196 98V150H248L380 200", side: "left", kind: "primary" },
+  { d: "M120 58H156L196 98V176H248L380 240", side: "left", kind: "primary" },
   { d: "M0 146H58V208H118L154 174H220V270", side: "left", kind: "secondary" },
   { d: "M0 282H78L112 316H172V358L220 380", side: "left", kind: "primary" },
   { d: "M0 392H54V450H132L170 412H220V428", side: "left", kind: "secondary" },
@@ -22,7 +22,7 @@ const blueprintPaths = [
   { d: "M220 270H302V236H364L406 194H486", side: "left", kind: "primary" },
   { d: "M220 380H286L326 416H390V462H480", side: "left", kind: "secondary" },
   { d: "M220 570H294L336 604H410V638H504", side: "left", kind: "primary" },
-  { d: "M1800 74H1764L1724 116V158H1672L1540 200", side: "right", kind: "primary" },
+  { d: "M1800 74H1764L1724 116V176H1672L1540 240", side: "right", kind: "primary" },
   { d: "M1920 172H1862V228H1806L1768 194H1700V270", side: "right", kind: "secondary" },
   { d: "M1920 294H1844L1810 326H1748V366L1700 380", side: "right", kind: "primary" },
   { d: "M1920 412H1860V468H1790L1750 430H1700V428", side: "right", kind: "secondary" },
@@ -69,7 +69,7 @@ export function HeroBackground() {
       `}</style>
       <defs>
         <radialGradient id="hero-wash"><stop offset="0" stopColor="var(--hero-wash)" stopOpacity="1"/><stop offset=".5" stopColor="var(--hero-wash)" stopOpacity=".98"/><stop offset=".78" stopColor="var(--hero-wash)" stopOpacity=".82"/><stop offset="1" stopColor="#dbeafe" stopOpacity=".68"/></radialGradient>
-        <pattern id="hero-grid" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#2563eb" /></pattern>
+        <pattern id="hero-grid" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="var(--hero-blue)" /></pattern>
         <linearGradient id="fade-left"><stop stopColor="var(--hero-wash)" stopOpacity="0"/><stop offset=".68" stopColor="var(--hero-wash)" stopOpacity=".12"/><stop offset="1" stopColor="var(--hero-wash)" stopOpacity=".95"/></linearGradient>
         <mask id="hero-safe"><rect width="1920" height="680" fill="white"/><ellipse cx="960" cy="350" rx="670" ry="285" fill="black" /></mask>
       </defs>
@@ -92,10 +92,10 @@ export function HeroBackground() {
       {services.map((service, i) => <g key={service.label} transform={`translate(${service.x} ${service.y})`}>
         <g className="hc-service-art" style={{animationDelay:`${i*.35}s`}}>
           <circle r="40" fill="var(--hero-wash)" fillOpacity=".94" stroke="var(--hero-blue)" strokeOpacity=".48" strokeWidth="2" />
-          <circle r="31" fill="none" stroke="#00d2ff" strokeOpacity=".6" strokeWidth="1.5" strokeDasharray="3 8" />
-          <circle r="48" fill="none" stroke="#00d2ff" strokeOpacity=".25" strokeWidth="2" />
+          <circle r="31" fill="none" stroke="var(--hero-cyan)" strokeOpacity=".6" strokeWidth="1.5" strokeDasharray="3 8" />
+          <circle r="48" fill="none" stroke="var(--hero-cyan)" strokeOpacity=".25" strokeWidth="2" />
           <g fill="none" stroke="var(--hero-blue)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><ServiceIcon type={service.icon} /></g>
-          <text y="62" textAnchor="middle" fill="#0b132b" fontSize="12" fontWeight="650">{service.label}</text>
+          <text y="62" textAnchor="middle" fill="var(--foreground)" fontSize="12" fontWeight="650">{service.label}</text>
         </g>
       </g>)}
     </svg>

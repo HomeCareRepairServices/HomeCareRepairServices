@@ -171,7 +171,7 @@ export function SiteHeader() {
                   onMouseLeave={handleAreasMegaLeave}
                   className="absolute left-1/2 top-full -translate-x-1/2 pt-2 w-[600px]"
                 >
-                  <div className="rounded-2xl border border-[var(--metallic-border)] p-6 shadow-[0_8px_32px_rgba(23,35,58,0.08),0_2px_8px_rgba(23,35,58,0.04)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3),0_0_0_1px_rgba(56,189,248,0.08)] bg-gradient-to-b from-white/95 to-[var(--metallic-surface)]/95 dark:from-[var(--metallic-surface-elevated)]/95 dark:to-[var(--metallic-surface)]/95 backdrop-blur-xl relative overflow-hidden group/areas-dropdown">
+                  <div className="rounded-2xl border border-[var(--metallic-border)] p-6 shadow-[0_8px_32px_rgba(23,35,58,0.08),0_2px_8px_rgba(23,35,58,0.04)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3),0_0_0_1px_rgba(56,189,248,0.08)] bg-white dark:bg-[#1A2A42] backdrop-blur-xl relative overflow-hidden group/areas-dropdown">
                     
                     <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none z-10">
                       <div className="absolute inset-0 w-[80px] h-[100%] bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/areas-dropdown:translate-x-[1000%] transition-transform duration-1000 ease-out" />

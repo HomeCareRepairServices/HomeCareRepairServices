@@ -135,14 +135,14 @@ export function ServicesMegaMenu({ isOpen, onEnter, onLeave }: {
           className="absolute left-1/2 top-full -translate-x-1/2 pt-3 w-[560px]"
         >
           {/* Glassmorphism Container */}
-          <div className="relative rounded-3xl border border-[var(--metallic-border)] bg-gradient-to-b from-white/95 to-[var(--metallic-surface)]/95 dark:from-[var(--metallic-surface-elevated)]/95 dark:to-[var(--metallic-surface)]/95 backdrop-blur-xl shadow-[0_8px_32px_rgba(23,35,58,0.08),0_2px_8px_rgba(23,35,58,0.04)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3),0_0_0_1px_rgba(56,189,248,0.08)] overflow-hidden">
+          <div className="relative rounded-3xl border border-[var(--metallic-border)] bg-white dark:bg-[#1A2A42] backdrop-blur-xl shadow-[0_8px_32px_rgba(23,35,58,0.08),0_2px_8px_rgba(23,35,58,0.04)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3),0_0_0_1px_rgba(56,189,248,0.08)] overflow-hidden">
             {/* Subtle Animated Edge Glow */}
             <div className="absolute inset-0 rounded-3xl pointer-events-none" 
                  style={{ background: 'linear-gradient(135deg, rgba(59,130,246,0.1), transparent 40%, transparent 60%, rgba(59,130,246,0.1))' }} />
 
             <div className="relative flex">
               {/* Left Column: Categories */}
-              <div className="w-[45%] border-r border-white/[0.05] p-3 space-y-1">
+              <div className="w-[45%] border-r border-border p-3 space-y-1">
                 {serviceCategories.map((cat, index) => (
                   <CategoryCard
                     key={cat.href}

@@ -54,13 +54,13 @@
   color-scheme: light;
   
   /* Backgrounds */
-  --background: oklch(0.975 0.008 255);        /* titanium silver */
+  --background: #F4F7FA;
   --foreground: oklch(0.18 0.035 255);         /* graphite */
   
   --card: oklch(0.995 0.004 250);               /* brushed silver */
   --card-foreground: oklch(0.18 0.035 255);
 
-  --popover: oklch(0.99 0.006 250);
+  --popover: #FFFFFF;
   --popover-foreground: oklch(0.18 0.035 255);
   
   /* Deep Rich Blue (#1E3A8A) */
@@ -94,10 +94,10 @@
   --chart-5: oklch(0.49 0.035 255);
   
   --radius: 0.75rem;
-  --hero-blue: #2854a3;
+  --hero-blue: #1D4E8C;
   --hero-steel: #8fa5bf;
   --hero-cyan: #00a9c6;
-  --hero-wash: #F1F6FA;
+  --hero-wash: #F4F7FA;
   --metallic-surface: #F0F3F7;
   --metallic-surface-elevated: #FFFFFF;
   --metallic-border: #D4DCE6;
@@ -108,6 +108,8 @@
   --heading-primary: #17233A;
   --heading-highlight: #1E4F91;
   --body-text: #526579;
+  color: #17233A;
+  background-color: #F4F7FA;
   
   --sidebar: oklch(0.984 0.006 270);
   --sidebar-foreground: oklch(0.19 0.055 270);
@@ -127,16 +129,16 @@
   color-scheme: dark;
   
   /* The Void - Deep dark background */
-  --background: oklch(0.105 0.025 255);       /* midnight titanium */
+  --background: #111D30;
   /* brushed silver headings */
   --foreground: oklch(0.92 0.012 250);
   
   /* True translucent glass */
-  --card: oklch(0.19 0.025 255 / 0.88);
+  --card: #1A2A42;
   /* premium silver text */
   --card-foreground: oklch(0.82 0.01 250);
 
-  --popover: oklch(0.16 0.025 255 / 0.96);
+  --popover: #1A2A42;
   --popover-foreground: oklch(0.86 0.01 250);
   
   /* THE POP - Vibrant Sky Blue */
@@ -174,12 +176,12 @@
   --sidebar-accent-foreground: oklch(0.81 0 0);
   --sidebar-border: oklch(0.52 0.05 230 / 0.25);
   --sidebar-ring: oklch(0.80 0.12 230);
-  --hero-blue: #9fb6d1;
+  --hero-blue: #38BDF8;
   --hero-steel: #526981;
   --hero-cyan: #43d4ef;
-  --hero-wash: #0A1628;
-  --metallic-surface: #111827;
-  --metallic-surface-elevated: #182235;
+  --hero-wash: #111D30;
+  --metallic-surface: #1A2A42;
+  --metallic-surface-elevated: #1A2A42;
   --metallic-border: #223B57;
   --technical-cyan: #38BDF8;
   --technical-cyan-soft: #164E7A;
@@ -188,6 +190,8 @@
   --heading-primary: #F1F5F9;
   --heading-highlight: #38BDF8;
   --body-text: #AAB8C5;
+  color: #F1F5F9;
+  background-color: #111D30;
 }
 
 @layer base {
@@ -207,6 +211,7 @@
 
   body {
     @apply bg-background text-foreground;
+    background-color: var(--background);
     position: relative;
     overflow-x: hidden;
     /* Adds breathing room between lines of text globally */
