@@ -47,17 +47,17 @@ function CategoryCard({
         whileHover={{ y: -4, scale: 1.03 }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
         className={cn(
-          "relative flex items-center gap-3 rounded-xl p-3 text-left transition-colors duration-200 w-full cursor-pointer",
-          isActive 
-            ? "bg-white/10 text-white" 
-            : "text-white/60 hover:text-white/90 hover:bg-white/5"
+          "relative flex w-full cursor-pointer items-center gap-3 rounded-xl p-3 text-left transition-colors duration-200",
+          isActive
+            ? "bg-primary/10 text-foreground"
+            : "text-muted-foreground hover:bg-muted/70 hover:text-foreground"
         )}
       >
         {/* Active Border & Blue Glow */}
         <div className={cn(
           "absolute inset-0 rounded-xl border transition-all duration-300 pointer-events-none",
-          isActive 
-            ? "border-blue-500/50 shadow-[0_0_20px_rgba(59,130,246,0.2)]" 
+          isActive
+            ? "border-primary/40 shadow-[0_0_20px_color-mix(in_oklab,var(--primary)_20%,transparent)]"
             : "border-transparent"
         )} />
 
@@ -72,7 +72,7 @@ function CategoryCard({
         <div className="relative z-10 flex items-center gap-3 w-full">
           <div className={cn(
             "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-colors duration-300",
-            isActive ? "bg-blue-500/20 text-blue-400" : "bg-white/5 text-white/40"
+            isActive ? "bg-primary/15 text-primary" : "bg-muted text-muted-foreground"
           )}>
             <Icon className="h-5 w-5" />
           </div>
@@ -97,7 +97,7 @@ function ServicesPanel({ items }: { items: typeof serviceCategories[number]['ite
           <Link
             key={item.href}
             href={item.href}
-            className="group/item flex items-center gap-3 rounded-lg px-4 py-2.5 text-white/70 transition-all duration-200 hover:bg-white/5 hover:text-white"
+            className="group/item flex items-center gap-3 rounded-lg px-4 py-2.5 text-muted-foreground transition-all duration-200 hover:bg-muted/70 hover:text-foreground"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-white/30 group-hover/item:bg-blue-400 transition-colors duration-200" />
             <span className="text-sm">{item.title}</span>
@@ -132,17 +132,17 @@ export function ServicesMegaMenu({ isOpen, onEnter, onLeave }: {
           transition={{ type: "spring", stiffness: 400, damping: 30 }}
           onMouseEnter={onEnter}
           onMouseLeave={onLeave}
-          className="absolute left-1/2 top-full -translate-x-1/2 pt-3 w-[560px]"
+          className="absolute left-1/2 top-full z-50 w-[min(560px,calc(100vw-2rem))] -translate-x-1/2 pt-3"
         >
           {/* Glassmorphism Container */}
-          <div className="relative rounded-3xl border border-white/[0.08] bg-[rgba(8,18,45,0.92)] backdrop-blur-[30px] shadow-2xl shadow-black/50 overflow-hidden">
+          <div className="relative overflow-hidden rounded-3xl border border-border/80 bg-popover/95 shadow-2xl shadow-primary/15 backdrop-blur-2xl">
             {/* Subtle Animated Edge Glow */}
             <div className="absolute inset-0 rounded-3xl pointer-events-none" 
                  style={{ background: 'linear-gradient(135deg, rgba(59,130,246,0.1), transparent 40%, transparent 60%, rgba(59,130,246,0.1))' }} />
 
             <div className="relative flex">
               {/* Left Column: Categories */}
-              <div className="w-[45%] border-r border-white/[0.05] p-3 space-y-1">
+              <div className="flex w-[45%] flex-col gap-1 border-r border-border/70 p-3">
                 {serviceCategories.map((cat, index) => (
                   <CategoryCard
                     key={cat.href}
@@ -163,7 +163,7 @@ export function ServicesMegaMenu({ isOpen, onEnter, onLeave }: {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className="flex h-full items-center justify-center text-center text-white/30 text-sm"
+                      className="flex h-full items-center justify-center text-center text-muted-foreground text-sm"
                     >
                       Hover over a category
                     </motion.div>

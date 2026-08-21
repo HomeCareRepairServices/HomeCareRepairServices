@@ -52,7 +52,7 @@ function ServiceIcon({ type }: { type: string }) {
 
 export function HeroBackground() {
   return (
-    <svg className="absolute inset-0 size-full" viewBox="0 0 1920 680" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <svg className="absolute inset-0 size-full min-h-[32rem]" viewBox="0 0 1920 680" preserveAspectRatio="none" aria-hidden="true">
       <style>{`
         .hc-primary { fill:none; stroke:#2563eb; stroke-width:2.25; stroke-linecap:round; stroke-linejoin:round; opacity:.66; }
         .hc-secondary { fill:none; stroke:#5b9bf6; stroke-width:1.15; stroke-linecap:round; stroke-linejoin:round; opacity:.46; }
@@ -63,8 +63,8 @@ export function HeroBackground() {
         @keyframes hc-flow { to { stroke-dashoffset:-104; } }
         @keyframes hc-pulse { 0%,100% { opacity:.35; r:3 } 50% { opacity:1; r:5.5 } }
         @keyframes hc-service { 0%,100% { opacity:.86 } 50% { opacity:1; filter:drop-shadow(0 0 7px rgba(0,210,255,.36)) } }
-        @media (max-width:1024px) { .hc-primary,.hc-secondary { opacity:.18 } .hc-service-art { display:none } .hc-energy { opacity:.38 } }
-        @media (max-width:700px) { .hc-primary,.hc-secondary { opacity:.12 } .hc-energy { opacity:.28 } }
+        @media (max-width:1024px) { .hc-primary,.hc-secondary { opacity:.28 } .hc-service-art { opacity:.46; transform:scale(.72) } .hc-energy { opacity:.5 } }
+        @media (max-width:700px) { .hc-primary,.hc-secondary { opacity:.2 } .hc-service-art { opacity:.3; transform:scale(.58) } .hc-energy { opacity:.36 } }
         @media (prefers-reduced-motion:reduce) { .hc-energy,.hc-junction,.hc-service-art { animation:none } }
       `}</style>
       <defs>
