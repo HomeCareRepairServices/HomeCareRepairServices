@@ -51,7 +51,7 @@ export function HeroBackground() {
     </svg>
     <Cluster side="left" services={leftServices} /><Cluster side="right" services={rightServices} />
     <style>{`
-      .hc-hero-art { position:absolute; inset:0; overflow:visible; pointer-events:none; }
+      .hc-hero-art { position:absolute; inset:0; overflow:visible; pointer-events:none; transform:translateY(-3.5%); }
       .hc-base-bg { position:absolute; inset:0; width:100%; height:100%; }
       .hc-cluster { position:absolute; top:0; width:min(22vw, 360px); height:100%; overflow:visible; }
       .hc-cluster-left { left:clamp(0px, 2vw, 36px); }
