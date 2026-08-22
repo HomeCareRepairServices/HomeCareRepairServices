@@ -1,103 +1,44 @@
 "use client"
 
+import { useId } from "react"
+
 const services = [
-  { x: 380, y: 112, label: "RO / Water Purifier", icon: "drop", side: "left" },
-  { x: 260, y: 270, label: "Geyser Repair", icon: "geyser", side: "left" },
-  { x: 250, y: 428, label: "Electrician Services", icon: "switchboard", side: "left" },
-  { x: 370, y: 570, label: "Solar Panel System", icon: "solar", side: "left" },
-  { x: 1540, y: 112, label: "AC Service & Installation", icon: "ac", side: "right" },
-  { x: 1660, y: 270, label: "Refrigerator Repair", icon: "fridge", side: "right" },
-  { x: 1670, y: 428, label: "Washing Machine Repair", icon: "plug", side: "right" },
-  { x: 1550, y: 570, label: "Decoration Services", icon: "decoration", side: "right" },
-] as const
-
-const blueprintPaths = [
-  { d: "M120 58H156L196 98V150H248L380 112", side: "left", kind: "primary" },
-  { d: "M0 146H58V208H118L154 174H220V270", side: "left", kind: "secondary" },
-  { d: "M0 282H78L112 316H172V358L220 380", side: "left", kind: "primary" },
-  { d: "M0 392H54V450H132L170 412H220V428", side: "left", kind: "secondary" },
-  { d: "M0 520H86L124 486H176V548L220 570", side: "left", kind: "primary" },
-  { d: "M0 638H72L108 602H148L184 566", side: "left", kind: "secondary" },
-  { d: "M220 112H286L326 78H420V42H520", side: "left", kind: "secondary" },
-  { d: "M220 270H302V236H364L406 194H486", side: "left", kind: "primary" },
-  { d: "M220 380H286L326 416H390V462H480", side: "left", kind: "secondary" },
-  { d: "M220 570H294L336 604H410V638H504", side: "left", kind: "primary" },
-  { d: "M1800 74H1764L1724 116V158H1672L1540 112", side: "right", kind: "primary" },
-  { d: "M1920 172H1862V228H1806L1768 194H1700V270", side: "right", kind: "secondary" },
-  { d: "M1920 294H1844L1810 326H1748V366L1700 380", side: "right", kind: "primary" },
-  { d: "M1920 412H1860V468H1790L1750 430H1700V428", side: "right", kind: "secondary" },
-  { d: "M1920 532H1838L1798 498H1740V548L1700 570", side: "right", kind: "primary" },
-  { d: "M1920 646H1848L1812 608H1768L1730 570", side: "right", kind: "secondary" },
-  { d: "M1700 112H1634L1594 80H1502V44H1400", side: "right", kind: "secondary" },
-  { d: "M1700 270H1618V236H1556L1514 194H1430", side: "right", kind: "primary" },
-  { d: "M1700 380H1634L1594 416H1530V462H1440", side: "right", kind: "secondary" },
-  { d: "M1700 570H1626L1584 604H1510V638H1418", side: "right", kind: "primary" },
-] as const
-
-const junctions = [
-  [86,58],[126,98],[188,150],[58,146],[118,208],[154,174],[78,282],[112,316],[172,358],[54,392],[132,450],[176,486],[124,520],[176,548],[108,602],[286,112],[326,78],[364,236],[406,194],[286,380],[326,416],[390,462],[294,570],[336,604],
-  [1828,74],[1788,116],[1728,158],[1862,172],[1806,228],[1768,194],[1844,294],[1810,326],[1748,366],[1860,412],[1790,468],[1750,430],[1838,532],[1798,498],[1740,548],[1848,646],[1812,608],[1634,112],[1594,80],[1618,270],[1556,236],[1514,194],[1634,380],[1594,416],[1530,462],[1626,570],[1584,604]
+  { x: 270, y: 118, label: "RO / Water Purifier", icon: "drop" },
+  { x: 188, y: 330, label: "Geyser Repair", icon: "geyser" },
+  { x: 1650, y: 118, label: "AC Service & Installation", icon: "ac" },
+  { x: 1732, y: 330, label: "Refrigerator Repair", icon: "fridge" },
+  { x: 300, y: 555, label: "Solar Panel System", icon: "solar" },
+  { x: 1620, y: 555, label: "Washing Machine Repair", icon: "plug" },
 ] as const
 
 function ServiceIcon({ type }: { type: string }) {
   if (type === "drop") return <path d="M0-24C-6-12-17-4-17 7a17 17 0 0 0 34 0C17-4 6-12 0-24ZM-8 9c3 5 8 7 13 4" />
-  if (type === "geyser") return <><rect x="-17" y="-27" width="34" height="54" rx="4" /><path d="M-10-12h20M-10 0h20M-10 12h20M-7 34c0 8-6 8-6 14m20-14c0 8-6 8-6 14" /></>
-  if (type === "switchboard") return <><rect x="-28" y="-23" width="56" height="46" rx="5" /><circle cx="-13" cy="-8" r="3" /><circle cx="0" cy="-8" r="3" /><circle cx="13" cy="-8" r="3" /><path d="M-17 8h34M-12 16h24" /></>
-  if (type === "solar") return <><path d="M-27-13h54l-9 29h-36zM-18-13l-5-28M18-13l5-28M-10-13v29M0-13v29M10-13v29M-34 24h68M-12 31h24" /></>
+  if (type === "geyser") return <><rect x="-17" y="-27" width="34" height="54" rx="4" /><path d="M-10-12h20M-10 0h20M-10 12h20" /></>
   if (type === "ac") return <><rect x="-31" y="-16" width="62" height="32" rx="5" /><path d="M-22-5h44M-18 16v13m18-13v13m18-13v13" /></>
   if (type === "fridge") return <><rect x="-19" y="-29" width="38" height="58" rx="4" /><path d="M-19-5h38M9-19v8m0 26v8" /></>
-  if (type === "plug") return <><path d="M-11-22v20m22-20v20M-18-2h36v5a18 18 0 0 1-36 0v-5Zm18 23v12" /></>
-  return <><path d="M0 28V-8M0-8C-24-33-39-2 0 3M0-8C24-33 39-2 0 3M0 3C-20 8-18 27 0 28M0 3C20 8 18 27 0 28" /><circle cx="0" cy="-8" r="4" /></>
+  if (type === "solar") return <><path d="M-27-13h54l-9 29h-36zM-18-13l-5-28M18-13l5-28M-10-13v29M0-13v29M10-13v29M-34 24h68" /></>
+  return <><path d="M-11-22v20m22-20v20M-18-2h36v5a18 18 0 0 1-36 0v-5Zm18 23v12" /></>
 }
 
+const paths = [
+  "M0 92H80L132 42H212L270 118", "M0 252H76L122 296H188V330", "M0 470H90L142 420H210L300 555", "M270 118H360L414 72H520", "M188 330H310L364 378H480",
+  "M1920 92H1840L1788 42H1708L1650 118", "M1920 252H1844L1798 296H1732V330", "M1920 470H1830L1778 420H1710L1620 555", "M1650 118H1560L1506 72H1400", "M1732 330H1610L1556 378H1440",
+]
+
 export function HeroBackground() {
+  const uid = useId().replace(/:/g, "")
   return (
-    <svg className="absolute inset-0 size-full" viewBox="0 0 1920 680" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <style>{`
-        .hc-primary { fill:none; stroke:#2563eb; stroke-width:2.25; stroke-linecap:round; stroke-linejoin:round; opacity:.66; }
-        .hc-secondary { fill:none; stroke:#5b9bf6; stroke-width:1.15; stroke-linecap:round; stroke-linejoin:round; opacity:.46; }
-        .hc-energy { fill:none; stroke:#00d2ff; stroke-width:2.7; stroke-dasharray:6 20; animation:hc-flow 3.1s linear infinite; opacity:.9; }
-        .hc-junction { fill:#00d2ff; animation:hc-pulse 2.8s ease-in-out infinite; }
-        .hc-service-art { animation:hc-service 6s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
-        .hc-grid { fill:url(#hero-grid); opacity:.34; }
-        @keyframes hc-flow { to { stroke-dashoffset:-104; } }
-        @keyframes hc-pulse { 0%,100% { opacity:.35; r:3 } 50% { opacity:1; r:5.5 } }
-        @keyframes hc-service { 0%,100% { opacity:.86 } 50% { opacity:1; filter:drop-shadow(0 0 7px rgba(0,210,255,.36)) } }
-        @media (max-width:1024px) { .hc-primary,.hc-secondary { opacity:.18 } .hc-service-art { display:none } .hc-energy { opacity:.38 } }
-        @media (max-width:700px) { .hc-primary,.hc-secondary { opacity:.12 } .hc-energy { opacity:.28 } }
-        @media (prefers-reduced-motion:reduce) { .hc-energy,.hc-junction,.hc-service-art { animation:none } }
-      `}</style>
-      <defs>
-        <radialGradient id="hero-wash"><stop offset="0" stopColor="#f8fafc" stopOpacity="1"/><stop offset=".5" stopColor="#f8fafc" stopOpacity=".98"/><stop offset=".78" stopColor="#f8fafc" stopOpacity=".82"/><stop offset="1" stopColor="#dbeafe" stopOpacity=".68"/></radialGradient>
-        <pattern id="hero-grid" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#2563eb" /></pattern>
-        <linearGradient id="fade-left"><stop stopColor="#f8fafc" stopOpacity="0"/><stop offset=".68" stopColor="#f8fafc" stopOpacity=".12"/><stop offset="1" stopColor="#f8fafc" stopOpacity=".95"/></linearGradient>
-        <mask id="hero-safe"><rect width="1920" height="680" fill="white"/><ellipse cx="960" cy="350" rx="670" ry="285" fill="black" /></mask>
-      </defs>
-      <rect x="-100" y="-100" width="2120" height="1000" fill="#f8fafc" />
-      <rect width="1920" height="680" fill="#f8fafc" />
-      <rect width="1920" height="680" fill="url(#hero-wash)" />
-      <rect width="1920" height="680" className="hc-grid" mask="url(#hero-safe)" />
-      <g mask="url(#hero-safe)">
-        {blueprintPaths.map(({ d, kind }, i) => <path key={`bp-${i}`} d={d} className={kind === "primary" ? "hc-primary" : "hc-secondary"} />)}
-        {blueprintPaths.filter(({ kind }) => kind === "primary").map(({ d }, i) => <path key={`energy-${i}`} d={d} className="hc-energy" style={{ animationDelay:`${i * .42}s` }} />)}
-        <path d="M0 86H72V128H128M0 446H82L112 416M1920 96H1842V136H1792M1920 458H1840L1804 422" className="hc-energy" />
-        <g className="hc-secondary">
-          <path d="M18 18H132L164 50M18 662H112L148 626" />
-          <path d="M1902 24H1790L1754 58M1902 660H1814L1776 622" />
-          <path d="M102 0V82M178 0V54M1818 0V72M1744 0V48M102 680V610M178 680V632M1818 680V604M1744 680V640" />
-          <path d="M260 176H322L350 148M1660 176H1598L1570 148" />
-        </g>
+    <svg className="hero-blueprint absolute inset-0 size-full" viewBox="0 0 1920 680" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <style>{`.hc-primary{fill:none;stroke:#2563eb;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.48}.hc-energy{fill:none;stroke:#00bfe8;stroke-width:2.5;stroke-dasharray:5 18;animation:hc-flow 3s linear infinite}.hc-junction{fill:#00bfe8;animation:hc-pulse 2.5s ease-in-out infinite}.hc-service-art{animation:hc-service 5.5s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hc-grid{fill:url(#grid-${uid});opacity:.35}@keyframes hc-flow{to{stroke-dashoffset:-92}}@keyframes hc-pulse{0%,100%{opacity:.3}50%{opacity:1}}@keyframes hc-service{0%,100%{opacity:.78}50%{opacity:1;filter:drop-shadow(0 0 7px rgba(0,191,232,.35))}}.mobile-art{display:none}@media(max-width:1024px){.desktop-art{display:none}.mobile-art{display:block}.hero-blueprint{opacity:.72}}@media(prefers-reduced-motion:reduce){.hc-energy,.hc-junction,.hc-service-art{animation:none}}`}</style>
+      <defs><pattern id={`grid-${uid}`} width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#2563eb" /></pattern><radialGradient id={`wash-${uid}`}><stop stopColor="#f8fafc" /><stop offset="1" stopColor="#dbeafe" stopOpacity=".7" /></radialGradient></defs>
+      <rect width="1920" height="680" fill="#f8fafc" /><rect width="1920" height="680" fill={`url(#wash-${uid})`} /><rect width="1920" height="680" className="hc-grid" />
+      <g className="desktop-art">
+        {paths.map((d, i) => <g key={d}><path d={d} className="hc-primary" /><path d={d} className="hc-energy" style={{ animationDelay: `${i * .3}s` }} /></g>)}
+        {services.map((s, i) => <g key={s.label} transform={`translate(${s.x} ${s.y})`} className="hc-service-art" style={{ animationDelay: `${i * .3}s` }}><circle r="40" fill="#f8fafc" fillOpacity=".9" stroke="#2563eb" strokeOpacity=".5" strokeWidth="2" /><circle r="31" fill="none" stroke="#00bfe8" strokeOpacity=".7" strokeDasharray="3 8" /><g fill="none" stroke="#2563eb" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><ServiceIcon type={s.icon} /></g><text y="62" textAnchor="middle" fill="#0b132b" fontSize="12" fontWeight="650">{s.label}</text></g>)}
       </g>
-      <g>{junctions.map(([x,y], i) => <circle key={`${x}-${y}`} cx={x} cy={y} r="3.5" className="hc-junction" style={{animationDelay:`${i*.11}s`}} />)}</g>
-      {services.map((service, i) => <g key={service.label} transform={`translate(${service.x} ${service.y})`}>
-        <g className="hc-service-art" style={{animationDelay:`${i*.35}s`}}>
-          <circle r="40" fill="#f8fafc" fillOpacity=".94" stroke="#2563eb" strokeOpacity=".48" strokeWidth="2" />
-          <circle r="31" fill="none" stroke="#00d2ff" strokeOpacity=".6" strokeWidth="1.5" strokeDasharray="3 8" />
-          <circle r="48" fill="none" stroke="#00d2ff" strokeOpacity=".25" strokeWidth="2" />
-          <g fill="none" stroke="#2563eb" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><ServiceIcon type={service.icon} /></g>
-          <text y="62" textAnchor="middle" fill="#0b132b" fontSize="12" fontWeight="650">{service.label}</text>
-        </g>
-      </g>)}
+      <g className="mobile-art"><path d="M0 150H70L112 108H170M1920 150H1850L1808 108H1750M0 520H80L124 564H190M1920 520H1840L1796 564H1730" className="hc-primary" /><path d="M0 150H70L112 108H170M1920 150H1850L1808 108H1750M0 520H80L124 564H190M1920 520H1840L1796 564H1730" className="hc-energy" /><circle cx="110" cy="150" r="4" className="hc-junction" /><circle cx="1810" cy="150" r="4" className="hc-junction" /><circle cx="124" cy="520" r="4" className="hc-junction" /><circle cx="1796" cy="520" r="4" className="hc-junction" /></g>
     </svg>
   )
 }
+
+export default HeroBackground

@@ -14,7 +14,7 @@ const trust = [
 
 export function Hero() {
   return (
-    <section className="relative -mt-4 overflow-hidden border-b border-border bg-[#f8fbff]">
+    <section className="relative min-h-[34rem] overflow-hidden border-b border-border bg-background sm:min-h-[36rem] lg:min-h-[38rem]">
       {/* Blueprint engineering network with a quiet, center-safe content zone */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <HeroBackground />
