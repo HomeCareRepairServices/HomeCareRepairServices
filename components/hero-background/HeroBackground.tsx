@@ -52,7 +52,7 @@ function ServiceIcon({ type }: { type: string }) {
 
 export function HeroBackground() {
   return (
-    <svg className="absolute inset-0 size-full" viewBox="0 0 1920 680" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <svg className="absolute inset-0 size-full" viewBox="0 0 1920 680" preserveAspectRatio="none" aria-hidden="true">
       <style>{`
         .hc-primary { fill:none; stroke:#2563eb; stroke-width:2.25; stroke-linecap:round; stroke-linejoin:round; opacity:.66; }
         .hc-secondary { fill:none; stroke:#5b9bf6; stroke-width:1.15; stroke-linecap:round; stroke-linejoin:round; opacity:.46; }

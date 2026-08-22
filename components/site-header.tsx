@@ -110,6 +110,10 @@ export function SiteHeader() {
             className="relative"
           >
             <button
+              type="button"
+              aria-haspopup="true"
+              aria-expanded={megaOpen}
+              onClick={() => setMegaOpen((value) => !value)}
               className={cn(
                 "flex items-center gap-1 rounded-md px-4 py-2 text-[15px] font-semibold transition-colors",
                 pathname.startsWith("/services")
@@ -140,6 +144,10 @@ export function SiteHeader() {
             className="relative"
           >
             <button
+              type="button"
+              aria-haspopup="true"
+              aria-expanded={areasMegaOpen}
+              onClick={() => setAreasMegaOpen((value) => !value)}
               className={cn(
                 "flex items-center gap-1 rounded-md px-4 py-2 text-[15px] font-semibold transition-colors",
                 pathname.startsWith("/areas")
@@ -169,7 +177,7 @@ export function SiteHeader() {
                   transition={{ duration: 0.2, ease: "easeOut" }}
                   onMouseEnter={handleAreasMegaEnter}
                   onMouseLeave={handleAreasMegaLeave}
-                  className="absolute left-1/2 top-full -translate-x-1/2 pt-2 w-[600px]"
+                  className="absolute left-1/2 top-full w-[min(600px,calc(100vw-2rem))] -translate-x-1/2 pt-3"
                 >
                   <div className="rounded-2xl border border-[#D8DCE6]/30 p-6 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] bg-[rgba(15,46,110,0.92)] backdrop-blur-xl relative overflow-hidden group/areas-dropdown">
                     

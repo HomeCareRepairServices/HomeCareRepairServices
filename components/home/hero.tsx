@@ -14,20 +14,20 @@ const trust = [
 
 export function Hero() {
   return (
-    <section className="relative -mt-4 overflow-hidden border-b border-border bg-[#f8fbff]">
+    <section className="relative min-h-[34rem] overflow-hidden border-b border-border bg-background">
       {/* Blueprint engineering network with a quiet, center-safe content zone */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <HeroBackground />
       </div>
 
       {/* Hero Content - Scales with viewport */}
-      <div className="relative z-10 mx-auto w-full max-w-3xl px-5 pt-16 pb-20 text-center sm:px-6 sm:max-w-4xl sm:pt-20 sm:pb-24 lg:max-w-5xl xl:max-w-6xl lg:pt-20 lg:pb-20">
+      <div className="relative z-10 mx-auto w-full max-w-3xl px-4 pt-12 pb-16 text-center sm:max-w-4xl sm:px-6 sm:pt-20 sm:pb-24 lg:max-w-5xl lg:pt-20 lg:pb-20 xl:max-w-6xl">
         {/* Rating Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-[#dbeafe] bg-white/90 px-4 py-1.5 text-sm shadow-sm backdrop-blur-md"
+          className="mx-auto mb-6 inline-flex max-w-full items-center gap-1.5 rounded-full border border-border bg-card/90 px-3 py-1.5 text-xs shadow-sm backdrop-blur-md sm:gap-2 sm:px-4 sm:text-sm"
         >
           <span className="flex items-center gap-0.5 text-[#087fea]">
             {Array.from({ length: 5 }).map((_, i) => (
@@ -45,7 +45,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.05 }}
-          className="text-balance text-4xl font-bold tracking-tight text-[#0a2850] sm:text-5xl lg:text-6xl"
+          className="text-balance text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl"
         >
           Home Appliance Repair &amp;{" "}
           <span className="text-[#087fea]">Installation Experts</span>
