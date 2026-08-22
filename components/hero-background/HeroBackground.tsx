@@ -52,7 +52,8 @@ function ServiceIcon({ type }: { type: string }) {
 
 export function HeroBackground() {
   return (
-    <svg className="absolute inset-0 size-full" viewBox="0 0 1920 680" preserveAspectRatio="none" aria-hidden="true">
+    <>
+      <svg className="hc-desktop-hero absolute inset-0 size-full" viewBox="0 0 1920 680" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <style>{`
         .hc-primary { fill:none; stroke:#2563eb; stroke-width:2.25; stroke-linecap:round; stroke-linejoin:round; opacity:.66; }
         .hc-secondary { fill:none; stroke:#5b9bf6; stroke-width:1.15; stroke-linecap:round; stroke-linejoin:round; opacity:.46; }
@@ -63,8 +64,17 @@ export function HeroBackground() {
         @keyframes hc-flow { to { stroke-dashoffset:-104; } }
         @keyframes hc-pulse { 0%,100% { opacity:.35; r:3 } 50% { opacity:1; r:5.5 } }
         @keyframes hc-service { 0%,100% { opacity:.86 } 50% { opacity:1; filter:drop-shadow(0 0 7px rgba(0,210,255,.36)) } }
-        @media (max-width:1024px) { .hc-primary,.hc-secondary { opacity:.18 } .hc-service-art { display:none } .hc-energy { opacity:.38 } }
-        @media (max-width:700px) { .hc-primary,.hc-secondary { opacity:.12 } .hc-energy { opacity:.28 } }
+        .hc-mobile-hero { display:none }
+        @media (max-width:1500px) {
+          .hc-service-art { display:none }
+          .hc-service-art.hc-priority { display:block }
+          .hc-primary,.hc-secondary { opacity:.24 }
+          .hc-energy { opacity:.5 }
+        }
+        @media (max-width:700px) {
+          .hc-desktop-hero { display:none }
+          .hc-mobile-hero { display:block }
+        }
         @media (prefers-reduced-motion:reduce) { .hc-energy,.hc-junction,.hc-service-art { animation:none } }
       `}</style>
       <defs>
@@ -90,7 +100,7 @@ export function HeroBackground() {
       </g>
       <g>{junctions.map(([x,y], i) => <circle key={`${x}-${y}`} cx={x} cy={y} r="3.5" className="hc-junction" style={{animationDelay:`${i*.11}s`}} />)}</g>
       {services.map((service, i) => <g key={service.label} transform={`translate(${service.x} ${service.y})`}>
-        <g className="hc-service-art" style={{animationDelay:`${i*.35}s`}}>
+        <g className={`hc-service-art ${i === 0 || i === 1 || i === 4 || i === 5 ? "hc-priority" : ""}`} style={{animationDelay:`${i*.35}s`}}>
           <circle r="40" fill="#f8fafc" fillOpacity=".94" stroke="#2563eb" strokeOpacity=".48" strokeWidth="2" />
           <circle r="31" fill="none" stroke="#00d2ff" strokeOpacity=".6" strokeWidth="1.5" strokeDasharray="3 8" />
           <circle r="48" fill="none" stroke="#00d2ff" strokeOpacity=".25" strokeWidth="2" />
@@ -99,5 +109,16 @@ export function HeroBackground() {
         </g>
       </g>)}
     </svg>
+    <svg className="hc-mobile-hero absolute inset-0 size-full" viewBox="0 0 400 620" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs><pattern id="mobile-grid" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#2563eb" /></pattern></defs>
+      <rect width="400" height="620" fill="url(#mobile-grid)" opacity=".2" />
+      <path d="M0 108H66L102 144V190M400 108H334L298 144V190M0 500H72L108 464V420M400 500H328L292 464V420" fill="none" stroke="#2563eb" strokeWidth="2" opacity=".42" />
+      <path d="M0 108H66L102 144V190M400 108H334L298 144V190M0 500H72L108 464V420M400 500H328L292 464V420" className="hc-energy" />
+      {[ [76,108], [102,144], [324,108], [298,144], [82,500], [108,464], [318,500], [292,464] ].map(([x,y], i) => <circle key={`${x}-${y}`} cx={x} cy={y} r="3.5" className="hc-junction" style={{animationDelay:`${i * .2}s`}} />)}
+      {[ [76,168,"drop","RO / Water Purifier"], [324,168,"ac","AC Service & Installation"], [82,456,"geyser","Geyser Repair"], [318,456,"plug","Washing Machine Repair"] ].map(([x,y,icon,label]) => <g key={label} transform={`translate(${x} ${y})`} className="hc-service-art">
+        <circle r="32" fill="#f8fafc" fillOpacity=".96" stroke="#2563eb" strokeOpacity=".5" strokeWidth="2" /><circle r="25" fill="none" stroke="#00d2ff" strokeOpacity=".6" strokeDasharray="3 7" /><g fill="none" stroke="#2563eb" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><ServiceIcon type={icon as string} /></g><text y="50" textAnchor="middle" fill="#0b132b" fontSize="9" fontWeight="650">{label as string}</text>
+      </g>)}
+    </svg>
+    </>
   )
 }
