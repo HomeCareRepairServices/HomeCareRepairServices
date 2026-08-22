@@ -49,8 +49,8 @@ function CategoryCard({
         className={cn(
           "relative flex items-center gap-3 rounded-xl p-3 text-left transition-colors duration-200 w-full cursor-pointer",
           isActive 
-            ? "bg-white/10 text-white" 
-            : "text-white/60 hover:text-white/90 hover:bg-white/5"
+            ? "bg-primary/10 text-foreground" 
+            : "text-muted-foreground hover:text-foreground hover:bg-muted/70"
         )}
       >
         {/* Active Border & Blue Glow */}
@@ -72,7 +72,7 @@ function CategoryCard({
         <div className="relative z-10 flex items-center gap-3 w-full">
           <div className={cn(
             "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-colors duration-300",
-            isActive ? "bg-blue-500/20 text-blue-400" : "bg-white/5 text-white/40"
+            isActive ? "bg-primary/15 text-primary" : "bg-muted text-muted-foreground"
           )}>
             <Icon className="h-5 w-5" />
           </div>
@@ -97,7 +97,7 @@ function ServicesPanel({ items }: { items: typeof serviceCategories[number]['ite
           <Link
             key={item.href}
             href={item.href}
-            className="group/item flex items-center gap-3 rounded-lg px-4 py-2.5 text-white/70 transition-all duration-200 hover:bg-white/5 hover:text-white"
+            className="group/item flex items-center gap-3 rounded-lg px-4 py-2.5 text-muted-foreground transition-all duration-200 hover:bg-primary/10 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-white/30 group-hover/item:bg-blue-400 transition-colors duration-200" />
             <span className="text-sm">{item.title}</span>
@@ -135,7 +135,7 @@ export function ServicesMegaMenu({ isOpen, onEnter, onLeave }: {
           className="absolute left-1/2 top-full -translate-x-1/2 pt-3 w-[560px]"
         >
           {/* Glassmorphism Container */}
-          <div className="relative overflow-hidden rounded-2xl border border-primary/20 bg-popover/95 shadow-2xl shadow-primary/10 backdrop-blur-2xl">
+          <div className="relative overflow-hidden rounded-2xl border border-primary/20 bg-popover/95 text-popover-foreground shadow-2xl shadow-primary/10 backdrop-blur-2xl before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(135deg,hsl(var(--primary)/.10),transparent_42%,hsl(var(--accent)/.08))]">
             {/* Subtle Animated Edge Glow */}
             <div className="absolute inset-0 rounded-3xl pointer-events-none" 
                  style={{ background: 'linear-gradient(135deg, rgba(59,130,246,0.1), transparent 40%, transparent 60%, rgba(59,130,246,0.1))' }} />

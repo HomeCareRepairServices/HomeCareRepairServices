@@ -59,7 +59,7 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "fixed top-0 z-50 w-full border-b transition-colors duration-300",
+        "fixed inset-x-0 top-0 z-50 min-h-16 w-full border-b transition-colors duration-300",
         scrolled
           ? "border-border bg-background/85 backdrop-blur-md"
           : "border-transparent bg-transparent",
@@ -171,7 +171,7 @@ export function SiteHeader() {
                   onMouseLeave={handleAreasMegaLeave}
                   className="absolute left-1/2 top-full -translate-x-1/2 pt-2 w-[600px]"
                 >
-                  <div className="relative overflow-hidden rounded-2xl border border-primary/20 bg-popover/95 p-6 shadow-2xl shadow-primary/10 backdrop-blur-2xl group/areas-dropdown">
+                  <div className="relative overflow-hidden rounded-2xl border border-primary/20 bg-popover/95 p-6 text-popover-foreground shadow-2xl shadow-primary/10 backdrop-blur-2xl before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(135deg,hsl(var(--primary)/.10),transparent_42%,hsl(var(--accent)/.08))] group/areas-dropdown">
                     
                     <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none z-10">
                       <div className="absolute inset-0 w-[80px] h-[100%] bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/areas-dropdown:translate-x-[1000%] transition-transform duration-1000 ease-out" />

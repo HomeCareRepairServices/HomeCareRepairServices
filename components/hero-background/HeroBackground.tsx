@@ -3,12 +3,12 @@
 import { useId } from "react"
 
 const services = [
-  { x: 270, y: 118, label: "RO / Water Purifier", icon: "drop" },
-  { x: 188, y: 330, label: "Geyser Repair", icon: "geyser" },
-  { x: 1650, y: 118, label: "AC Service & Installation", icon: "ac" },
-  { x: 1732, y: 330, label: "Refrigerator Repair", icon: "fridge" },
-  { x: 300, y: 555, label: "Solar Panel System", icon: "solar" },
-  { x: 1620, y: 555, label: "Washing Machine Repair", icon: "plug" },
+  { x: 205, y: 118, label: "RO / Water Purifier", icon: "drop" },
+  { x: 155, y: 330, label: "Geyser Repair", icon: "geyser" },
+  { x: 1395, y: 118, label: "AC Service & Installation", icon: "ac" },
+  { x: 1445, y: 330, label: "Refrigerator Repair", icon: "fridge" },
+  { x: 230, y: 555, label: "Solar Panel System", icon: "solar" },
+  { x: 1370, y: 555, label: "Washing Machine Repair", icon: "plug" },
 ] as const
 
 function ServiceIcon({ type }: { type: string }) {
@@ -22,13 +22,13 @@ function ServiceIcon({ type }: { type: string }) {
 
 const paths = [
   "M0 92H80L132 42H212L270 118", "M0 252H76L122 296H188V330", "M0 470H90L142 420H210L300 555", "M270 118H360L414 72H520", "M188 330H310L364 378H480",
-  "M1920 92H1840L1788 42H1708L1650 118", "M1920 252H1844L1798 296H1732V330", "M1920 470H1830L1778 420H1710L1620 555", "M1650 118H1560L1506 72H1400", "M1732 330H1610L1556 378H1440",
+  "M1600 92H1520L1468 42H1450L1395 118", "M1600 252H1524L1478 296H1445V330", "M1600 470H1510L1458 420H1460L1370 555", "M1395 118H1310L1256 72H1190", "M1445 330H1330L1276 378H1210",
 ]
 
 export function HeroBackground() {
   const uid = useId().replace(/:/g, "")
   return (
-    <svg className="hero-blueprint absolute inset-0 size-full" viewBox="0 0 1920 680" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <svg className="hero-blueprint absolute inset-0 size-full" viewBox="0 0 1600 680" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <style>{`.hc-primary{fill:none;stroke:#2563eb;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.48}.hc-energy{fill:none;stroke:#00bfe8;stroke-width:2.5;stroke-dasharray:5 18;animation:hc-flow 3s linear infinite}.hc-junction{fill:#00bfe8;animation:hc-pulse 2.5s ease-in-out infinite}.hc-service-art{animation:hc-service 5.5s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.hc-grid{fill:url(#grid-${uid});opacity:.35}@keyframes hc-flow{to{stroke-dashoffset:-92}}@keyframes hc-pulse{0%,100%{opacity:.3}50%{opacity:1}}@keyframes hc-service{0%,100%{opacity:.78}50%{opacity:1;filter:drop-shadow(0 0 7px rgba(0,191,232,.35))}}.mobile-art{display:none}@media(max-width:1024px){.desktop-art{display:none}.mobile-art{display:block}.hero-blueprint{opacity:.72}}@media(prefers-reduced-motion:reduce){.hc-energy,.hc-junction,.hc-service-art{animation:none}}`}</style>
       <defs><pattern id={`grid-${uid}`} width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#2563eb" /></pattern><radialGradient id={`wash-${uid}`}><stop stopColor="#f8fafc" /><stop offset="1" stopColor="#dbeafe" stopOpacity=".7" /></radialGradient></defs>
       <rect width="1920" height="680" fill="#f8fafc" /><rect width="1920" height="680" fill={`url(#wash-${uid})`} /><rect width="1920" height="680" className="hc-grid" />
