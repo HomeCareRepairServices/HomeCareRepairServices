@@ -135,7 +135,7 @@ export function ServicesMegaMenu({ isOpen, onEnter, onLeave }: {
           className="absolute left-1/2 top-full -translate-x-1/2 pt-3 w-[560px]"
         >
           {/* Glassmorphism Container */}
-          <div className="relative rounded-3xl border border-white/[0.08] bg-[rgba(8,18,45,0.92)] backdrop-blur-[30px] shadow-2xl shadow-black/50 overflow-hidden">
+          <div className="relative overflow-hidden rounded-3xl border border-border/80 bg-popover/95 text-popover-foreground shadow-2xl shadow-primary/10 backdrop-blur-2xl dark:border-primary/20 dark:bg-[oklch(0.16_0.06_260/.96)]">
             {/* Subtle Animated Edge Glow */}
             <div className="absolute inset-0 rounded-3xl pointer-events-none" 
                  style={{ background: 'linear-gradient(135deg, rgba(59,130,246,0.1), transparent 40%, transparent 60%, rgba(59,130,246,0.1))' }} />
