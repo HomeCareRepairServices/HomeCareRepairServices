@@ -57,15 +57,24 @@ export function HeroBackground() {
       .hc-cluster-left { left:clamp(0px, 2vw, 36px); }
       .hc-cluster-right { right:clamp(0px, 2vw, 36px); }
       .hc-primary,.hc-secondary { fill:none; stroke:#2563eb; stroke-linecap:round; stroke-linejoin:round; }
-      .hc-secondary { stroke-width:1.15; opacity:.46; }
-      .hc-energy { fill:none; stroke:#00d2ff; stroke-width:2.7; stroke-dasharray:6 20; animation:hc-flow 3.1s linear infinite; opacity:.9; }
+      .hc-secondary { stroke-width:1.15; opacity:.62; }
+      .hc-energy { fill:none; stroke:#00b8e6; stroke-width:2.7; stroke-dasharray:6 20; animation:hc-flow 3.1s linear infinite; opacity:.96; }
       .hc-energy path { fill:none; }
       .hc-service-art { animation:hc-service 6s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
-      .hc-icon-fill { fill:#f8fafc; fill-opacity:.94; stroke:#2563eb; stroke-opacity:.48; stroke-width:2; }
-      .hc-ring { stroke:#00d2ff; stroke-opacity:.6; stroke-width:1.5; }
-      .hc-outer-ring { stroke:#00d2ff; stroke-opacity:.25; stroke-width:2; }
-      .hc-icon-line { stroke:#2563eb; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
-      .hc-label { fill:#0b132b; font-size:12px; font-weight:650; }
+      .hc-icon-fill { fill:#eef7ff; fill-opacity:1; stroke:#1670d2; stroke-opacity:.72; stroke-width:2; }
+      .hc-ring { stroke:#087fea; stroke-opacity:.82; stroke-width:1.5; }
+      .hc-outer-ring { stroke:#35c8ee; stroke-opacity:.52; stroke-width:2; }
+      .hc-icon-line { stroke:#1267c4; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+      .hc-label { fill:#10264a; font-size:12px; font-weight:650; }
+      @media (prefers-color-scheme:dark) {
+        .hc-secondary { opacity:.42; }
+        .hc-energy { stroke:#00d2ff; opacity:.86; }
+        .hc-icon-fill { fill:#0f2749; stroke:#58baff; stroke-opacity:.62; }
+        .hc-ring { stroke:#00d2ff; stroke-opacity:.64; }
+        .hc-outer-ring { stroke:#00d2ff; stroke-opacity:.3; }
+        .hc-icon-line { stroke:#69bdff; }
+        .hc-label { fill:#dbeafe; }
+      }
       @keyframes hc-flow { to { stroke-dashoffset:-104; } }
       @keyframes hc-service { 0%,100% { opacity:.86 } 50% { opacity:1; filter:drop-shadow(0 0 7px rgba(0,210,255,.36)) } }
       @media (max-width:1100px) {
